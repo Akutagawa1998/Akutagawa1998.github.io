@@ -16,6 +16,15 @@
 		</style> -->
 		
 		<style>
+		@media screen and (max-width: 480px) {
+  			/* 在小屏幕设备上要求文字在一段结束后换行 */
+  			.wrap-after-line {
+    			overflow-wrap: anywhere;
+  			}
+		}
+		</style>
+
+		<style>
 		.long-text {
   			overflow-wrap: break-word; /* 控制单词内换行 */
   			word-break: break-all; /* 控制整个单词换行 */
@@ -46,11 +55,16 @@
 					<div class="right-align-text">
 					<h1><br /><br /><br /><br /><br /><br />
 						<div class="long-text">
-							<strong>赵思航</strong><br/>
-							<strong>ZHAO, Sihang</strong><br/><br/>
-							<strong>"形为心役 无欲则刚"</strong><br>
-							<strong>"Life is a journey, not a race."</strong><br><br>
-							<strong>"My<a href="https://github.com/Akutagawa1998/Akutagawa1998.github.io/blob/main/Sihang%20ZHAO_CV_2023.pdf"> CV for PhD Application</a>"</strong></h1>
+							<p class="wrap-after-line">
+							<strong>赵思航</strong><br/></p>
+							<p class="wrap-after-line">
+							<strong>ZHAO, Sihang</strong><br/><br/></p>
+							<p class="wrap-after-line">
+							<strong>"形为心役 无欲则刚"</strong><br></p>
+							<p class="wrap-after-line">
+							<strong>"Life is a journey, not a race."</strong><br><br></p>
+							<p class="wrap-after-line">
+							<strong>"My<a href="https://github.com/Akutagawa1998/Akutagawa1998.github.io/blob/main/Sihang%20ZHAO_CV_2023.pdf"> CV for PhD Application</a>"</strong></p></h1>
 						</div>
 					</div>
 				</div>
