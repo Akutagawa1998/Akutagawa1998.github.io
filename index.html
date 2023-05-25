@@ -6,22 +6,32 @@
 -->
 <html>
 	<head>
-		<style>
+<!-- 		<style>
 		@media screen and (max-width: 480px) {
   		/* 在小屏幕设备上强制换行 */
   		body {
-    		white-space: pre-wrap;
-  		}
+    			white-space: pre-wrap;
+  			}
+		}
+		</style> -->
+		
+		<style>
+		.long-text {
+  			overflow-wrap: break-word; /* 控制单词内换行 */
+  			word-break: break-all; /* 控制整个单词换行 */
+  			width: 300px; /* 调整容器宽度，根据需要进行更改 */
 		}
 		</style>
+		
 		<style>
 		@media screen and (max-width: 480px) {
   		/* 在小屏幕设备上左对齐文字 */
   		.right-align-text {
-    		text-align: right;
-  		}
+    			text-align: right;
+  			}
 		}
 		</style>
+		
 		<title> Sihang ZHAO</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -35,11 +45,13 @@
 					<!--<a href="#" class="image avatar"><img src="images/avatar.jpg" alt="" /></a> -->
 					<div class="right-align-text">
 					<h1><br /><br /><br /><br /><br /><br />
-						<strong>赵思航</strong><br/>
-						<strong>ZHAO, Sihang</strong><br/><br/>
-						<strong>"形为心役 无欲则刚"</strong><br>
-						<strong>"Life is a journey, not a race."</strong><br><br>
-						<strong>"My<a href="https://github.com/Akutagawa1998/Akutagawa1998.github.io/blob/main/Sihang%20ZHAO_CV_2023.pdf"> CV for PhD Application</a>"</strong></h1>
+						<div class="long-text">
+							<strong>赵思航</strong><br/>
+							<strong>ZHAO, Sihang</strong><br/><br/>
+							<strong>"形为心役 无欲则刚"</strong><br>
+							<strong>"Life is a journey, not a race."</strong><br><br>
+							<strong>"My<a href="https://github.com/Akutagawa1998/Akutagawa1998.github.io/blob/main/Sihang%20ZHAO_CV_2023.pdf"> CV for PhD Application</a>"</strong></h1>
+						</div>
 					</div>
 				</div>
 			</header>
