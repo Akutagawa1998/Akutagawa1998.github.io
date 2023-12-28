@@ -1,70 +1,177 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <head>
-        <!-- 		<style>
-                @media screen and (max-width: 480px) {
-                  /* 在小屏幕设备上强制换行 */
-                  body {
-                        white-space: pre-wrap;
-                      }
-                }
-                </style> -->
-                
-                <style>
-                @media screen and (max-width: 480px) {
-                      /* 在小屏幕设备上要求文字在一段结束后换行 */
-                      .wrap-after-line {
-                        white-space: nowrap;
-                        /*overflow-wrap: anywhere;*/
-                      }
-                }
-                </style>
-        
-                <style>
-                .long-text {
-                      overflow-wrap: break-word; /* 控制单词内换行 */
-                      word-break: break-all; /* 控制整个单词换行 */
-                      width: 300px; /* 调整容器宽度，根据需要进行更改 */
-                }
-                </style>
-                
-                <style>
-                @media screen and (max-width: 480px) {
-                  /* 在小屏幕设备上左对齐文字 */
-                  .right-align-text {
-                        text-align: right;
-                      }
-                }
-                </style>
-                
-                <title> Sihang ZHAO</title>
-                <meta charset="utf-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-                <link rel="stylesheet" href="assets/css/main.css" />
-            </head>
-            <body class="is-preload">
+    <title>An Augmentation and Test method for Automated Crater Detection and Classification with Machine Learning</title>
+    <!-- 可以在这里添加CSS样式或链接外部样式表 -->
 </head>
-
-
 <body>
+
+    <!-- 海报标题 -->
+    <style>
+      /* 添加图片样式 */
+      .resize-image {
+          width: 60%;  /* 图片宽度占据其容器的100% */
+          height: auto; /* 高度自动调整，保持图片比例 */
+      }
+  </style>
+
+  <title>文本对齐示例</title>
+  <style>
+      /* 设置段落样式 */
+      .aligned-text {
+          width:60%;  /* 设定容器宽度为50% */
+          margin: 0 auto;  /* 水平居中显示 */
+          text-align: left;  /* 左对齐文本 */
+      }
+  </style>
     <header>
-    <section>
-        <section id="one">
-            <header class="major">
-            <h3>ABOUT ME:</h3>
-                </header>
-                    <p>While I don't believe a few simple sentences can fully capture who I am, I am still very willing to share information about myself:<br>
-                    I am an <a href="https://www.16personalities.com/entp-personality">ENTP</a> who scored 142 on the standard IQ test and been diagnosed with ADHD, so please excuse my (maybe too) highly associative thinking and frequent moments of sudden, deep contemplation.<br>
-                    I enjoy photography, writing poetry, and playing basketball. My favorite band is Spiritualized, and I reeeeally love <a href="https://www.blackpinkmusic.com/">BlackPink</a>.<br>
-                    Currently, I am studying piano, Japanese, and JavaScript with D3. I am actively seeking PhD opportunities in the fields of applied machine learning, human-computer interaction, and cognitive science.<br>
-                    I am open to consider universities and research institutions in North America, Europe, Singapore, Hong Kong, and Japan.<br>
-                    You can find my <a href="https://github.com/Akutagawa1998/Akutagawa1998.github.io/blob/main/Sihang%20ZHAO_CV_2023.pdf">CV for PhD application</a> here.</p>
+        <h1>An Augmentation and Test Method for Automated Crater Detection and Classification with Machine Learning</h1>
+        <h2>ZHAO, Sihang</h2>
+        <h3>Imperial College London</h3>
+        supervied by Prof. Gareth Collins, Dr. Marijan Beg
+    </header>
+
+    <!-- 海报主体内容 -->
+    <main>
+        <!-- 摘要部分 -->
+        <section id="abstract">
+            <h2>Abstract</h2>
+            <img src="./images/crater/crater_1.png" alt="摘要部分的图片" class="resize-image">
+            <div class="aligned-text"></div>
+            <p>&nbsp;&nbsp; With the promising progress of deep neural networks, object detectors (ODs), like YOLO V5, can
+              now rapidly process pictures and recognize the contained entities. In a vast scope of the scientific
+              research field, like planetary science, ODs can be applied to various object counting or classifying
+              tasks. In particular, crater detection algorithms (CDAs) have helped scientists process thousands
+              or even millions of pictures and detect millions of craters. The number and sizes of craters contain
+              rich information. However, like humans, CDAs also make mistakes and produce incorrect results.
+              In real-world problems, we often fail to train a good model or effectively evaluate the quality of a
+              model due to imperfect datasets. Iterative training, such as active learning, will cost high labor when
+              the amount of data is huge, and there will also be problems of error accumulation.<br>
+              
+              &nbsp;&nbsp; To solve these problems, this paper designs and implements the Metamorphic Crater Generator (MCG), an algorithm
+              can generate very realistic images of craters with the required size and number. This work also
+              proposes a CDA test method and a CDA training iteration strategy based on MCG, which realizes
+              the automated testing and iterative training progress without manually checking. These methods
+              improved metrics such as mAP 0.5 and recall of the YOLO V5 by about 4%, and even better for
+              smaller craters (diam < 10km).</p>
+            </div>
         </section>
-    </section>
-    <header>
+
+        <!-- 方法部分 -->
+        <section id="Methodology">
+            <h2>Methodology</h2>
+            <div class="aligned-text"></div>
+            <p>The Metamorphic Crater Generator (MCG) is made up of the following steps:<br>
+              &nbsp;&nbsp;1. Crater extraction: Cropping craters from the original image, with their rectangular surroundings.
+              The size of surroundings are hyperparameters. In our task, I set them as two pixels to ensure
+              the craters remain the same shape.<br>
+              <img src="./images/crater/crater_2.png" alt="摘要部分的图片" class="resize-image"><br>
+              &nbsp;&nbsp;2. Crater generation: Resizing the craters into the size we want and pasting them onto the original
+              background using Poisson fusion. In this process, we need to make circle masks for every
+              crater we cropped. The size of the Mask depends on the size of resized craters and the shape
+              of the mask is a circle contained by a square. While pasting our generated craters, I designed
+              an algorithm (source code can be found in the repository) to ensure they will not overlap with
+              the original real craters.<br>
+              <img src="./images/crater/crater_3.png" alt="摘要部分的图片" class="resize-image"><br>
+              &nbsp;&nbsp;3. Generated-crater annotation: Recording the size and location of our generated craters, and
+              writing them in the format in Table 1 into the txt files which will be our new labels for testing
+              or training.</p>
+              </div>
+              
+        </section>
+
+        <!-- 结果部分 -->
+        <section id="results">
+            <h2>Result</h2>
+            <div class="aligned-text"></div>
+            <p>&nbsp;&nbsp;1. The MCG can generate craters that look just like the real ones:</p>
+            <img src="./images/crater/crater_4.png" alt="摘要部分的图片" class="resize-image"><br>
+            &nbsp;&nbsp;2.An improvement can be observed from aug train on both std test and aug test, which is intuitive
+            (This model is better at identifying more craters, in this case, on craters smaller than 1.5 km.)<br>
+            <img src="./images/crater/crater_6.png" alt="摘要部分的图片" class="resize-image"><br>
+            &nbsp;&nbsp;3. A decrease can be observed when we test our model trained by std train on aug test, the results
+            of recall rate and precision are worse than the model test on std test, which means our test
+            method successfully generates the craters that cannot be detected by models. The performance
+            can be found in table 1.<br>
+            <img src="./images/crater/crater_5.png" alt="摘要部分的图片" class="resize-image"><br>
+            &nbsp;&nbsp;4. The model trained on aug train performed even better on the aug test, which stands for the
+            model also learned some features of new-generated craters.
+            
+            </div>
+        </section>
+
+        <!-- 结论部分 -->
+        <section id="conclusion">
+            <h2>Conclusion</h2>
+            <p>In summary, this work makes the following contributions:<br>
+              &nbsp;&nbsp;• I designed and implemented a Metamorphic Crater Generator(MCG), which can generate
+              natural-look craters images with customized sizes and locations. I designed a questionnaire and
+              made survey statistics, which proved that the generated craters are almost indistinguishable
+              from the naked eye.<br>
+              &nbsp;&nbsp;• I designed a CDA test method based on MCG, which can test CDAs even with imperfect data
+              sets. In the data set used in this work. The MCG can effectively generate craters that cannot be
+              detected by original models and cause a significant gap between models for humans to observe.<br>
+              &nbsp;&nbsp;• In parallel to the test method, I have proved that MCG can also be used as a data augmentation
+              method. The recall rate increased by 3% and the mAP 0.5 increased by 2%.<br>
+              &nbsp;&nbsp;• I proposed and implemented a training-iteration strategy based on MCG, and designed and
+              implemented an MCG Repalce Edition for this strategy. The training-iteration strategy can
+              save labor from active learning and also prevent the accumulation of errors. The model trained
+              under this strategy achieved 7% more recall rate on craters of 1.5 ∼ 10 km diam and 6% more
+              recall rate on craters smaller than 1.5 km.<br>
+              &nbsp;&nbsp;• The last but the most significant contribution is that MCG can not only help YOLO V5, but
+              all CDAs based on machine learning. MCG and the strategies based on it are designed to
+              be implemented into any data sets of craters. This work’s initial purpose is to eliminate the
+              problem caused by imperfect data.<br><br>
+              During this work, the most challenging task was how to make the generated crater natural. There
+              were many realistic problems, like how to smooth the edge and avoid overlapping. These problems
+              always came into a mathematical problem. Luckily, most of them are solved.
+              The first strength of this work is mentioned before: it eliminated the problem caused by imperfect
+              training data and test data, which is more suitable for real-life situations. We do not always have
+              tabular data, the training set is terrible, and we are having problems evaluating our model in these
+              situations.<br>
+              The second strength of this work is that it is designed for every object detection model based on
+              machine learning. So even if there are some newly published models or someone published a set of
+              great hyper-parameters. We can still implement our method on their model.</p>
+        </section>
+        <!-- 讨论部分 -->
+        <section id="discussion">
+          <h2>Limitation</h2>
+          <p>However, this work and I also have some limitations:<br>
+            &nbsp;&nbsp;• First of all, the time is relatively tight, and I cannot implement all my ideas. E.g., after I classify
+            the craters by their size and evaluate the models’ performances on those different groups. I
+            noticed though the model trained by our Training-Iteration strategy performed great on craters
+            smaller than 10 km, the recall of larger craters that bigger than 10 km diam is even lower than
+            the default model. That may be because the model has learned too many generated small
+            craters. Using MCG to generate some bigger craters randomly may solve this problem but I
+            don’t have time to finish proving this conjecture. Also, there may be some flaw in the algorithm
+            looking for the FN and TP cases, because the total number of FN and TP always has a slight
+            gap from the number of labeled craters in the test set.<br>
+            &nbsp;&nbsp;• Secondly, in my training-iteration strategy, my method has a potential risk that prevents the
+            model from learning new features compared with active learning. And if the model continually
+            learns from the same craters. It may cause the over-fitting issue much sooner than active
+            learning. An easy way to test if the model is cannot learning from the new feature is to test
+            our models in a new test set, and analyze the F1 score and recall rate. We can also embed the
+            result of training sources re-annotated by other models so that we can import more features
+            into it.<br>
+            &nbsp;&nbsp;• Thirdly, though the test set I used is totally separated from training sources, I cannot find the
+            test sources used by Benedix et al., so the comparison between this work and their CDA can
+            still have possibility to be unfair. However, the model they used is based on YOLO V3, I will
+            not be surprised if our model performs better than it in the same test set. So I put all the data
+            and source code of this work in the repository, for further comparison and evaluation.<br>
+            &nbsp;&nbsp;• Actually the performance of aug train aug test is too good: In the epoch that is given the best
+            performance, the recall rate is reaching 90% for craters that are smaller than 1.5 km. I think
+            it is because MCG augmented training has learned some features of MCG fusion. So it can
+            accurately distinguish the craters generated by MCG.<br>
+            • Lastly, MCG uses algorithms to avoid overlapping and out of boundaries. However, in real-world
+            problems, one crater can be overlapped with others or partly out of the image. Optimization
+            for this situation is also an expectable topic in future work.</p>
+      </section>
+    </main>
+
+    <!-- 页脚，可以包含联系信息等 -->
     <footer>
-        <p>© 2023 by Your Name</p>
+        <p>Full paper: https://github.com/ese-msc-2021/irp-sz4521/blob/main/reports/sz4521-final-report.pdf</p>
     </footer>
+
 </body>
 </html>
