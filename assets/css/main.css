@@ -1706,8 +1706,8 @@ input[type=radio] + label:before {
   display: none;
 }
 .image.avatar img {
-  border-radius: 100%;
-  width: 100%;
+  border-radius: 150%;
+  width: 150%;
 }
 
 /* List */
