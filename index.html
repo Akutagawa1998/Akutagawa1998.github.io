@@ -231,7 +231,7 @@
 				<body>
 					<!-- 地图容器 -->
 					<!-- 说明：`id="map"` 是地图的挂载点，需要设置明确的宽高才能正常显示 -->
-					<div id="map" style="width: 200px; height: 150px; background-color:#353535;"></div>
+					<div id="map" style="width: 400px; height: 300px; background-color:#353535;"></div>
 			
 					<script>
 						// 初始化地图
@@ -296,7 +296,55 @@
 									// 悬停时填充透明度
 									"fill-opacity": 0.8
 								}
-							}
+							},
+							markers: [ // 足迹位置
+
+							// {latLng: [经度（保留两位小数）, 纬度（保留两位小数）], name: '城市名称'},
+							// 推荐查询经纬度网站：http://www.gpsspg.com/maps.htm
+					
+							{latLng: [39.90, 116.41], name: 'Beijing'},
+    {latLng: [31.24, 121.50], name: 'Shanghai'},
+    {latLng: [51.51, -0.13], name: 'London'}, // 伦敦
+    {latLng: [51.51, -0.13], name: 'Briton'}, // Briton (同伦敦)
+    {latLng: [53.80, -1.58], name: 'Leeds'}, // 利兹
+    {latLng: [54.78, -1.58], name: 'Durham'}, // 杜伦
+    {latLng: [48.86, 2.35], name: 'Paris'}, // 巴黎
+    {latLng: [45.47, 9.19], name: 'Milan'}, // 米兰
+    {latLng: [43.77, 11.25], name: 'Florence'}, // 弗洛伦萨
+    {latLng: [45.44, 12.33], name: 'Venice'}, // 威尼斯
+    {latLng: [35.18, -5.77], name: 'Chefchaouen'}, // 舍夫沙万
+    {latLng: [33.59, -7.61], name: 'Casablanca'}, // 卡萨布兰卡
+    {latLng: [31.63, -7.99], name: 'Marrakech'}, // 马拉喀什
+    {latLng: [33.98, -4.98], name: 'Fes'}, // 菲斯
+    {latLng: [40.71, -74.01], name: 'New York'}, // 纽约
+    {latLng: [34.05, -118.25], name: 'Los Angeles'}, // 洛杉矶
+    {latLng: [38.58, -121.49], name: 'Sacramento'}, // 萨克拉门托
+    {latLng: [37.77, -122.42], name: 'San Francisco'}, // 旧金山
+    {latLng: [47.61, -122.33], name: 'Seattle'}, // 西雅图
+    {latLng: [25.76, -80.19], name: 'Miami'}, // 迈阿密
+    {latLng: [32.78, 129.83], name: 'Nagasaki'}, // 长崎
+    {latLng: [32.91, 130.18], name: 'Isahaya'}, // 島原
+    {latLng: [34.69, 135.50], name: 'Osaka'}, // 大阪
+    {latLng: [-33.87, 151.21], name: 'Sydney'}, // 悉尼
+    {latLng: [-27.47, 153.02], name: 'Brisbane'}, // 布里斯班
+    {latLng: [-27.47, 153.02], name: 'Queensland'}, // 昆士兰
+    {latLng: [22.31, 114.17], name: 'Hong Kong'}, // 香港
+    {latLng: [22.53, 114.05], name: 'Shenzhen'}, // 深圳
+    {latLng: [30.58, 114.31], name: 'Wuhan'}, // 武汉
+    {latLng: [22.00, 101.41], name: 'Xishuangbanna'}, // 西双版纳
+	{latLng: [32.06, 118.78], name: 'Nanjing'}, // 南京
+    {latLng: [28.23, 112.93], name: 'Changsha'}, // 长沙
+    {latLng: [41.11, 122.99], name: 'Anshan'}, // 鞍山
+    {latLng: [36.07, 120.38], name: 'Qingdao'}, // 青岛
+    {latLng: [39.13, 117.20], name: 'Tianjin'}, // 天津
+    {latLng: [24.48, 118.08], name: 'Xiamen'}, // 厦门
+    {latLng: [22.31, 114.17], name: 'Hong Kong'}, // 香港
+    {latLng: [29.88, 117.18], name: 'Jingdezhen'}, // 景德镇
+    {latLng: [25.04, 102.71], name: 'Kunming'}, // 昆明
+    {latLng: [38.93, 118.67], name: 'Qinhuangdao'} // 秦皇岛
+]
+					
+							
 						});
 					</script>
 				</body>	
