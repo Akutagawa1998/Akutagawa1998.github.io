@@ -99,12 +99,12 @@ body, input, select, textarea {
 a {
   transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out;
   border-bottom: dotted 1px;
-  color: #49bf9d;
+  color: #4b057a;
   text-decoration: none;
 }
 a:hover {
   border-bottom-color: transparent;
-  color: #49bf9d !important;
+  color: #4b057a !important;
   text-decoration: none;
 }
 
@@ -1445,7 +1445,7 @@ input[type=password]:focus,
 input[type=email]:focus,
 select:focus,
 textarea:focus {
-  border-color: #49bf9d;
+  border-color: #4b057a;
 }
 
 select {
@@ -1963,16 +1963,16 @@ input[type=submit]:hover,
 input[type=reset]:hover,
 input[type=button]:hover,
 .button:hover {
-  border-color: #49bf9d;
-  color: #49bf9d !important;
+  border-color: #57068c;
+  color: #57068c !important;
 }
 input[type=submit]:active,
 input[type=reset]:active,
 input[type=button]:active,
 .button:active {
   background-color: rgba(73, 191, 157, 0.1);
-  border-color: #49bf9d;
-  color: #49bf9d !important;
+  border-color: #57068c;
+  color: #4b057a !important;
 }
 input[type=submit].icon,
 input[type=reset].icon,
@@ -2009,8 +2009,8 @@ input[type=submit].primary,
 input[type=reset].primary,
 input[type=button].primary,
 .button.primary {
-  background-color: #49bf9d;
-  border-color: #49bf9d;
+  background-color: #4b057a;
+  border-color: #4b057a;
   color: #ffffff !important;
 }
 input[type=submit].primary:hover,
