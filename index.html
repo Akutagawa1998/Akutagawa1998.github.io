@@ -225,122 +225,59 @@
 			
 					<script>
 						// 初始化地图
-						$('#map').vectorMap({
-							// 设置使用的地图数据库
-							// 'world_mill' 表示世界地图
-							map: 'world_mill',
-			
-							// 地图背景颜色，'transparent' 表示透明背景
-							backgroundColor: 'transparent',
-			
-							// 缩放范围设置
-							zoomMin: 0.9, // 最小缩放比例
-							zoomMax: 2.4, // 最大缩放比例
-			
-							// 地图的初始焦点
-							focusOn: {
-								x: 0.55, // x轴坐标（0到1）
-								y: 2,    // y轴坐标（0到1）
-								scale: 0.9 // 初始缩放比例
-							},
-			
-							// 区域样式设置
-							regionStyle: {
-								initial: {
-									// 区域的初始填充颜色
-									fill: '#e5e5e5',
-									// 填充透明度（1为完全不透明）
-									"fill-opacity": 1,
-									// 边框颜色（默认无边框）
-									stroke: 'none',
-									// 边框宽度
-									"stroke-width": 0,
-									// 边框透明度
-									"stroke-opacity": 1
-								},
-								hover: {
-									// 鼠标悬停时区域的高亮颜色
-									fill: '#ccc',
-									// 高亮透明度
-									"fill-opacity": 0.8
-								},
-								selected: {
-									// 区域被选中时的颜色
-									fill: 'yellow'
-								}
-							},
-			
-							// 标记点（如城市、地点）的样式设置
-							markerStyle: {
-								initial: {
-									// 标记点的填充颜色
-									fill: '#fd8888',
-									// 标记点的描边颜色
-									stroke: '#fff'
-								},
-								hover: {
-									// 鼠标悬停时标记点的填充颜色
-									fill: '#fd2020',
-									// 鼠标悬停时标记点的描边颜色
-									stroke: '#fff',
-									// 悬停时填充透明度
-									"fill-opacity": 0.8
-								}
-							},
-							markers: [ // 足迹位置
-
-							// {latLng: [经度（保留两位小数）, 纬度（保留两位小数）], name: '城市名称'},
-							// 推荐查询经纬度网站：http://www.gpsspg.com/maps.htm
-					
-							{latLng: [39.90, 116.41], name: 'Beijing'},
-    {latLng: [31.24, 121.50], name: 'Shanghai'},
-    {latLng: [51.51, -0.13], name: 'London'}, // 伦敦
-    {latLng: [51.51, -0.13], name: 'Briton'}, // Briton (同伦敦)
-    {latLng: [53.80, -1.58], name: 'Leeds'}, // 利兹
-    {latLng: [54.78, -1.58], name: 'Durham'}, // 杜伦
-    {latLng: [48.86, 2.35], name: 'Paris'}, // 巴黎
-    {latLng: [45.47, 9.19], name: 'Milan'}, // 米兰
-    {latLng: [43.77, 11.25], name: 'Florence'}, // 弗洛伦萨
-    {latLng: [45.44, 12.33], name: 'Venice'}, // 威尼斯
-    {latLng: [35.18, -5.77], name: 'Chefchaouen'}, // 舍夫沙万
-    {latLng: [33.59, -7.61], name: 'Casablanca'}, // 卡萨布兰卡
-    {latLng: [31.63, -7.99], name: 'Marrakech'}, // 马拉喀什
-    {latLng: [33.98, -4.98], name: 'Fes'}, // 菲斯
-    {latLng: [40.71, -74.01], name: 'New York'}, // 纽约
-    {latLng: [34.05, -118.25], name: 'Los Angeles'}, // 洛杉矶
-    {latLng: [38.58, -121.49], name: 'Sacramento'}, // 萨克拉门托
-    {latLng: [37.77, -122.42], name: 'San Francisco'}, // 旧金山
-    {latLng: [47.61, -122.33], name: 'Seattle'}, // 西雅图
-    {latLng: [25.76, -80.19], name: 'Miami'}, // 迈阿密
-    {latLng: [32.78, 129.83], name: 'Nagasaki'}, // 长崎
-    {latLng: [32.91, 130.18], name: 'Isahaya'}, // 島原
-    {latLng: [34.69, 135.50], name: 'Osaka'}, // 大阪
-    {latLng: [-33.87, 151.21], name: 'Sydney'}, // 悉尼
-    {latLng: [-27.47, 153.02], name: 'Brisbane'}, // 布里斯班
-    {latLng: [-27.47, 153.02], name: 'Queensland'}, // 昆士兰
-    {latLng: [22.31, 114.17], name: 'Hong Kong'}, // 香港
-    {latLng: [22.53, 114.05], name: 'Shenzhen'}, // 深圳
-    {latLng: [30.58, 114.31], name: 'Wuhan'}, // 武汉
-    {latLng: [22.00, 101.41], name: 'Xishuangbanna'}, // 西双版纳
-	{latLng: [32.06, 118.78], name: 'Nanjing'}, // 南京
-    {latLng: [28.23, 112.93], name: 'Changsha'}, // 长沙
-    {latLng: [41.11, 122.99], name: 'Anshan'}, // 鞍山
-    {latLng: [36.07, 120.38], name: 'Qingdao'}, // 青岛
-    {latLng: [39.13, 117.20], name: 'Tianjin'}, // 天津
-    {latLng: [24.48, 118.08], name: 'Xiamen'}, // 厦门
-    {latLng: [22.31, 114.17], name: 'Hong Kong'}, // 香港
-    {latLng: [29.88, 117.18], name: 'Jingdezhen'}, // 景德镇
-    {latLng: [25.04, 102.71], name: 'Kunming'}, // 昆明
-    {latLng: [38.93, 118.67], name: 'Qinhuangdao'}, // 秦皇岛
-	{latLng: [23.41, 13.10], name: 'Sahara Desert'}, // 撒哈拉沙漠
-	{latLng: [34.34, 108.94], name: 'Xi\'an'},
-    {latLng: [34.75, 113.62], name: 'Zhengzhou'}, // 郑州
-    {latLng: [34.79, 114.35], name: 'Kaifeng'}, // 开封
-    {latLng: [34.68, 112.44], name: 'Luoyang'}, // 洛阳
-    {latLng: [36.65, 117.03], name: 'Jinan'} // 济南
-]
-					
+						$.getJSON('data/footprints.json', function(data) {
+							$('#map').vectorMap({
+								// 设置使用的地图数据库
+								map: 'world_mill',
 				
+								// 地图背景颜色
+								backgroundColor: 'transparent',
+				
+								// 缩放范围设置
+								zoomMin: 0.9,
+								zoomMax: 2.4,
+				
+								// 地图的初始焦点
+								focusOn: {
+									x: 0.55,
+									y: 2,
+									scale: 0.9
+								},
+				
+								// 区域样式设置
+								regionStyle: {
+									initial: {
+										fill: '#e5e5e5',
+										"fill-opacity": 1,
+										stroke: 'none',
+										"stroke-width": 0,
+										"stroke-opacity": 1
+									},
+									hover: {
+										fill: '#ccc',
+										"fill-opacity": 0.8
+									},
+									selected: {
+										fill: 'yellow'
+									}
+								},
+				
+								// 标记点样式设置
+								markerStyle: {
+									initial: {
+										fill: '#fd8888',
+										stroke: '#fff'
+									},
+									hover: {
+										fill: '#fd2020',
+										stroke: '#fff',
+										"fill-opacity": 0.8
+									}
+								},
+								
+								// 使用外部数据文件中的标记点
+								markers: data.markers
+							});
 						});
 					</script>
 				</body>	
@@ -395,321 +332,6 @@
 					</section>
 
 				<!-- Four -->
-<!-- 				
-					<section id="four">
-						<h2>Elements</h2>
-
-						<section>
-							<h4>Text</h4>
-							<p>This is <b>bold</b> and this is <strong>strong</strong>. This is <i>italic</i> and this is <em>emphasized</em>.
-							This is <sup>superscript</sup> text and this is <sub>subscript</sub> text.
-							This is <u>underlined</u> and this is code: <code>for (;;) { ... }</code>. Finally, <a href="#">this is a link</a>.</p>
-							<hr />
-							<header>
-								<h4>Heading with a Subtitle</h4>
-								<p>Lorem ipsum dolor sit amet nullam id egestas urna aliquam</p>
-							</header>
-							<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat eu sed ante lacinia sapien lorem accumsan varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
-							<header>
-								<h5>Heading with a Subtitle</h5>
-								<p>Lorem ipsum dolor sit amet nullam id egestas urna aliquam</p>
-							</header>
-							<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat eu sed ante lacinia sapien lorem accumsan varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
-							<hr />
-							<h2>Heading Level 2</h2>
-							<h3>Heading Level 3</h3>
-							<h4>Heading Level 4</h4>
-							<h5>Heading Level 5</h5>
-							<h6>Heading Level 6</h6>
-							<hr />
-							<h5>Blockquote</h5>
-							<blockquote>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent.</blockquote>
-							<h5>Preformatted</h5>
-							<pre><code>i = 0;
-
-while (!deck.isInOrder()) {
-print 'Iteration ' + i;
-deck.shuffle();
-i++;
-}
-
-print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
-						</section>
-
-						<section>
-							<h4>Lists</h4>
-							<div class="row">
-								<div class="col-6 col-12-xsmall">
-									<h5>Unordered</h5>
-									<ul>
-										<li>Dolor pulvinar etiam magna etiam.</li>
-										<li>Sagittis adipiscing lorem eleifend.</li>
-										<li>Felis enim feugiat dolore viverra.</li>
-									</ul>
-									<h5>Alternate</h5>
-									<ul class="alt">
-										<li>Dolor pulvinar etiam magna etiam.</li>
-										<li>Sagittis adipiscing lorem eleifend。</li>
-										<li>Felis enim feugiat dolore viverra。</li>
-									</ul>
-								</div>
-								<div class="col-6 col-12-xsmall">
-									<h5>Ordered</h5>
-									<ol>
-										<li>Dolor pulvinar etiam magna etiam。</li>
-										<li>Etiam vel felis at lorem sed viverra。</li>
-										<li>Felis enim feugiat dolore viverra。</li>
-										<li>Dolor pulvinar etiam magna etiam。</li>
-										<li>Etiam vel felis at lorem sed viverra。</li>
-										<li>Felis enim feugiat dolore viverra。</li>
-									</ol>
-									<h5>Icons</h5>
-									<ul class="icons">
-										<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-										<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
-										<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
-										<li><a href="#" class="icon brands fa-tumblr"><span class="label">Tumblr</span></a></li>
-									</ul>
-								</div>
-							</div>
-							<h5>Actions</h5>
-							<ul class="actions">
-								<li><a href="#" class="button primary">Default</a></li>
-								<li><a href="#" class="button">Default</a></li>
-							</ul>
-							<ul class="actions small">
-								<li><a href="#" class="button primary small">Small</a></li>
-								<li><a href="#" class="button small">Small</a></li>
-							</ul>
-							<div class="row">
-								<div class="col-6 col-12-small">
-									<ul class="actions stacked">
-										<li><a href="#" class="button primary">Default</a></li>
-										<li><a href="#" class="button">Default</a></li>
-									</ul>
-								</div>
-								<div class="col-6 col-12-small">
-									<ul class="actions stacked">
-										<li><a href="#" class="button primary small">Small</a></li>
-										<li><a href="#" class="button small">Small</a></li>
-									</ul>
-								</div>
-								<div class="col-6 col-12-small">
-									<ul class="actions stacked">
-										<li><a href="#" class="button primary fit">Default</a></li>
-										<li><a href="#" class="button fit">Default</a></li>
-									</ul>
-								</div>
-								<div class="col-6 col-12-small">
-									<ul class="actions stacked">
-										<li><a href="#" class="button primary small fit">Small</a></li>
-										<li><a href="#" class="button small fit">Small</a></li>
-									</ul>
-								</div>
-							</div>
-						</section>
-
-						<section>
-							<h4>Table</h4>
-							<h5>Default</h5>
-							<div class="table-wrapper">
-								<table>
-									<thead>
-										<tr>
-											<th>Name</th>
-											<th>Description</th>
-											<th>Price</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>Item One</td>
-											<td>Ante turpis integer aliquet porttitor。</td>
-											<td>29.99</td>
-											</tr>
-										<tr>
-											<td>Item Two</td>
-											<td>Vis ac commodo adipiscing arcu aliquet。</td>
-											<td>19.99</td>
-										</tr>
-										<tr>
-											<td>Item Three</td>
-											<td> Morbi faucibus arcu accumsan lorem。</td>
-											<td>29.99</td>
-										</tr>
-										<tr>
-											<td>Item Four</td>
-											<td>Vitae integer tempus condimentum。</td>
-											<td>19.99</td>
-										</tr>
-										<tr>
-											<td>Item Five</td>
-											<td>Ante turpis integer aliquet porttitor。</td>
-											<td>29.99</td>
-										</tr>
-									</tbody>
-									<tfoot>
-										<tr>
-											<td colspan="2"></td>
-											<td>100.00</td>
-										</tr>
-									</tfoot>
-								</table>
-							</div>
-
-							<h5>Alternate</h5>
-							<div class="table-wrapper">
-								<table class="alt">
-									<thead>
-										<tr>
-											<th>Name</th>
-											<th>Description</th>
-											<th>Price</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>Item One</td>
-											<td>Ante turpis integer aliquet porttitor。</td>
-											<td>29.99</td>
-										</tr>
-										<tr>
-											<td>Item Two</td>
-											<td>Vis ac commodo adipiscing arcu aliquet。</td>
-											<td>19.99</td>
-										</tr>
-										<tr>
-											<td>Item Three</td>
-											<td> Morbi faucibus arcu accumsan lorem。</td>
-											<td>29.99</td>
-										</tr>
-										<tr>
-											<td>Item Four</td>
-											<td>Vitae integer tempus condimentum。</td>
-											<td>19.99</td>
-										</tr>
-										<tr>
-											<td>Item Five</td>
-											<td>Ante turpis integer aliquet porttitor。</td>
-											<td>29.99</td>
-										</tr>
-									</tbody>
-									<tfoot>
-										<tr>
-											<td colspan="2"></td>
-											<td>100.00</td>
-										</tr>
-									</tfoot>
-								</table>
-							</div>
-						</section>
-
-						<section>
-							<h4>Buttons</h4>
-							<ul class="actions">
-								<li><a href="#" class="button primary">Primary</a></li>
-								<li><a href="#" class="button">Default</a></li>
-							</ul>
-							<ul class="actions">
-								<li><a href="#" class="button large">Large</a></li>
-								<li><a href="#" class="button">Default</a></li>
-								<li><a href="#" class="button small">Small</a></li>
-							</ul>
-							<ul class="actions fit">
-								<li><a href="#" class="button primary fit">Fit</a></li>
-								<li><a href="#" class="button fit">Fit</a></li>
-							</ul>
-							<ul class="actions fit small">
-								<li><a href="#" class="button primary fit small">Fit + Small</a></li>
-								<li><a href="#" class="button fit small">Fit + Small</a></li>
-							</ul>
-							<ul class="actions">
-								<li><a href="#" class="button primary icon solid fa-download">Icon</a></li>
-								<li><a href="#" class="button icon solid fa-download">Icon</a></li>
-							</ul>
-							<ul class="actions">
-								<li><span class="button primary disabled">Primary</span></li>
-								<li><span class="button disabled">Default</span></li>
-							</ul>
-						</section>
-
-						<section>
-							<h4>Form</h4>
-							<form method="post" action="#">
-								<div class="row gtr-uniform gtr-50">
-									<div class="col-6 col-12-xsmall">
-										<input type="text" name="demo-name" id="demo-name" value="" placeholder="Name" />
-									</div>
-									<div class="col-6 col-12-xsmall">
-										<input type="email" name="demo-email" id="demo-email" value="" placeholder="Email" />
-									</div>
-									<div class="col-12">
-										<select name="demo-category" id="demo-category">
-											<option value="">- Category -</option>
-											<option value="1">Manufacturing</option>
-											<option value="1">Shipping</option>
-											<option value="1">Administration</option>
-											<option value="1">Human Resources</option>
-										</select>
-									</div>
-									<div class="col-4 col-12-small">
-										<input type="radio" id="demo-priority-low" name="demo-priority" checked>
-										<label for="demo-priority-low">Low Priority</label>
-									</div>
-									<div class="col-4 col-12-small">
-										<input type="radio" id="demo-priority-normal" name="demo-priority">
-										<label for="demo-priority-normal">Normal Priority</label>
-									</div>
-									<div class="col-4 col-12-small">
-										<input type="radio" id="demo-priority-high" name="demo-priority">
-										<label for="demo-priority-high">High Priority</label>
-									</div>
-									<div class="col-6 col-12-small">
-										<input type="checkbox" id="demo-copy" name="demo-copy">
-										<label for="demo-copy">Email me a copy of this message</label>
-									</div>
-									<div class="col-6 col-12-small">
-										<input type="checkbox" id="demo-human" name="demo-human" checked>
-										<label for="demo-human">I am a human and not a robot</label>
-									</div>
-									<div class="col-12">
-										<textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="6"></textarea>
-									</div>
-									<div class="col-12">
-										<ul class="actions">
-											<li><input type="submit" value="Send Message" class="primary" /></li>
-											<li><input type="reset" value="Reset" /></li>
-										</ul>
-									</div>
-								</div>
-							</form>
-						</section>
-
-						<section>
-							<h4>Image</h4>
-							<h5>Fit</h5>
-							<div class="box alt">
-								<div class="row gtr-50 gtr-uniform">
-									<div class="col-12"><span class="image fit"><img src="images/fulls/05.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/thumbs/01.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/thumbs/02.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/thumbs/03.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/thumbs/04.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/thumbs/05.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/thumbs/06.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/thumbs/03.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/thumbs/02.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/thumbs/01.jpg" alt="" /></span></div>
-								</div>
-							</div>
-							<h5>Left &amp; Right</h5>
-							<p><span class="image left"><img src="images/avatar.jpg" alt="" /></span>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent.</p>
-							<p><span class="image right"><img src="images/avatar.jpg" alt="" /></span>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent.</p>
-						</section>
-
-					</section> -->
 				
 
 			</div>
