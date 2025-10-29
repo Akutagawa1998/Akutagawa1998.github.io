@@ -44,6 +44,9 @@
     {"latLng": [34.75, 113.62], "name": "Zhengzhou"},
     {"latLng": [34.79, 114.35], "name": "Kaifeng"},
     {"latLng": [34.68, 112.44], "name": "Luoyang"},
-    {"latLng": [36.65, 117.03], "name": "Jinan"}
+    {"latLng": [36.65, 117.03], "name": "Jinan"},
+    {"latLng": [36.17, -115.14], "name": "Las Vegas"},
+    {"latLng": [33.75, -84.39], "name": "Atlanta"},
+    {"latLng": [35.61, -83.49], "name": "Great Smoky Mountains"}
   ]
 }
