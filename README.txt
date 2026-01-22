@@ -31,3 +31,6 @@ Credits:
 	Other:
 		jQuery (jquery.com)
 		Responsive Tools (github.com/ajlkn/responsive-tools)
+
+scp index.html netid@access.cims.nyu.edu:~/public_html/index.html
+Use this to push to cims
