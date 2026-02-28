@@ -66,7 +66,7 @@
             padding-bottom: 20px;
             border-bottom: 3px double #000;
         }
-        
+
         .name {
             font-size: 1.6em;
             margin-bottom: 8px;
@@ -93,15 +93,6 @@
             text-align: left;
         }
         
-        .links {
-            /* padding-bottom: 5px; */
-            /* margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #000; */
-            /* padding-bottom: 20px;
-            border-bottom: 1px solid #000; */
-        }
-        
         .links a {
             margin-right: 15px;
             font-size: 0.9em;
@@ -122,6 +113,40 @@
         em {
             font-style: italic;
         }
+
+        .bottom-note-section {
+            margin-top: 35px;
+            padding-top: 20px;
+            border-top: 3px double #000;
+        }
+
+        .top-right-note {
+            width: 100%;
+            max-width: 560px;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .top-right-note img {
+            width: 100%;
+            height: auto;
+            max-height: min(55vh, 360px);
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .top-right-note p {
+            margin-top: 6px;
+            margin-bottom: 0;
+            font-size: 0.72em;
+            line-height: 1.25;
+            text-align: center;
+            width: 100%;
+            max-width: 100%;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
         
         @media (max-width: 600px) {
             body {
@@ -136,12 +161,16 @@
             .name {
                 font-size: 1.3em;
             }
+
+            .top-right-note {
+                width: 100%;
+                max-width: 100%;
+            }
         }
     </style>
 </head>
 <body>
 
-    
     <div class="header">
         <h1 class="name">ZHAO, Sihang (Nagi)</h1>
         <p class="subtitle">"山川异域，日月同天"</p>
@@ -152,9 +181,6 @@
             <a href="mailto:sz3707@nyu.edu">Email</a>
         </div>
     </div>
-
-    
-    
 
     <div class="section">
         <h2>About</h2>
@@ -221,6 +247,13 @@
             <strong>Address:</strong> 60 5th Ave., NYU Center for Data Science, New York City, NY, 10011<br>
             <strong>Email:</strong> <a href="mailto:sz3707@nyu.edu">sz3707@nyu.edu</a>
         </p>
+    </div>
+
+    <div class="bottom-note-section">
+        <div class="top-right-note">
+            <img src="IMG_0331.jpg" alt="Nagi and turtle">
+            <p>We have 93% confidence that the one on the right is Nagi.</p>
+        </div>
     </div>
 </body>
 </html>
