@@ -20,9 +20,6 @@
             {{- site.title -}}
           {% endif %}
         </a>
-      {% elsif site.enable_navbar_social %}
-        <!-- Social Icons -->
-        <div class="navbar-brand social">{% social_links %}</div>
       {% endif %}
       <!-- Navbar Toggle -->
       <button
@@ -41,11 +38,21 @@
       </button>
 
       <div class="collapse navbar-collapse text-right" id="navbarNav">
-        <ul class="navbar-nav ml-auto flex-nowrap">
+        <ul class="navbar-nav {% if page.permalink == '/' %}w-100{% else %}ml-auto{% endif %} flex-nowrap">
+          {% if page.permalink == '/' %}
+            <li class="nav-item nav-social-icons">
+              <div class="nav-link" aria-label="social links">
+                {% social_links %}
+              </div>
+            </li>
+          {% endif %}
           <!-- Other pages -->
           {% assign sorted_pages = site.pages | sort: 'nav_order' %}
+          {% assign hidden_nav_titles = 'projects|repositories|submenus' | split: '|' %}
           {% for p in sorted_pages %}
+            {% assign p_title_down = p.title | downcase %}
             {% if p.nav and p.autogen == null %}
+              {% unless hidden_nav_titles contains p_title_down %}
               {% if p.dropdown %}
                 {% assign has_active_child = false %}
                 {% for child in p.children %}
@@ -101,9 +108,11 @@
                   </a>
                 </li>
               {% endif %}
+              {% endunless %}
             {% endif %}
           {% endfor %}
-          {% if site.search_enabled %}
+          {% comment %} Temporarily hide search bar {% endcomment %}
+          {% if false and site.search_enabled %}
             <!-- Search -->
             <li class="nav-item">
               <button id="search-toggle" title="Search" onclick="openSearchModal()">

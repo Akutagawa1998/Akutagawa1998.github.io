@@ -89,6 +89,12 @@ ul.task-list input[type="checkbox"] {
   margin-right: 1rem;
 }
 
+.about-name-title {
+  font-family: "Times New Roman", Georgia, serif;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
 .about-profile-bounded {
   // Keep image + caption visually bounded to the text block height.
   --about-profile-max-height: min(62vh, 32rem);
@@ -214,6 +220,70 @@ ul.task-list input[type="checkbox"] {
   }
 }
 
+// Social (navbar)
+
+.nav-social-icons {
+  margin-right: auto;
+  margin-left: 0;
+
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.95rem;
+    padding-left: 0.35rem;
+    padding-right: 0.35rem;
+  }
+
+  a {
+    color: #57068c;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+
+    i::before,
+    svg {
+      font-size: 1.34rem;
+      width: 1.34rem;
+      height: 1.34rem;
+    }
+
+    &:hover {
+      color: #57068c;
+      text-decoration: none;
+      opacity: 0.9;
+    }
+  }
+}
+
+// Main page links (about content area only)
+.post article > .clearfix a {
+  color: #57068c;
+
+  &:hover {
+    color: #4a0a78;
+  }
+}
+
+// Keep section title links black.
+.post h2 a[href$="/news/"],
+.post h2 a[href$="/blog/"] {
+  color: var(--global-text-color) !important;
+}
+
+// Keep item links in News/Latest posts purple.
+.post .news a.news-title {
+  color: #57068c !important;
+
+  &:hover {
+    color: #4a0a78 !important;
+  }
+}
+
+// Bold links in the about text body.
+.post article > .clearfix a {
+  font-weight: 500;
+}
+
 // Social (bottom)
 
 .social {
@@ -223,6 +293,8 @@ ul.task-list input[type="checkbox"] {
     font-size: 4rem;
 
     a {
+      color: #57068c;
+
       img {
         width: 3.2rem;
         height: 3.2rem;
@@ -241,15 +313,16 @@ ul.task-list input[type="checkbox"] {
       }
 
       i::before {
-        color: var(--global-text-color);
+        color: inherit;
         transition-property: all 0.2s ease-in-out;
       }
 
       &:hover {
         text-decoration: none;
+        color: #57068c;
 
         i::before {
-          color: var(--global-theme-color);
+          color: inherit;
         }
       }
     }
