@@ -2,8 +2,8 @@
 # Site settings
 # -----------------------------------------------------------------------------
 
-title: Sihang Zhao # the website title (if blank, full name will be used instead)
-first_name: Sihang
+title: Sihang (Nagi) Zhao # the website title (if blank, full name will be used instead)
+first_name: Sihang (Nagi)
 middle_name:
 last_name: Zhao
 contact_note: >
@@ -279,8 +279,8 @@ display_categories: ["external-services"] # these categories will be displayed o
 # -----------------------------------------------------------------------------
 
 scholar:
-  last_name: [Einstein]
-  first_name: [Albert, A.]
+  last_name: [Zhao]
+  first_name: [Sihang, S.]
 
   style: apa
   locale: en

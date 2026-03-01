@@ -63,9 +63,17 @@
         {%- assign author_last_name = author.last | regex_replace: '[*∗†‡§¶‖&^]', '' -%}
         {%- assign author_last_html = author.last | regex_replace: '([*∗†‡§¶‖&^]+)', '<sup>\1</sup>' -%}
         {% if site.scholar.last_name contains author_last_name %}
-          {% if site.scholar.first_name contains author.first %}
-            {% assign author_is_self = true %}
-          {% endif %}
+          {%- assign author_first_normalized = author.first | downcase | replace: '.', '' | strip -%}
+          {%- for scholar_first in site.scholar.first_name -%}
+            {%- assign scholar_first_normalized = scholar_first | downcase | replace: '.', '' | strip -%}
+            {%- if scholar_first_normalized == author_first_normalized
+              or scholar_first_normalized contains author_first_normalized
+              or author_first_normalized contains scholar_first_normalized
+            -%}
+              {% assign author_is_self = true %}
+              {% break %}
+            {%- endif -%}
+          {%- endfor -%}
         {%- endif -%}
         {% assign coauthor_url = null %}
         {%- assign clean_last_name = author_last_name | downcase | remove_accents -%}
@@ -85,10 +93,10 @@
           {%- if forloop.last and author_array_limit == author_array_size %}and {% endif -%}
         {% endif %}
         {%- if author_is_self -%}
-          <em>
+          <strong>
             {{- author.first }}
             {{ author_last_html -}}
-          </em>
+          </strong>
         {%- else -%}
           {%- if coauthor_url -%}
             <a href="{{ coauthor_url }}">
@@ -256,7 +264,7 @@
         {% endif %}
       {% endif %}
       {% if entry.website %}
-        <a href="{{ entry.website }}" class="btn btn-sm z-depth-0" role="button">Website</a>
+        <a href="{{ entry.website }}" class="btn btn-sm z-depth-0" role="button">Link</a>
       {% endif %}
     </div>
     {% if site.enable_publication_badges %}

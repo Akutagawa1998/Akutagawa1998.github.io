@@ -67,6 +67,17 @@ ul.task-list input[type="checkbox"] {
       display: inline-block;
       margin: 0;
     }
+
+    .profile-caption {
+      display: block;
+      margin-top: 0.5rem;
+      color: #555;
+      font-family: var(--global-font-family);
+      font-size: 0.9rem;
+      font-style: normal;
+      line-height: 1.4;
+      text-align: left;
+    }
   }
 }
 
@@ -78,6 +89,33 @@ ul.task-list input[type="checkbox"] {
   margin-right: 1rem;
 }
 
+.about-profile-bounded {
+  // Keep image + caption visually bounded to the text block height.
+  --about-profile-max-height: min(62vh, 32rem);
+  --about-caption-space: 2.4rem;
+
+  img {
+    width: 100%;
+    height: auto;
+    max-height: calc(var(--about-profile-max-height) - var(--about-caption-space));
+    object-fit: contain;
+  }
+
+  .more-info {
+    margin-top: 0.12rem;
+
+    .profile-caption {
+      margin-top: 0;
+      max-width: 100%;
+      font-family: "Hack", "Hack Nerd Font", "SF Mono", Menlo, Monaco, Consolas, monospace;
+      font-size: 9.5px !important;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      word-spacing: -0.15em;
+    }
+  }
+}
+
 @media (min-width: 576px) {
   .profile {
     width: 30%;
@@ -87,6 +125,13 @@ ul.task-list input[type="checkbox"] {
         display: block;
       }
     }
+  }
+}
+
+@media (max-width: 575.98px) {
+  .about-profile-bounded {
+    --about-profile-max-height: 50vh;
+    --about-caption-space: 2.6rem;
   }
 }
 
