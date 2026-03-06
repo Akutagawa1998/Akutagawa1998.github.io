@@ -43,5 +43,5 @@ jobs:
         uses: lycheeverse/lychee-action@v2.0.2
         with:
           fail: true
-          # only check local links
-          args: --offline --remap '_site(/?.*)/assets/(.*) _site/assets/$2' --verbose --no-progress '_site/**/*.html'
+          # only check local links; archived legacy pages are excluded from CI gate
+          args: --offline --remap '_site(/?.*)/assets/(.*) _site/assets/$2' --exclude-path '_site/webpage_brief/**' --verbose --no-progress '_site/**/*.html'
