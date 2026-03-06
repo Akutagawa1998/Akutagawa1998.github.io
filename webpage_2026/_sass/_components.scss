@@ -173,6 +173,53 @@ ul.task-list input[type="checkbox"] {
   transform: translateX(-15px) translateY(-5px);
 }
 
+// People page entries
+
+.people-friend {
+  margin: 1.1rem 0 1.55rem;
+}
+
+.people-friend-name {
+  margin-bottom: 0.55rem;
+}
+
+.people-entry {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.25rem;
+}
+
+.people-entry-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.people-entry-text p:first-child {
+  margin-top: 0;
+}
+
+.people-entry-image {
+  flex: 0 0 132px;
+  width: 132px;
+  height: 132px;
+  object-fit: cover;
+  border-radius: 0.35rem;
+  margin-top: 0.05rem; // keep top edge aligned with first text line
+}
+
+@media (max-width: 767.98px) {
+  .people-entry {
+    flex-direction: column-reverse;
+    gap: 0.75rem;
+  }
+
+  .people-entry-image {
+    width: 112px;
+    height: 112px;
+  }
+}
+
 // Projects
 
 .projects {

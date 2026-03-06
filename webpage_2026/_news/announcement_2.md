@@ -1,4 +1,4 @@
----
+<!-- ---
 layout: post
 title: My first work in PhD study is accepted by ACL 2026! See you in San Diego this July! 
 date: 2026-2-28 16:11:00-0400
@@ -30,4 +30,4 @@ Pug heirloom High Life vinyl swag, single-origin coffee four dollar toast taxide
 > We do not grow absolutely, chronologically. We grow sometimes in one dimension, and not in another, unevenly. We grow partially. We are relative. We are mature in one realm, childish in another.
 > —Anais Nin
 
-Fap aliqua qui, scenester pug Echo Park polaroid irony shabby chic ex cardigan church-key Odd Future accusamus. Blog stumptown sartorial squid, gastropub duis aesthetic Truffaut vero. Pinterest tilde twee, odio mumblecore jean shorts lumbersexual.
+Fap aliqua qui, scenester pug Echo Park polaroid irony shabby chic ex cardigan church-key Odd Future accusamus. Blog stumptown sartorial squid, gastropub duis aesthetic Truffaut vero. Pinterest tilde twee, odio mumblecore jean shorts lumbersexual. -->
