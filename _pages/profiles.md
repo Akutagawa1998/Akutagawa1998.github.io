@@ -55,7 +55,7 @@ If their research happens to speak to your curiosity (or you just want to make n
   <div class="people-entry">
     <div class="people-entry-text">
     <p>
-      Jiahan is an expert in LLM and AI4S. He is a fellow NYU PhD student from my cohort.
+      Jiahan is an expert in AI4S and Broad Application Generative Models. He is a fellow NYU PhD student from my cohort.
       His music library is so vast that his pure, unadulterated love for music (or/and K-pop girls)
       is beyond any shadow of a doubt.
     </p>
