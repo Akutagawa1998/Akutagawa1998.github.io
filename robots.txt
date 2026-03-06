@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://akutagawa1998.github.io/sitemap.xml

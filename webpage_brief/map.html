@@ -1,0 +1,84 @@
+<html>
+	<head>
+		<!-- 引入jQuery框架（必要的依赖） -->
+		<script type="text/javascript" src="jVectorMap-Footprint-master/js/jquery-1.9.1.min.js"></script>
+		<!-- 引入jVectorMap库（地图主要功能） -->
+		<script type="text/javascript" src="jVectorMap-Footprint-master/js/jquery-jvectormap-1.2.2.min.js"></script>
+		<!-- 引入jVectorMap的样式表，用于设置地图的默认样式 -->
+		<link href="jVectorMap-Footprint-master/js/jquery-jvectormap-1.2.2.css" rel="stylesheet" media="screen">
+		<!-- 引入世界地图数据库 -->
+		<script type="text/javascript" src="jVectorMap-Footprint-master/js/jquery-jvectormap-world-mill.js"></script>
+	</head>
+	<body>
+		<!-- 地图容器 -->
+		<!-- 说明：`id="map"` 是地图的挂载点，需要设置明确的宽高才能正常显示 -->
+		<div id="map" style="width: 200px; height: 150px; background-color:#353535;"></div>
+
+		<script>
+			// 初始化地图
+			$('#map').vectorMap({
+				// 设置使用的地图数据库
+				// 'world_mill' 表示世界地图
+				map: 'world_mill',
+
+				// 地图背景颜色，'transparent' 表示透明背景
+				backgroundColor: 'transparent',
+
+				// 缩放范围设置
+				zoomMin: 0.9, // 最小缩放比例
+				zoomMax: 2.4, // 最大缩放比例
+
+				// 地图的初始焦点
+				focusOn: {
+					x: 0.55, // x轴坐标（0到1）
+					y: 2,    // y轴坐标（0到1）
+					scale: 0.9 // 初始缩放比例
+				},
+
+				// 区域样式设置
+				regionStyle: {
+					initial: {
+						// 区域的初始填充颜色
+						fill: '#e5e5e5',
+						// 填充透明度（1为完全不透明）
+						"fill-opacity": 1,
+						// 边框颜色（默认无边框）
+						stroke: 'none',
+						// 边框宽度
+						"stroke-width": 0,
+						// 边框透明度
+						"stroke-opacity": 1
+					},
+					hover: {
+						// 鼠标悬停时区域的高亮颜色
+						fill: '#ccc',
+						// 高亮透明度
+						"fill-opacity": 0.8
+					},
+					selected: {
+						// 区域被选中时的颜色
+						fill: 'yellow'
+					}
+				},
+
+				// 标记点（如城市、地点）的样式设置
+				markerStyle: {
+					initial: {
+						// 标记点的填充颜色
+						fill: '#fd8888',
+						// 标记点的描边颜色
+						stroke: '#fff'
+					},
+					hover: {
+						// 鼠标悬停时标记点的填充颜色
+						fill: '#fd2020',
+						// 鼠标悬停时标记点的描边颜色
+						stroke: '#fff',
+						// 悬停时填充透明度
+						"fill-opacity": 0.8
+					}
+				}
+			});
+		</script>
+	</body>
+</html>
