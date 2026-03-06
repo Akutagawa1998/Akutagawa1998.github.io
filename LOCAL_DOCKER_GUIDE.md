@@ -1,4 +1,4 @@
-# 在本地使用 Docker 运行 `webpage_2026`
+# 在本地使用 Docker 运行主页
 
 这份文档是针对当前项目的本地预览指南（`al-folio` + Docker Compose）。
 
@@ -8,7 +8,7 @@
 - 当前目录为项目目录：
 
 ```bash
-cd "/Users/nagi/Documents/GitHub/Akutagawa1998.github.io/webpage_2026"
+cd "/Users/nagi/Documents/GitHub/Akutagawa1998.github.io"
 ```
 
 ## 2) 首次启动（推荐）
