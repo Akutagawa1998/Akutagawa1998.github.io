@@ -29,6 +29,8 @@
   --global-back-to-top-text-color: #{v.$white-color};
   --global-newsletter-bg-color: #{v.$white-color};
   --global-newsletter-text-color: #{v.$black-color};
+  --global-link-purple-color: #57068c;
+  --global-link-purple-hover-color: #4a0a78;
 
   --global-tip-block: #42b983;
   --global-tip-block-bg: #e2f5ec;
@@ -98,6 +100,8 @@ html[data-theme="dark"] {
   --global-back-to-top-text-color: #{v.$black-color};
   --global-newsletter-bg-color: #{v.$grey-color-light};
   --global-newsletter-text-color: #{v.$grey-color-dark};
+  --global-link-purple-color: #c792ff;
+  --global-link-purple-hover-color: #ddb7ff;
 
   --global-tip-block: #42b983;
   --global-tip-block-bg: #215d42;

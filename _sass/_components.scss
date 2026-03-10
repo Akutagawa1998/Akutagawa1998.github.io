@@ -282,7 +282,7 @@ ul.task-list input[type="checkbox"] {
   }
 
   a {
-    color: #57068c;
+    color: var(--global-link-purple-color);
     display: inline-flex;
     align-items: center;
     line-height: 1;
@@ -295,7 +295,7 @@ ul.task-list input[type="checkbox"] {
     }
 
     &:hover {
-      color: #57068c;
+      color: var(--global-link-purple-color);
       text-decoration: none;
       opacity: 0.9;
     }
@@ -304,10 +304,10 @@ ul.task-list input[type="checkbox"] {
 
 // Main page links (about content area only)
 .post article > .clearfix a {
-  color: #57068c;
+  color: var(--global-link-purple-color);
 
   &:hover {
-    color: #4a0a78;
+    color: var(--global-link-purple-hover-color);
   }
 }
 
@@ -319,10 +319,10 @@ ul.task-list input[type="checkbox"] {
 
 // Keep item links in News/Latest posts purple.
 .post .news a.news-title {
-  color: #57068c !important;
+  color: var(--global-link-purple-color) !important;
 
   &:hover {
-    color: #4a0a78 !important;
+    color: var(--global-link-purple-hover-color) !important;
   }
 }
 
@@ -340,7 +340,7 @@ ul.task-list input[type="checkbox"] {
     font-size: 4rem;
 
     a {
-      color: #57068c;
+      color: var(--global-link-purple-color);
 
       img {
         width: 3.2rem;
@@ -366,7 +366,7 @@ ul.task-list input[type="checkbox"] {
 
       &:hover {
         text-decoration: none;
-        color: #57068c;
+        color: var(--global-link-purple-color);
 
         i::before {
           color: inherit;
@@ -377,6 +377,16 @@ ul.task-list input[type="checkbox"] {
 
   .contact-note {
     font-size: 0.8rem;
+  }
+}
+
+// Keep "more about me" links consistent with homepage purple links.
+.post article .about-more a {
+  color: var(--global-link-purple-color);
+  font-weight: 500;
+
+  &:hover {
+    color: var(--global-link-purple-hover-color);
   }
 }
 
