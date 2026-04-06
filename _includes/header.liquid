@@ -48,7 +48,7 @@
           {% endif %}
           <!-- Other pages -->
           {% assign sorted_pages = site.pages | sort: 'nav_order' %}
-          {% assign hidden_nav_titles = 'projects|repositories|submenus' | split: '|' %}
+          {% assign hidden_nav_titles = 'repositories|submenus' | split: '|' %}
           {% for p in sorted_pages %}
             {% assign p_title_down = p.title | downcase %}
             {% if p.nav and p.autogen == null %}
