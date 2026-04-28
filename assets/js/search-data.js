@@ -422,8 +422,8 @@ ninja.data = [{
             },},{id: "news-i-will-join-nyu-courant-and-nyu-shanghai-as-a-phd-student-in-september-2025-purple-heart-go-violet-purple-heart",
           title: 'I will join NYU Courant and NYU Shanghai as a PhD Student in...',
           description: "",
-          section: "News",},{id: "news-my-first-work-in-phd-study-is-accepted-by-acl-2026-see-you-in-san-diego-this-july",
-          title: 'My first work in PhD study is accepted by ACL 2026! See you...',
+          section: "News",},{id: "news-my-first-work-shape-unifying-safety-helpfulness-and-pedagogy-for-educational-llms-in-phd-study-is-accepted-by-acl-2026-see-you-in-san-diego-this-july",
+          title: 'My first work, SHAPE: Unifying Safety, Helpfulness and Pedagogy for Educational LLMs, in...',
           description: "",
           section: "News",handler: () => {
               window.location.href = "/news/announcement_2/";
