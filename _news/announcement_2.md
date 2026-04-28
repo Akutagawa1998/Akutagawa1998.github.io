@@ -1,12 +1,13 @@
 ---
 layout: post
-title: My first work in PhD study is accepted by ACL 2026! See you in San Diego this July! 
+title: "My first work, SHAPE: Unifying Safety, Helpfulness and Pedagogy for Educational LLMs, in PhD study is accepted by ACL 2026! See you in San Diego this July!"
 date: 2026-4-6 14:11:00-0400
 inline: false
+link: /assets/html/SHAPE-standalone.html?v=20260428
 related_posts: false
 ---
 
-My first work in PhD study is accepted by ACL 2026 Main Conference! See you in San Diego this July!
+My first work, [SHAPE: Unifying Safety, Helpfulness and Pedagogy for Educational LLMs]({{ '/assets/html/SHAPE-standalone.html?v=20260428' | relative_url }}), in PhD study is accepted by ACL 2026 Main Conference! See you in San Diego this July!
 
 <!-- ---
 
