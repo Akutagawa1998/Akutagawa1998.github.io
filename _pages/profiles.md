@@ -68,6 +68,25 @@ If their research happens to speak to your curiosity (or you just want to make n
   </div>
 </div>
 
+<div class="people-friend">
+  <h4 class="people-friend-name">Wenbo Lu</h4>
+  <div class="people-entry">
+    <div class="people-entry-text">
+    <p>
+      Wenbo works on Embodied AI and diffusion models. He's my PhD colleague and my go-to "professor"
+      for everything from HPC to driving. It's a bit like when Prof. Saining Xie taught Prof. Kaiming He
+      Linux and driving, though I suspect Saining never drove their car into a ditch at 2 AM.
+    </p>
+    <p>
+      Thanks to his patience, Wenbo is my most-consulted resource after ChatGPT (he officially overtook
+      Claude last week after Anthropic banned our accounts). I usually hit him up right before my 5-hour API limits
+      refresh. If your own tokens are running low, you can contact him <a href="https://wenboluu.github.io/">here</a>.
+    </p>
+    </div>
+    <img class="people-entry-image" src="{{ '/assets/img/wenbo.jpg' | relative_url }}" alt="Wenbo Lu">
+  </div>
+</div>
+
 <!-- Template for adding a new friend:
 <div class="people-friend">
   <h4 class="people-friend-name">Friend Name</h4>
