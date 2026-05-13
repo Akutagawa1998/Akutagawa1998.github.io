@@ -1,6 +1,10 @@
 metadata:
-  last_updated: '2026-04-24'
+  last_updated: '2026-05-13'
 papers:
+  aCnC04IAAAAJ:2osOgNQ5qMEC:
+    citations: 0
+    title: 'SHAPE: Unifying Safety, Helpfulness and Pedagogy for Educational LLMs'
+    year: '2026'
   aCnC04IAAAAJ:9yKSN-GCB0IC:
     citations: 2
     title: Characterizing Collective Efforts in Content Sharing and Quality Control for ADHD-relevant Content on Video-sharing Platforms
