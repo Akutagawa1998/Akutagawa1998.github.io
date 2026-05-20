@@ -1,13 +1,12 @@
 ---
 layout: post
-title: "My first work, SHAPE: Unifying Safety, Helpfulness and Pedagogy for Educational LLMs, in PhD study is accepted by ACL 2026! See you in San Diego this July!"
+title: "My first work, SHaPE, in PhD study is selected for an Oral presentation at ACL 2026 in Oral Session C: NLP Applications 2 on July 5, 2026! See you in San Diego!"
 date: 2026-4-6 14:11:00-0400
-inline: false
-link: /assets/html/SHAPE-standalone.html?v=20260428
+inline: true
 related_posts: false
 ---
 
-My first work, [SHAPE: Unifying Safety, Helpfulness and Pedagogy for Educational LLMs]({{ '/assets/html/SHAPE-standalone.html?v=20260428' | relative_url }}), in PhD study is accepted by ACL 2026 Main Conference! See you in San Diego this July!
+My first work, <strong><a href="{{ '/assets/html/SHAPE-standalone.html?v=20260428' | relative_url }}" style="color: #1c5590">SHaPE</a></strong>, in PhD study is selected for an <strong style="color: #1c5590">Oral presentation at ACL 2026</strong> in Oral Session C: NLP Applications 2 on July 5, 2026! See you in San Diego!
 
 <!-- ---
 
