@@ -422,12 +422,10 @@ ninja.data = [{
             },},{id: "news-i-will-join-nyu-courant-and-nyu-shanghai-as-a-phd-student-in-september-2025-purple-heart-go-violet-purple-heart",
           title: 'I will join NYU Courant and NYU Shanghai as a PhD Student in...',
           description: "",
-          section: "News",},{id: "news-my-first-work-shape-unifying-safety-helpfulness-and-pedagogy-for-educational-llms-in-phd-study-is-accepted-by-acl-2026-see-you-in-san-diego-this-july",
-          title: 'My first work, SHAPE: Unifying Safety, Helpfulness and Pedagogy for Educational LLMs, in...',
+          section: "News",},{id: "news-my-first-work-shape-in-phd-study-is-selected-for-an-oral-presentation-at-acl-2026-in-oral-session-c-nlp-applications-2-on-july-5-2026-see-you-in-san-diego",
+          title: 'My first work, SHaPE, in PhD study is selected for an Oral presentation...',
           description: "",
-          section: "News",handler: () => {
-              window.location.href = "/news/announcement_2/";
-            },},{id: "projects-书僮-scholars-39-attendant",
+          section: "News",},{id: "projects-书僮-scholars-39-attendant",
           title: '书僮 / Scholars&amp;#39; Attendant',
           description: "Your research &amp; scientific reading assistant. Automatically detects paper URLs, extracts metadata, and provides a full analysis pipeline.",
           section: "Projects",handler: () => {
