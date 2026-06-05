@@ -42,7 +42,20 @@
           {% if page.permalink == '/' %}
             <li class="nav-item nav-social-icons">
               <div class="nav-link" aria-label="social links">
-                {% social_links %}
+                {% include navbar_socials.liquid %}
+                <a class="onlyfans-nav-link" href="{{ '/onlyfans/' | relative_url }}" aria-label="OnlyFans">
+                  <svg class="onlyfans-icon" viewBox="0 0 512 320" aria-hidden="true" focusable="false">
+                    <path
+                      fill="#00aff0"
+                      fill-rule="evenodd"
+                      d="M165 48a112 112 0 1 0 0 224 112 112 0 0 0 0-224Zm0 74a38 38 0 1 1 0 76 38 38 0 0 1 0-76Z"
+                    />
+                    <path
+                      fill="#008ccf"
+                      d="M270 48h190c-8 58-48 103-119 133 41 0 74-4 99-13l-27 65c-44 13-88 14-133 3l-34 84h-82L270 48Z"
+                    />
+                  </svg>
+                </a>
               </div>
             </li>
           {% endif %}

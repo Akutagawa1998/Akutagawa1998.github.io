@@ -1,0 +1,49 @@
+{% if site.data.socials.email %}
+  <a class="brand-social-link gmail-link" href="mailto:{{ site.data.socials.email | encode_email }}" aria-label="Gmail" title="Gmail">
+    <img class="brand-social-icon gmail-icon" src="{{ '/assets/img/social_gmail.png' | relative_url }}" alt="">
+  </a>
+{% endif %}
+
+{% if site.data.socials.scholar_userid %}
+  <a
+    class="brand-social-link scholar-link"
+    href="https://scholar.google.com/citations?user={{ site.data.socials.scholar_userid }}"
+    aria-label="Google Scholar"
+    title="Google Scholar"
+    rel="external nofollow noopener"
+    target="_blank"
+  >
+    <img class="brand-social-icon scholar-icon" src="{{ '/assets/img/social_google_scholar.png' | relative_url }}" alt="">
+  </a>
+{% endif %}
+
+{% if site.data.socials.x_username %}
+  <a
+    class="brand-social-link x-link"
+    href="https://twitter.com/{{ site.data.socials.x_username }}"
+    aria-label="X"
+    title="X"
+    rel="external nofollow noopener"
+    target="_blank"
+  >
+    <svg class="brand-social-icon x-icon" viewBox="0 0 1200 1227" aria-hidden="true" focusable="false">
+      <path
+        fill="currentColor"
+        d="M714 519 1160 0H1054L667 450 357 0H0l468 681L0 1227h106l409-476 327 476h357zM569 688l-47-67L145 80h161l305 437 47 67 395 566H892z"
+      />
+    </svg>
+  </a>
+{% endif %}
+
+{% if site.data.socials.instagram_id %}
+  <a
+    class="brand-social-link instagram-link"
+    href="https://instagram.com/{{ site.data.socials.instagram_id }}"
+    aria-label="Instagram"
+    title="Instagram"
+    rel="external nofollow noopener"
+    target="_blank"
+  >
+    <img class="brand-social-icon instagram-icon" src="{{ '/assets/img/social_instagram.png' | relative_url }}" alt="">
+  </a>
+{% endif %}
