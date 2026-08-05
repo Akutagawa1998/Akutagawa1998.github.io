@@ -87,6 +87,20 @@ If their research happens to speak to your curiosity (or you just want to make n
   </div>
 </div>
 
+<div class="people-friend">
+  <h4 class="people-friend-name">Zhuoran (Jolia) Chen</h4>
+  <div class="people-entry">
+    <div class="people-entry-text">
+    <p>
+      Though I have known my daughter <a href="https://joliachen.github.io/">Jolia</a> only a short while,
+      I know that one day, she will put on my straw hat that has stayed with me through countless storms
+      and set out to become the Pirate King (or perhaps, the Embodied AI Queen).
+    </p>
+    </div>
+    <img class="people-entry-image" src="{{ '/assets/img/zhuoran-chen.jpg' | relative_url }}" alt="Zhuoran (Jolia) Chen">
+  </div>
+</div>
+
 <!-- Template for adding a new friend:
 <div class="people-friend">
   <h4 class="people-friend-name">Friend Name</h4>
