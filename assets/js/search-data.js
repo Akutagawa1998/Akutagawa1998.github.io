@@ -30,6 +30,13 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
+        },{id: "nav-teaching",
+          title: "teaching",
+          description: "Teaching and course information.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/teaching/";
+          },
         },{id: "nav-people",
           title: "people",
           description: "(I actually know little about their research)",
@@ -435,16 +442,16 @@ ninja.data = [{
           description: "Automatically detect and ward off unwanted content on social media feeds using keyword matching and LLM-powered classification.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/zhong_kui/";
-            },},{id: "teachings-data-science-fundamentals",
-          title: 'Data Science Fundamentals',
-          description: "This course covers the foundational aspects of data science, including data collection, cleaning, analysis, and visualization. Students will learn practical skills for working with real-world datasets.",
+            },},{id: "teachings-introduction-to-computer-programming",
+          title: 'Introduction to Computer Programming',
+          description: "CSCI-SHU 11, Section 006.",
           section: "Teachings",handler: () => {
-              window.location.href = "/teachings/data-science-fundamentals/";
-            },},{id: "teachings-introduction-to-machine-learning",
-          title: 'Introduction to Machine Learning',
-          description: "This course provides an introduction to machine learning concepts, algorithms, and applications. Students will learn about supervised and unsupervised learning, model evaluation, and practical implementations.",
+              window.location.href = "/teachings/introduction-to-computer-programming/";
+            },},{id: "teachings-recommendation-systems",
+          title: 'Recommendation Systems',
+          description: "CSCI-SHU 381, Section 001.",
           section: "Teachings",handler: () => {
-              window.location.href = "/teachings/introduction-to-machine-learning/";
+              window.location.href = "/teachings/recommendation-systems/";
             },},{
         id: 'social-email',
         title: 'email',
