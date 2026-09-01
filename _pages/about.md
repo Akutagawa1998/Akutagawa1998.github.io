@@ -26,17 +26,11 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
-I am a CS PhD student @ <a href="https://cims.nyu.edu/dynamic/">NYU Courant</a> 
-            <!-- (<a href="https://shanghai.nyu.edu/page/computer-science-phd-program">SH</a>),  -->
-            advised by <a href="https://engineering.nyu.edu/faculty/hongyi-wen">Prof. Hongyi Wen</a>. My primary research interest lies in the AI for Education (e.g. Personalized Education System, AI tutor, etc.). I am also interested in AI-based Accessible Design for Neurodiversity (e.g. ADHD, ASD, etc.).
+I am a CS PhD student @ <a href="https://cims.nyu.edu/dynamic/">NYU Courant</a>, advised by <a href="https://engineering.nyu.edu/faculty/hongyi-wen">Prof. Hongyi Wen</a>.
 
-I dedicate two hours each week to help neurodiverse individuals with learning and education challenges. 
-            Please briefly describe your experience, status and the difficulties you are facing, plus your preferred method of communication 
-            (via email, WeChat, Zoom meeting, etc.) in your email, and send it to my personal email: 
-            <a href="mailto:7nutnut@gmail.com">[6+1]nutnut[at]gmail[dot]com</a>. 
-            I will respond within 2-3 days upon receiving your message. My consultations are free. 
-            If you wish to donate, you can directly contribute to the <a href="https://en.cctf.org.cn/">Spring Bud Project</a>, 
-            which supports the education of underprivileged girls.
+My primary research interest lies in Human–AI Collaboration, which I like to organize through the lens of a recommender system: if a generative model and its harness form a system that produces personalized content, I work on its retrieval stage (agent memory, context construction), its ranking and re-ranking stage (from single-turn preference to long-horizon interaction policy), the multimodal signals that supervise it (explicit preference, and implicit ones — dialogue content, human attention and action), and the feedback loop that closes those signals back into the system (self-improving, online adaptation).
+
+I currently study these in learning and educational settings, where the loop is optimized not only for engagement but for human after-interaction improvement.
 
 <!-- Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
 

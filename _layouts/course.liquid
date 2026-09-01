@@ -2,8 +2,16 @@
 layout: page
 ---
 <div class="course">
-  {% if page.instructor or page.term or page.location or page.time %}
+  {% if page.course_code or page.section or page.instructor or page.term or page.location or page.time %}
     <div class="course-info">
+      {% if page.course_code %}
+        <p><strong>Course:</strong> {{ page.course_code }}</p>
+      {% endif %}
+
+      {% if page.section %}
+        <p><strong>Section:</strong> {{ page.section }}</p>
+      {% endif %}
+
       {% if page.instructor %}
         <p><strong>Instructor:</strong> {{ page.instructor }}</p>
       {% endif %}
