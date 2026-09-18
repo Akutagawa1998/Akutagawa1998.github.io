@@ -432,7 +432,12 @@ ninja.data = [{
           section: "News",},{id: "news-my-first-work-shape-in-phd-study-is-selected-for-an-oral-presentation-at-acl-2026-in-oral-session-c-nlp-applications-2-on-july-5-2026-see-you-in-san-diego",
           title: 'My first work, SHaPE, in PhD study is selected for an Oral presentation...',
           description: "",
-          section: "News",},{id: "projects-书僮-scholars-39-attendant",
+          section: "News",},{id: "projects-八哥-ba-ge",
+          title: '八哥 / Ba-Ge',
+          description: "A macOS menu bar assistant for English–Chinese lookup, formula pronunciation, and vocabulary tracking, with local dictionaries and AI fallback.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/ba_ge/";
+            },},{id: "projects-书僮-scholars-39-attendant",
           title: '书僮 / Scholars&amp;#39; Attendant',
           description: "Your research &amp; scientific reading assistant. Automatically detects paper URLs, extracts metadata, and provides a full analysis pipeline.",
           section: "Projects",handler: () => {
