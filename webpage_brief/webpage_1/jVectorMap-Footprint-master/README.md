@@ -16,7 +16,6 @@ JVectorMap 官方网站提供了很多相关文档和使用示例，感兴趣的
 
 今天教大家通过 jVectorMap 制作旅行足迹地图，最终的效果可以查看下面的 Demo 演示（中国），并教大家如何将制作好的足迹地图嵌入到我们自己的博客中。
 
-
 ## 目录结构
 
 ![](http://wx1.sinaimg.cn/large/cf5b72a1ly1fvv432zeqzj20b806gaaa.jpg)
@@ -29,40 +28,38 @@ JVectorMap 官方网站提供了很多相关文档和使用示例，感兴趣的
 
 ## 开始
 
- `index.html` 分为三部分介绍：
- 
- - 如何更换不同国家地图。
- 
- 
- - 如何修改地图颜色等相关样式。
- 
- 
- - 如何添加足迹位置。
- 
+`index.html` 分为三部分介绍：
+
+- 如何更换不同国家地图。
+
+- 如何修改地图颜色等相关样式。
+
+- 如何添加足迹位置。
+
 ## 第一部分：如何更换不同国家地图。
- 
+
 ```html
 <html>
-	<head>
-		<!--引入jQuery框架-->
-		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
-		<!--引入jVectorMap库-->
-		<script type="text/javascript" src="js/jquery-jvectormap-1.2.2.min.js"></script>
-		<!--引入样式表-->
-		<link href="js/jquery-jvectormap-1.2.2.css" rel="stylesheet" media="screen">
+  <head>
+    <!--引入jQuery框架-->
+    <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+    <!--引入jVectorMap库-->
+    <script type="text/javascript" src="js/jquery-jvectormap-1.2.2.min.js"></script>
+    <!--引入样式表-->
+    <link href="js/jquery-jvectormap-1.2.2.css" rel="stylesheet" media="screen" />
 
+    <!--引入中国地图数据库-->
+    <script type="text/javascript" src="js/jquery-jvectormap-cn-merc-en.js"></script>
 
-		<!--引入中国地图数据库-->
-		<script type="text/javascript" src="js/jquery-jvectormap-cn-merc-en.js"></script>
-
-		<!--引入美国地图数据库-->
-		<!--script type="text/javascript" src="js/jquery-jvectormap-us-aea.js"></script-->
-		<!--引入世界地图数据库-->
-		<!--script type="text/javascript" src="js/jquery-jvectormap-world-mill.js"></script-->
-
-	</head>
-<body>
+    <!--引入美国地图数据库-->
+    <!--script type="text/javascript" src="js/jquery-jvectormap-us-aea.js"></script-->
+    <!--引入世界地图数据库-->
+    <!--script type="text/javascript" src="js/jquery-jvectormap-world-mill.js"></script-->
+  </head>
+  <body></body>
+</html>
 ```
+
 提前下载需要的国家地图，拷贝到 js 目录下。
 
 在 `<head>` 标签里引入地图数据： `<script type="text/javascript" src="js/地图文件名"></script>`
@@ -70,7 +67,6 @@ JVectorMap 官方网站提供了很多相关文档和使用示例，感兴趣的
 **注意** ：同时只能有一个地图库，注意不要引入多个地图数据。可以选择注释掉其他的，方便更改。
 
 ## 第二部分：如何修改地图颜色等相关样式。
-
 
 ```html
 	<!--background-color: 地图背景颜色-->
@@ -125,9 +121,10 @@ JVectorMap 官方网站提供了很多相关文档和使用示例，感兴趣的
 </html>
 
 ```
+
 参照代码注释修改颜色和相关样式。
 
-**千万注意** ：在更改地图时 `map: '地图名称'`  ，地图名称是地图数据文件名的后半部分。
+**千万注意** ：在更改地图时 `map: '地图名称'` ，地图名称是地图数据文件名的后半部分。
 
 例如：
 
@@ -140,17 +137,9 @@ JVectorMap 官方网站提供了很多相关文档和使用示例，感兴趣的
 ## 第三部分：如何添加足迹位置。
 
 ```html
-	markers: [ // 足迹位置
-
-		// {latLng: [经度（保留两位小数）, 纬度（保留两位小数）], name: '城市名称'},
-		// 推荐查询经纬度网站：http://www.gpsspg.com/maps.htm
-
-		{latLng: [39.90, 116.41], name: '北京'},
-		{latLng: [31.24, 121.50], name: '上海'},
-
-		{latLng: [46.06, 122.06], name: '内蒙古 - 乌兰浩特'}
-	]
-
+markers: [ // 足迹位置 // {latLng: [经度（保留两位小数）, 纬度（保留两位小数）], name: '城市名称'}, //
+推荐查询经纬度网站：http://www.gpsspg.com/maps.htm {latLng: [39.90, 116.41], name: '北京'}, {latLng: [31.24, 121.50], name: '上海'}, {latLng: [46.06,
+122.06], name: '内蒙古 - 乌兰浩特'} ]
 ```
 
 推荐查询经纬度网站：http://www.gpsspg.com/maps.htm
@@ -160,17 +149,10 @@ JVectorMap 官方网站提供了很多相关文档和使用示例，感兴趣的
 ## 如何嵌入式到博客中
 
 ```html
-<iframe style="max-width: 100%" 
-      frameborder="no" 
-      border="0" 
-      marginwidth="0" 
-      marginheight="0" 
-      width="100%" 
-      height="750px" 
-      src="替换成你的足迹地图链接">                                        
+<iframe style="max-width: 100%" frameborder="no" border="0" marginwidth="0" marginheight="0" width="100%" height="750px" src="替换成你的足迹地图链接">
 </iframe>
-
 ```
+
 把制作好的足迹地图文件放在服务器上，把访问连接放在 `src` 中。
 
 然后将上面的代码复制到你的博客页面上即可。
@@ -196,6 +178,3 @@ git clone https://github.com/HelloWuJiaYi/jVectorMap-Footprint
 我的微信公众号：
 
 `吴佳轶同学`
-
-
-

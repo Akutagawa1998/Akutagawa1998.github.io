@@ -191,7 +191,9 @@
     <div class="periodical">
       {{ periodical | strip }}
       {% if entry.venue_note %}
-        <span>[<strong>{{ entry.venue_note | strip }}</strong>]</span>
+        <span
+          >[<strong>{{ entry.venue_note | strip }}</strong>]</span
+        >
       {% endif %}
     </div>
     {% if entry.note %}
