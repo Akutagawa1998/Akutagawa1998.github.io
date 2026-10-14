@@ -213,15 +213,18 @@ console.table(KIWIMASCOT_STATES.map(state => ({
 ## 自己做一个逐帧检查器
 
 ```tsx
+import { KiwiMascot, KIWI_FRAME_ANIMATIONS, kiwiSceneDrawings } from './components/KiwiMascot';
+
 const state = 'thinking';
 const sequence = KIWI_FRAME_ANIMATIONS[state];
+const drawings = kiwiSceneDrawings(state);
 const [index, setIndex] = useState(0);
 
-<KiwiMascot state={state} variant={sequence.variant} frame={index} size={192} />
+<KiwiMascot state={state} variant={sequence.variant} frame={drawings[index]} size={192} />
 <input
   type="range"
   min={0}
-  max={sequence.frameCount - 1}
+  max={drawings.length - 1}
   step={1}
   value={index}
   aria-label="选择动画帧"
@@ -229,7 +232,7 @@ const [index, setIndex] = useState(0);
 />
 ```
 
-用户看到的“第 1 帧”对应代码 `frame={0}`。切换状态时把手动帧号重置到 0；不同动作不要共用假设的帧数。取消手动检查时不传 `frame`。需要从头重播时改变 React `key`，不要通过重载整页解决。
+预览中的帧号从 0 起算，按场景实际播放顺序排列，并省略连续重复的停留。使用 `kiwiSceneDrawings(state)[index]` 获取对应的图集格号；`frame` 属性仍然接收图集格号。Peek out 的第 0 帧是图集 0（半头），Tuck away 的第 0 帧是图集 23（完整探头），后者精确倒放前者。切换动作时把预览步号重置到 0。取消手动检查时不传 `frame`。需要从头重播时改变 React `key`，不要通过重载整页解决。
 
 ## 请求生命周期、流式输出与中断
 
@@ -322,3 +325,11 @@ v3 已完成源码与素材技术核验：最终全套测试 80 文件 / 754 项
 图像来源、整理方法、实际画帧数、复用关系、观察结果和限制应写入 v3 交付记录；不要把旧测试、新代码构建成功或目标 fps 当成美术质量验证。参考图与历史证据不覆盖。推送/发布仍等待用户批准。
 
 独立预览不发起模型调用、上传课程材料或引入遥测；帧素材为本地文件。运行时的生产聊天网络请求仍属于宿主应用。
+
+## 2026-10-14：探头起始姿态与圆形展示
+
+收起聊天后的静止按钮使用 `stamp-peek` 的第 0 格（墙边半头），不再显示 P2 应用图标；应用标识本身保持不变。动作卡片和 Peek/Tuck 静态 PNG 使用对应动作的起始姿态。
+
+`KiwiMascot` 新增 `framing="circle"`，适合带圆底的头像。每张图集统一计算一次固定大小和偏移，覆盖全部 24 个画帧并保留圆周留白；播放中不逐帧重定位，跳跃的原始竖直变化也保留。默认 `framing="source"` 使用原始方形画布。此改动只调整展示布局，不改写素材像素。
+
+主预览、顶部头像和深色样例使用圆形适配。点击 **Source canvas & guides** 可查看原始画布；并排比较始终使用原始画布。`artifacts/kiwi-framing-2026-10-14/verify-circle-fit.py` 校验所有非透明像素的四角均在圆内。

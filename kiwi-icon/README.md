@@ -117,6 +117,7 @@ Reserve a stable avatar box; 24/32/48/96px examples are in the preview. `portrai
 | `variant` | `portrait \| full \| icon` / `portrait` | Composition request |
 | `size` | number / 48 | Width and height in CSS pixels |
 | `frame` | number / omitted | Zero-based integer atlas cell; disables automatic playback and clamps to the available range |
+| `framing` | `source \| circle` / `source` | Original square canvas, or fixed atlas-wide fit inside a circular surface |
 | `motion` | `auto \| reduced \| paused` / `auto` | System preference, stable pose, or frozen playback |
 | `decorative` | boolean / true | Hide redundant artwork from the accessibility tree |
 | `label` | string / `Kiwi` | Accessible name when non-decorative |
@@ -149,7 +150,7 @@ The current loading story has 244 time slots at 24Hz, about 10.167 seconds. Walk
 | `disabled` | false | Native disabled behavior |
 | `className`, `style` | omitted | Host placement |
 
-Hover or focus reveals a short-neck peek. Leaving while unfocused reverses from the drawing actually on screen; re-entering continues from the current drawing. Clicking starts the new small-hop `pop` and activates the host immediately. The host owns panel focus, Escape dismissal, `aria-expanded`/`aria-controls` where applicable, and returning focus when chat closes.
+The resting stamp is the small partial head from `stamp-peek` cell 0 on a sage tile. The P2 logo remains the app identity. Hover or focus reveals a short-neck peek. Leaving while unfocused reverses from the drawing actually on screen; re-entering continues from the current drawing. Clicking starts the new small-hop `pop` and activates the host immediately. The host owns panel focus, Escape dismissal, `aria-expanded`/`aria-controls` where applicable, and returning focus when chat closes.
 
 This is a **DOM collapsed-chat button**. Native macOS Dock, Windows tray, or restoration of a minimized desktop window requires a desktop host such as Electron/Tauri. A hidden webpage cannot receive hover events through its OS icon.
 
@@ -194,7 +195,11 @@ console.table(KIWIMASCOT_STATES.map(state => ({
 
 ## Fixed-camera inspection and source registration
 
-**Inspect frames** pauses at a real atlas cell. Use the slider, previous/next buttons, or thumbnails. **Camera guides** adds fixed bounds, a centerline, and a Y=232/256 reference. **Compare frames** shows separate opaque drawings in equal-sized cameras; **Pin current frame** keeps the reference fixed. There is no crossframe dissolve or runtime bounding-box recentering. Replay exits comparison and restores the actual scene order.
+**Inspect frames** follows drawing changes in playback order, numbered from **0**. Consecutive held copies are omitted; returning through earlier drawings is retained. `kiwiSceneDrawings(state)` maps each displayed step to its actual atlas cell. Peek frame 0 is partial head (cell 0); Tuck away frame 0 is full head (cell 23), and its sequence is the exact reverse. Action cards and these two exported pose icons show the corresponding starting poses. The public `frame` prop continues to mean an atlas cell, not a scene step.
+
+The main preview, hero portrait, and dark avatar use `framing="circle"`. A single size and offset is computed from the union of **all 24 drawings in each atlas**, leaving a radial safety margin inside the circle. The fit stays identical throughout playback, including airborne poses, so animation is still driven only by the drawn cells. No per-frame recentering or animated geometric transforms are applied. The source images and pixel registration remain unchanged. Use this prop instead of painting a circle behind an unfitted square frame.
+
+**Source canvas & guides** switches the main view to its original square canvas with fixed bounds, a centerline, and a Y=232/256 reference. **Compare frames** always uses original source canvases at equal size; **Pin current frame** keeps the reference fixed. Replay exits comparison and restores the action timeline. The full repository includes `artifacts/kiwi-framing-2026-10-14/verify-circle-fit.py` to verify all nontransparent pixel corners fit inside the circular presentation.
 
 Original source PNGs remain unchanged in the full repository. `registration.json` records source hashes, `isolationRect`, integer `targetPaste`, and measured anchors. Packing crops an isolated source rectangle and places unchanged pixels at scale 1:1 on a transparent 256px camera. It does not resize, rotate, recolor, synthesize, or interpolate the artwork.
 

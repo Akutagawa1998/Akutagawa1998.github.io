@@ -42,8 +42,8 @@ Mascot PNGs are static, full registered atlas cells. Cropping preserves the sour
 | curious | portrait-turn | 17 |
 | heart | full-wave-bow | 15 |
 | notification | portrait-turn | 12 |
-| peek | stamp-peek | 23 |
-| retract | stamp-peek | 5 |
+| peek | stamp-peek | 0 |
+| retract | stamp-peek | 23 |
 | pop | full-hop-flight | 10 |
 
 ## Rebuild and verify
