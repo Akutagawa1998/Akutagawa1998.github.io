@@ -437,6 +437,11 @@ ninja.data = [{
           description: "A macOS menu bar assistant for English–Chinese lookup, formula pronunciation, and vocabulary tracking, with local dictionaries and AI fallback.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/ba_ge/";
+            },},{id: "projects-kiwi-icon",
+          title: 'kiwi-icon',
+          description: "A small bird for thoughtful interfaces. Explore the Kiwi icon library, frame-by-frame motion, and ready-to-use assets.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/kiwi-icon/";
             },},{id: "projects-书僮-scholars-39-attendant",
           title: '书僮 / Scholars&amp;#39; Attendant',
           description: "Your research &amp; scientific reading assistant. Automatically detects paper URLs, extracts metadata, and provides a full analysis pipeline.",
