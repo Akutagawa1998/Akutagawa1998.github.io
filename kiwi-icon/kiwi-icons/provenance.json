@@ -279,6 +279,22 @@
       "id": "mascot-peek",
       "state": "peek",
       "atlas": "stamp-peek",
+      "frame": 0,
+      "source": "public/kiwi-mascot/frames-v3/stamp-peek.png",
+      "sourceSHA256": "8f090cfcd357d6db97f5d43dd1e023190867185ea82879be954d4837237bab2b",
+      "cropRect": [
+        0,
+        0,
+        256,
+        256
+      ],
+      "output": "public/kiwi-icons/mascot/kiwi-peek.png",
+      "outputSHA256": "9347355c3f4baf0deb287cdc44423c1b80660cc346de10c58ebaad07cbb5e42e"
+    },
+    {
+      "id": "mascot-retract",
+      "state": "retract",
+      "atlas": "stamp-peek",
       "frame": 23,
       "source": "public/kiwi-mascot/frames-v3/stamp-peek.png",
       "sourceSHA256": "8f090cfcd357d6db97f5d43dd1e023190867185ea82879be954d4837237bab2b",
@@ -288,24 +304,8 @@
         1536,
         1024
       ],
-      "output": "public/kiwi-icons/mascot/kiwi-peek.png",
-      "outputSHA256": "a3f5aa5594ff488c6ca85ae24e6d5733f1c89a35b2747be3bbb0bc60d06b32dd"
-    },
-    {
-      "id": "mascot-retract",
-      "state": "retract",
-      "atlas": "stamp-peek",
-      "frame": 5,
-      "source": "public/kiwi-mascot/frames-v3/stamp-peek.png",
-      "sourceSHA256": "8f090cfcd357d6db97f5d43dd1e023190867185ea82879be954d4837237bab2b",
-      "cropRect": [
-        1280,
-        0,
-        1536,
-        256
-      ],
       "output": "public/kiwi-icons/mascot/kiwi-retract.png",
-      "outputSHA256": "01a36178c3971ec9f9cb36dccf0aabe395b99bc563df738f0785bc16612e68b9"
+      "outputSHA256": "a3f5aa5594ff488c6ca85ae24e6d5733f1c89a35b2747be3bbb0bc60d06b32dd"
     },
     {
       "id": "mascot-pop",

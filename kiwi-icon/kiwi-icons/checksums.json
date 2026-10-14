@@ -5,7 +5,7 @@
     {
       "path": "README.md",
       "bytes": 4680,
-      "sha256": "4db6f616a780e72b71c6aad0dc2ffd7a481043c1400cc3a334f1e0e541e8ca0b"
+      "sha256": "7c9a9846f0456cf7c1bfea2d3f752be1970cd912274cd223e4395f86da03d7bc"
     },
     {
       "path": "brand/kiwi-icon.svg",
@@ -194,8 +194,8 @@
     },
     {
       "path": "mascot/kiwi-peek.png",
-      "bytes": 19800,
-      "sha256": "a3f5aa5594ff488c6ca85ae24e6d5733f1c89a35b2747be3bbb0bc60d06b32dd"
+      "bytes": 16528,
+      "sha256": "9347355c3f4baf0deb287cdc44423c1b80660cc346de10c58ebaad07cbb5e42e"
     },
     {
       "path": "mascot/kiwi-pop.png",
@@ -204,8 +204,8 @@
     },
     {
       "path": "mascot/kiwi-retract.png",
-      "bytes": 20421,
-      "sha256": "01a36178c3971ec9f9cb36dccf0aabe395b99bc563df738f0785bc16612e68b9"
+      "bytes": 19800,
+      "sha256": "a3f5aa5594ff488c6ca85ae24e6d5733f1c89a35b2747be3bbb0bc60d06b32dd"
     },
     {
       "path": "mascot/kiwi-sleep.png",
@@ -239,8 +239,8 @@
     },
     {
       "path": "provenance.json",
-      "bytes": 10384,
-      "sha256": "86c8fda4d06d2631cea930ad6ff1b8da0cbcf4611c6faf74a2a98ff7d884b85d"
+      "bytes": 10380,
+      "sha256": "315fc0bbdc685d623eb3b71b45947565d4af809061486ffc31548b8ef17fe381"
     }
   ]
 }
