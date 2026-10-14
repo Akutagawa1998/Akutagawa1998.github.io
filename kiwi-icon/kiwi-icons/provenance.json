@@ -1,0 +1,327 @@
+{
+  "version": 1,
+  "generator": "scripts/export-kiwi-icons.mjs",
+  "featureData": "src/components/KiwiIcons/iconData.mjs",
+  "brand": [
+    {
+      "id": "brand-icon",
+      "source": "public/kiwi-mascot/kiwi-icon.svg",
+      "output": "public/kiwi-icons/brand/kiwi-icon.svg",
+      "sourceSHA256": "7ea848f9b1618b24d2d5a70af319f96661698e47a87e3c02c199840acf497f51",
+      "outputSHA256": "7ea848f9b1618b24d2d5a70af319f96661698e47a87e3c02c199840acf497f51"
+    },
+    {
+      "id": "brand-portrait",
+      "source": "public/kiwi-mascot/kiwi-portrait.svg",
+      "output": "public/kiwi-icons/brand/kiwi-portrait.svg",
+      "sourceSHA256": "d56aa70dd071ae8d4a6a4714e28d697960fb40bc81f15df528f9531991e01280",
+      "outputSHA256": "d56aa70dd071ae8d4a6a4714e28d697960fb40bc81f15df528f9531991e01280"
+    }
+  ],
+  "mascot": [
+    {
+      "id": "mascot-idle",
+      "state": "idle",
+      "atlas": "portrait-blink",
+      "frame": 0,
+      "source": "public/kiwi-mascot/frames-v3/portrait-blink.png",
+      "sourceSHA256": "8fd109f119ef63d9d468aa4a83b6165e307acd0efbdc7aa84b37efd765694853",
+      "cropRect": [
+        0,
+        0,
+        256,
+        256
+      ],
+      "output": "public/kiwi-icons/mascot/kiwi-idle.png",
+      "outputSHA256": "b73de2d8ff1caae2b6ff86e5c8f5495364c87c7ad92ee02b64694a0da57ca116"
+    },
+    {
+      "id": "mascot-thinking",
+      "state": "thinking",
+      "atlas": "portrait-turn",
+      "frame": 23,
+      "source": "public/kiwi-mascot/frames-v3/portrait-turn.png",
+      "sourceSHA256": "898f53e9625536e50c1283d015666df1dc072ae370b1f5a508dea95c11b96ed0",
+      "cropRect": [
+        1280,
+        768,
+        1536,
+        1024
+      ],
+      "output": "public/kiwi-icons/mascot/kiwi-thinking.png",
+      "outputSHA256": "52d6f0ae4f61cffea630c71274f789891044ed64595725e745a34c5a5b1302b9"
+    },
+    {
+      "id": "mascot-listening",
+      "state": "listening",
+      "atlas": "portrait-turn",
+      "frame": 18,
+      "source": "public/kiwi-mascot/frames-v3/portrait-turn.png",
+      "sourceSHA256": "898f53e9625536e50c1283d015666df1dc072ae370b1f5a508dea95c11b96ed0",
+      "cropRect": [
+        0,
+        768,
+        256,
+        1024
+      ],
+      "output": "public/kiwi-icons/mascot/kiwi-listening.png",
+      "outputSHA256": "7e8a797f9c5ca5281f7296470b17ac8984cd320b48c9dfd6d2dc857178d7640f"
+    },
+    {
+      "id": "mascot-speaking",
+      "state": "speaking",
+      "atlas": "portrait-nod-sleep",
+      "frame": 4,
+      "source": "public/kiwi-mascot/frames-v3/portrait-nod-sleep.png",
+      "sourceSHA256": "4fc57c40ceb200cb917dafa34c1503ae764eb69cd8d96269625d279d91b85041",
+      "cropRect": [
+        1024,
+        0,
+        1280,
+        256
+      ],
+      "output": "public/kiwi-icons/mascot/kiwi-speaking.png",
+      "outputSHA256": "3fef0057ddf262e1cc6b291b7d3603ee99257c3561ff5b69ff3b140948013c1b"
+    },
+    {
+      "id": "mascot-walk",
+      "state": "walk",
+      "atlas": "full-walk",
+      "frame": 6,
+      "source": "public/kiwi-mascot/frames-v3/full-walk.png",
+      "sourceSHA256": "4da6fc33d2293cd193f677bf71625fc061aac8d41cf5d1d022f559e3768f79e6",
+      "cropRect": [
+        0,
+        256,
+        256,
+        512
+      ],
+      "output": "public/kiwi-icons/mascot/kiwi-walk.png",
+      "outputSHA256": "94be5b395f1d51fd98e2de3b2acc1d99f38e523a7ac843e4f5bf3e1dfc28e712"
+    },
+    {
+      "id": "mascot-hop",
+      "state": "hop",
+      "atlas": "full-hop-flight",
+      "frame": 7,
+      "source": "public/kiwi-mascot/frames-v3/full-hop-flight.png",
+      "sourceSHA256": "94bcff6aac74d1b0826b0aea8e5cf271a41c11425ba91e48e4fe376dab073373",
+      "cropRect": [
+        256,
+        256,
+        512,
+        512
+      ],
+      "output": "public/kiwi-icons/mascot/kiwi-hop.png",
+      "outputSHA256": "e5ad56deb3ef4853472ef26cd78848a2cdfece3d7caeb434a671cc3cb4be6642"
+    },
+    {
+      "id": "mascot-fly",
+      "state": "fly",
+      "atlas": "full-hop-flight",
+      "frame": 13,
+      "source": "public/kiwi-mascot/frames-v3/full-hop-flight.png",
+      "sourceSHA256": "94bcff6aac74d1b0826b0aea8e5cf271a41c11425ba91e48e4fe376dab073373",
+      "cropRect": [
+        256,
+        512,
+        512,
+        768
+      ],
+      "output": "public/kiwi-icons/mascot/kiwi-fly.png",
+      "outputSHA256": "4cedb0175801eb3c4ac9eb74fe23c90616b925d7982a1c7f54ed73648b79cea6"
+    },
+    {
+      "id": "mascot-success",
+      "state": "success",
+      "atlas": "full-hop-flight",
+      "frame": 16,
+      "source": "public/kiwi-mascot/frames-v3/full-hop-flight.png",
+      "sourceSHA256": "94bcff6aac74d1b0826b0aea8e5cf271a41c11425ba91e48e4fe376dab073373",
+      "cropRect": [
+        1024,
+        512,
+        1280,
+        768
+      ],
+      "output": "public/kiwi-icons/mascot/kiwi-success.png",
+      "outputSHA256": "28428167180d1275ab05765528f979d3f867de64a66a7dc3c9681d58085f0791"
+    },
+    {
+      "id": "mascot-error",
+      "state": "error",
+      "atlas": "portrait-nod-sleep",
+      "frame": 8,
+      "source": "public/kiwi-mascot/frames-v3/portrait-nod-sleep.png",
+      "sourceSHA256": "4fc57c40ceb200cb917dafa34c1503ae764eb69cd8d96269625d279d91b85041",
+      "cropRect": [
+        512,
+        256,
+        768,
+        512
+      ],
+      "output": "public/kiwi-icons/mascot/kiwi-error.png",
+      "outputSHA256": "d6a4e9f53b71f05e054f9f164189c3e6d39113d39efb3f98cfe2688593cf59ee"
+    },
+    {
+      "id": "mascot-offline",
+      "state": "offline",
+      "atlas": "portrait-doze",
+      "frame": 23,
+      "source": "public/kiwi-mascot/frames-v3/portrait-doze.png",
+      "sourceSHA256": "abc3b94de7378d794ac838ff70c3be1e76fc17cf3d2f3fba39103a5b85bc4d48",
+      "cropRect": [
+        1280,
+        768,
+        1536,
+        1024
+      ],
+      "output": "public/kiwi-icons/mascot/kiwi-offline.png",
+      "outputSHA256": "86aad7e094b817006dcfe29e644201bbd974976d562500ae528e96ebc59e71d5"
+    },
+    {
+      "id": "mascot-sleep",
+      "state": "sleep",
+      "atlas": "portrait-doze",
+      "frame": 18,
+      "source": "public/kiwi-mascot/frames-v3/portrait-doze.png",
+      "sourceSHA256": "abc3b94de7378d794ac838ff70c3be1e76fc17cf3d2f3fba39103a5b85bc4d48",
+      "cropRect": [
+        0,
+        768,
+        256,
+        1024
+      ],
+      "output": "public/kiwi-icons/mascot/kiwi-sleep.png",
+      "outputSHA256": "86b5f668bcbec8a80a16d7903d28b1c27c574b7568f6ef70c7db8660e1a770dc"
+    },
+    {
+      "id": "mascot-wave",
+      "state": "wave",
+      "atlas": "full-wave-bow",
+      "frame": 7,
+      "source": "public/kiwi-mascot/frames-v3/full-wave-bow.png",
+      "sourceSHA256": "0f39cf4734b52154c53a3e3ec46aba3eed023bc35735432b22c22796f5a79b13",
+      "cropRect": [
+        256,
+        256,
+        512,
+        512
+      ],
+      "output": "public/kiwi-icons/mascot/kiwi-wave.png",
+      "outputSHA256": "412bf9f63b6d0756639c932135a9899efc0f75fc85df14a797fb3af478286d14"
+    },
+    {
+      "id": "mascot-bow",
+      "state": "bow",
+      "atlas": "full-wave-bow",
+      "frame": 17,
+      "source": "public/kiwi-mascot/frames-v3/full-wave-bow.png",
+      "sourceSHA256": "0f39cf4734b52154c53a3e3ec46aba3eed023bc35735432b22c22796f5a79b13",
+      "cropRect": [
+        1280,
+        512,
+        1536,
+        768
+      ],
+      "output": "public/kiwi-icons/mascot/kiwi-bow.png",
+      "outputSHA256": "8506ee1f7227c924d08fad505c4afdbde5ff05767f712aced356d26f95c367d8"
+    },
+    {
+      "id": "mascot-curious",
+      "state": "curious",
+      "atlas": "portrait-turn",
+      "frame": 17,
+      "source": "public/kiwi-mascot/frames-v3/portrait-turn.png",
+      "sourceSHA256": "898f53e9625536e50c1283d015666df1dc072ae370b1f5a508dea95c11b96ed0",
+      "cropRect": [
+        1280,
+        512,
+        1536,
+        768
+      ],
+      "output": "public/kiwi-icons/mascot/kiwi-curious.png",
+      "outputSHA256": "577dff26b1922de8fcc8f459e50089720ccf1abfb0bf2dffea426a519a59217e"
+    },
+    {
+      "id": "mascot-heart",
+      "state": "heart",
+      "atlas": "full-wave-bow",
+      "frame": 15,
+      "source": "public/kiwi-mascot/frames-v3/full-wave-bow.png",
+      "sourceSHA256": "0f39cf4734b52154c53a3e3ec46aba3eed023bc35735432b22c22796f5a79b13",
+      "cropRect": [
+        768,
+        512,
+        1024,
+        768
+      ],
+      "output": "public/kiwi-icons/mascot/kiwi-heart.png",
+      "outputSHA256": "0731a387ed06e6c4eeeb86383c9ce020699f3a00890e4a65d00d15b1c4a70b6a"
+    },
+    {
+      "id": "mascot-notification",
+      "state": "notification",
+      "atlas": "portrait-turn",
+      "frame": 12,
+      "source": "public/kiwi-mascot/frames-v3/portrait-turn.png",
+      "sourceSHA256": "898f53e9625536e50c1283d015666df1dc072ae370b1f5a508dea95c11b96ed0",
+      "cropRect": [
+        0,
+        512,
+        256,
+        768
+      ],
+      "output": "public/kiwi-icons/mascot/kiwi-notification.png",
+      "outputSHA256": "4af2edb2e26421def44102f7a4fb968db8144ab49c9cf86ea93af9fd2926a504"
+    },
+    {
+      "id": "mascot-peek",
+      "state": "peek",
+      "atlas": "stamp-peek",
+      "frame": 23,
+      "source": "public/kiwi-mascot/frames-v3/stamp-peek.png",
+      "sourceSHA256": "8f090cfcd357d6db97f5d43dd1e023190867185ea82879be954d4837237bab2b",
+      "cropRect": [
+        1280,
+        768,
+        1536,
+        1024
+      ],
+      "output": "public/kiwi-icons/mascot/kiwi-peek.png",
+      "outputSHA256": "a3f5aa5594ff488c6ca85ae24e6d5733f1c89a35b2747be3bbb0bc60d06b32dd"
+    },
+    {
+      "id": "mascot-retract",
+      "state": "retract",
+      "atlas": "stamp-peek",
+      "frame": 5,
+      "source": "public/kiwi-mascot/frames-v3/stamp-peek.png",
+      "sourceSHA256": "8f090cfcd357d6db97f5d43dd1e023190867185ea82879be954d4837237bab2b",
+      "cropRect": [
+        1280,
+        0,
+        1536,
+        256
+      ],
+      "output": "public/kiwi-icons/mascot/kiwi-retract.png",
+      "outputSHA256": "01a36178c3971ec9f9cb36dccf0aabe395b99bc563df738f0785bc16612e68b9"
+    },
+    {
+      "id": "mascot-pop",
+      "state": "pop",
+      "atlas": "full-hop-flight",
+      "frame": 10,
+      "source": "public/kiwi-mascot/frames-v3/full-hop-flight.png",
+      "sourceSHA256": "94bcff6aac74d1b0826b0aea8e5cf271a41c11425ba91e48e4fe376dab073373",
+      "cropRect": [
+        1024,
+        256,
+        1280,
+        512
+      ],
+      "output": "public/kiwi-icons/mascot/kiwi-pop.png",
+      "outputSHA256": "de0706573fdd0c01ec9540478367cfda9a2618fd9dc773f2778577e2c208d283"
+    }
+  ]
+}
