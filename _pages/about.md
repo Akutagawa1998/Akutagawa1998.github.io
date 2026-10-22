@@ -32,6 +32,8 @@ My primary research interest lies in Human–AI Collaboration, which I like to o
 
 I currently study these in learning and educational settings, where the loop is optimized not only for engagement but for human after-interaction improvement.
 
+Along these lines, I helped build <a href="https://kiwiai.org">Kiwi</a>, an open-source learning platform, and designed and developed its next generation, <strong>Kiwi Code</strong> — on its way to open source, so stay tuned!
+
 <!-- Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
 
 Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them. -->

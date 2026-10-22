@@ -4,8 +4,8 @@ title: projects
 permalink: /projects/
 description: These projects aren't (strictly) related to my research, but you might find them interesting!
 nav: true
-nav_order: 3
-display_categories: [work, design]
+nav_order: 4
+display_categories: [work]
 horizontal: false
 ---
 

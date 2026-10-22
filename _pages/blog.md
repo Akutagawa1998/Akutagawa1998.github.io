@@ -2,8 +2,8 @@
 layout: default
 permalink: /blog/
 title: blog
-nav: false # temporarily hide from top navbar
-nav_order: 1
+nav: true
+nav_order: 3
 pagination:
   enabled: true
   collection: posts
@@ -188,6 +188,11 @@ pagination:
     {% endfor %}
 
   </ul>
+
+{% if site.posts.size == 0 %}
+
+  <p class="post-list-empty">No posts yet. The first one is on its way.</p>
+  {% endif %}
 
 {% if page.pagination.enabled %}
 {% include pagination.liquid %}

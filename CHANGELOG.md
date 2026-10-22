@@ -1,3 +1,20 @@
+## [1.2.0] - 2026-10-22
+
+### Features
+
+- About: added a line on Kiwi (kiwiai.org) and Kiwi Code.
+- Projects: replaced the kiwi-icon design card with a Kiwi / kiwiai.org card and a new pixel-art thumbnail (`assets/img/kiwi_card.png`); dropped the now-empty `design` category.
+- Blog: shown in the navbar right after publications, with an empty state; cleared the template tag/category bar.
+
+### Design Rationale
+
+- The Kiwi thumbnail is generated from the official mascot SVG (pixelated by per-block coverage) so it stays on-brand while matching the night-scene pixel style of the other project cards.
+
+### Notes & Caveats
+
+- The blog lists al-folio's demo posts until they are removed (see the cleanup step); the empty state appears once `_posts/` has no posts.
+- `/kiwi-icon/` is still published but no longer linked from the projects page.
+
 ## [1.1.0] - 2026-10-22
 
 ### Features
