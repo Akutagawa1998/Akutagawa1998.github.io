@@ -3,7 +3,7 @@
 ### Features
 
 - About: added a line on Kiwi (kiwiai.org) and Kiwi Code.
-- Projects: replaced the kiwi-icon design card with a Kiwi / kiwiai.org card and a new pixel-art thumbnail (`assets/img/kiwi_card.png`); dropped the now-empty `design` category.
+- Projects: replaced the kiwi-icon design card with a 几维 / Kiwi card linking to kiwiai.org and a new pixel-art thumbnail (`assets/img/kiwi_card.png`); dropped the now-empty `design` category.
 - Blog: shown in the navbar right after publications, with an empty state; cleared the template tag/category bar.
 
 ### Design Rationale
