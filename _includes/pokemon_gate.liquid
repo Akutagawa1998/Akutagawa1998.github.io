@@ -1,0 +1,131 @@
+{% comment %}
+  Home page entry prompt: "Do you like Pokémon?" YES opens the NDS view, NO keeps this page.
+  Asked once per browser session (sessionStorage "pk-gate"; the NDS view sets it too), on mouse-and-keyboard
+  screens only (the NDS view is a desktop layout), never to crawlers. As a modal <dialog> it blurs the page
+  behind it (::backdrop) and makes it inert. Styles: assets/nds/gate.css. Without JS nothing is shown.
+{% endcomment %}
+<dialog class="pk-gate" id="pk-gate" aria-labelledby="pk-gate-q" aria-describedby="pk-gate-hint">
+  <i class="pk-gate__mon" aria-hidden="true"></i>
+  <div class="pk-gate__menu pk-frame" role="group" aria-label="Your answer">
+    <a class="pk-gate__opt is-cur" href="{{ '/nds/' | relative_url }}" data-answer="yes">YES</a>
+    <button class="pk-gate__opt" type="button" data-answer="no">NO</button>
+  </div>
+  <p class="pk-gate__box pk-frame" id="pk-gate-q">Do you like Pokémon?</p>
+  <p class="pk-gate__sr" id="pk-gate-hint">YES opens this homepage as a handheld-console view; NO keeps the classic page.</p>
+</dialog>
+<script>
+  (function () {
+    var dlg = document.getElementById('pk-gate');
+    if (!dlg || typeof dlg.showModal !== 'function') return;
+    var KEY = 'pk-gate'; // "yes" / "no" (answered here) or "nds" (the NDS view was opened)
+    function answered() {
+      try {
+        return sessionStorage.getItem(KEY);
+      } catch (e) {
+        return 'blocked'; // storage off: the answer could not be remembered, so do not ask at all
+      }
+    }
+    function remember(v) {
+      try {
+        sessionStorage.setItem(KEY, v);
+      } catch (e) {
+        /* storage off: nothing to remember */
+      }
+    }
+    // WHY: the NDS view is a keyboard-and-mouse layout, so touch screens go straight to the classic page
+    var desk = matchMedia('(hover: hover) and (pointer: fine) and (min-width: 720px)').matches;
+    var crawler = /bot|crawl|spider|slurp|lighthouse|facebookexternalhit/i.test(navigator.userAgent);
+    if (answered() || !desk || crawler) return;
+
+    var opts = dlg.querySelectorAll('.pk-gate__opt');
+    var q = document.getElementById('pk-gate-q');
+    var cur = 0;
+    function select(i) {
+      cur = i;
+      for (var j = 0; j < opts.length; j++) opts[j].classList.toggle('is-cur', j === i);
+    }
+    function choose(i) {
+      var yes = opts[i].getAttribute('data-answer') === 'yes';
+      remember(yes ? 'yes' : 'no');
+      if (yes) location.assign(opts[i].href);
+      else dlg.close();
+    }
+
+    // the question types itself out, then the menu appears; a key or click finishes the line first
+    var chars = [],
+      typed = 0,
+      timer = 0;
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      var text = q.textContent;
+      q.textContent = '';
+      for (var c = 0; c < text.length; c++) {
+        var s = document.createElement('span');
+        s.className = 'pk-gate__ch';
+        s.textContent = text.charAt(c);
+        q.appendChild(s);
+        chars.push(s);
+      }
+    }
+    function ready() {
+      clearInterval(timer);
+      for (var i = 0; i < chars.length; i++) chars[i].className = 'pk-gate__ch is-on';
+      dlg.classList.add('is-ready');
+      opts[cur].focus();
+    }
+
+    dlg.addEventListener('keydown', function (e) {
+      var key = e.key.toLowerCase();
+      if (!dlg.classList.contains('is-ready')) {
+        if (key !== 'escape') {
+          e.preventDefault();
+          ready();
+        }
+        return;
+      }
+      if (key === 'arrowup' || key === 'arrowdown' || key === 'w' || key === 's') {
+        e.preventDefault();
+        select(1 - cur);
+        opts[cur].focus();
+      } else if (key === 'enter' || key === ' ' || key === 'l') {
+        e.preventDefault(); // Enter, Space or L (the NDS view's A) take the choice under the cursor
+        choose(cur);
+      } else if (key === 'k') {
+        e.preventDefault(); // K (the NDS view's B) answers NO
+        choose(opts.length - 1);
+      }
+      // Esc fires "cancel"
+    });
+    Array.prototype.forEach.call(opts, function (opt, i) {
+      opt.addEventListener('click', function (e) {
+        if (e.metaKey || e.ctrlKey || e.shiftKey) return; // YES in a new tab answers nothing here
+        e.preventDefault();
+        choose(i);
+      });
+      opt.addEventListener('focus', function () {
+        select(i);
+      });
+      opt.addEventListener('pointerenter', function () {
+        opt.focus();
+      });
+    });
+    dlg.addEventListener('click', function (e) {
+      if (!dlg.classList.contains('is-ready')) ready();
+      else if (e.target === dlg) opts[cur].focus(); // a click beside the box leaves the cursor where it was
+    });
+    dlg.addEventListener('cancel', function () {
+      remember('no'); // Esc is NO; the dialog closes itself
+    });
+    // back from the NDS view (bfcache keeps the page as it was left): answered, so do not ask again
+    addEventListener('pageshow', function (e) {
+      if (e.persisted && dlg.open && answered()) dlg.close();
+    });
+
+    dlg.showModal();
+    if (chars.length) {
+      timer = setInterval(function () {
+        if (typed < chars.length) chars[typed++].className = 'pk-gate__ch is-on';
+        else ready();
+      }, 34);
+    } else ready();
+  })();
+</script>

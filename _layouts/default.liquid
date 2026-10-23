@@ -13,10 +13,19 @@
       <meta http-equiv="refresh" content="3; url={{ redirect }}">
     {% endif %}
     {% include head.liquid %}
+    {% if page.permalink == '/' %}
+      <link rel="stylesheet" href="{{ '/assets/nds/gate.css' | relative_url }}">
+      <link rel="preload" href="{{ '/assets/nds/fonts/PixelOperator.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+    {% endif %}
   </head>
 
   <!-- Body -->
   <body class="{% if site.navbar_fixed %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %}">
+    {% if page.permalink == '/' %}
+      <!-- "Do you like Pokémon?" (first thing in <body>, so it is open before the page paints) -->
+      {% include pokemon_gate.liquid %}
+    {% endif %}
+
     <!-- Header -->
     {% include header.liquid %}
 

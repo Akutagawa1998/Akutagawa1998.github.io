@@ -1,3 +1,22 @@
+## [1.4.0] - 2026-10-23
+
+### Features
+
+- Home page: "Do you like Pokémon?" opens first, as a Pokémon-style message box with a YES / NO menu (`_includes/pokemon_gate.liquid`, `assets/nds/gate.css`). YES opens the NDS view; NO (or Esc) keeps the classic page. While it is open the page behind is blurred and cannot be clicked (a modal `<dialog>` with a `::backdrop` blur). The question types itself out (any key finishes it); arrows or W/S move the ▶, Enter, Space or L choose, K answers NO. Mew peeks over the box (Gengar in dark mode).
+- NDS view: Pokémon companions around the console (`assets/nds/pals.js`). By day Mew drifts around the console, passes behind it and dodges the pointer at the pointer's own speed (warping away if caught up with), and Espeon paces the bottom edge of the window. With SELECT's dark mode, Gengar and Umbreon take their places.
+
+### Design Rationale
+
+- The question is asked once per browser session (sessionStorage; opening the NDS view counts as an answer), only on mouse-and-keyboard screens at least 720 px wide, because the NDS view is a desktop layout, and never to crawlers, so search results and phones get the page directly.
+- The sprites are 1x PNGs (about 300 B each) extracted from the owner's grid drawings (grid fitted per image, cells sampled at their centres, background flood-filled from the border). They are drawn at a whole number of device pixels per sprite pixel, so every pixel renders the same size. The floater is painted before the console (z-index 0); the walker is above it (4) and below the HOME hint (5).
+- The dodge matches the pointer's smoothed speed (measured: a 500 px/s pointer gives 499 px/s, 1200 px/s gives 1185 px/s, at a steady gap), and a fast pointer is noticed 0.2 s of its travel ahead. Behind the console the floater cannot see the pointer.
+
+### Notes & Caveats
+
+- al-folio's theme code puts `transition: all 750ms !important` on every element while it applies a theme (also on load). The prompt opts out; otherwise its menu would still compute as hidden when it takes focus. The menu is hidden with opacity, so YES stays focusable.
+- Reduced motion: the companions stand still and the question appears at once.
+- Pokémon names and designs are trademarks of Nintendo, Creatures and GAME FREAK. The sprites are fan pixel art supplied by the site owner.
+
 ## [1.3.3] - 2026-10-23
 
 ### Features

@@ -42,6 +42,8 @@ sitemap: false
             ? saved === "night"
             : site === "dark" || ((!site || site === "system") && matchMedia("(prefers-color-scheme: dark)").matches);
           if (night) root.dataset.theme = "night";
+          // the NDS view is open, so the classic home page need not ask "Do you like Pokémon?" this session
+          if (!sessionStorage.getItem("pk-gate")) sessionStorage.setItem("pk-gate", "nds");
         } catch (e) {
           /* storage blocked: fall back to the default theme */
         }
@@ -512,6 +514,10 @@ sitemap: false
         />
       </symbol>
     </svg>
+
+    <!-- Pokémon companions (pals.js): the floater drifts behind the console, the walker paces the bottom edge -->
+    <i class="pal pal--fly" aria-hidden="true"></i>
+    <i class="pal pal--walk" aria-hidden="true"></i>
 
     <main class="fit" aria-label="Sihang (Nagi) Zhao's homepage, presented as a handheld console">
       <div class="n3ds" id="n3ds">
@@ -1039,5 +1045,6 @@ sitemap: false
     </aside>
 
     <script src="{{ '/assets/nds/nds.js' | relative_url }}"></script>
+    <script src="{{ '/assets/nds/pals.js' | relative_url }}"></script>
   </body>
 </html>
