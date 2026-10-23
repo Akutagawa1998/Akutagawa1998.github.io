@@ -96,8 +96,6 @@ html[data-theme="dark"] .pk-gate::backdrop {
   grid-column: 2;
   grid-row: 1;
   display: grid;
-  gap: 8px;
-  padding: 16px 32px 16px 52px;
   opacity: 0;
   pointer-events: none;
 }
@@ -112,12 +110,15 @@ html[data-theme="dark"] .pk-gate::backdrop {
 .pk-gate.pk-gate *::before {
   transition: none !important;
 }
+/* WHY: each choice fills its half of the box (the menu's padding is theirs), so a click anywhere in the
+   box takes the row under it, not only a click on the word */
 .pk-gate__opt,
 .pk-gate__opt:hover,
 .pk-gate__opt:focus {
+  --pt: 4px; /* padding above the text */
   position: relative;
   display: block;
-  padding: 0;
+  padding: var(--pt) 32px 4px 52px;
   border: 0;
   outline: none; /* the ▶ cursor marks the focused choice */
   background: none;
@@ -128,12 +129,18 @@ html[data-theme="dark"] .pk-gate::backdrop {
   text-decoration: none;
   cursor: pointer;
 }
+.pk-gate__opt:first-child {
+  --pt: 16px;
+}
+.pk-gate__opt:last-child {
+  padding-bottom: 16px;
+}
 /* ▶ as a 5 x 9 pixel triangle; at 32px the caps are 9 font pixels tall (y 12..30 of the 40px line) */
 .pk-gate__opt.is-cur::before {
   content: "";
   position: absolute;
-  left: -30px;
-  top: 12px;
+  left: 22px;
+  top: calc(var(--pt) + 12px);
   width: 10px;
   height: 18px;
   background: currentColor;

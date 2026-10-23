@@ -1,3 +1,19 @@
+## [1.4.1] - 2026-10-23
+
+### Features
+
+- Home page prompt: YES and NO each fill their half of the menu box, so a click anywhere in the box answers. Before, only the word itself did, and a click beside it did nothing. The box looks exactly as before (pixel-identical).
+- NDS view: nothing covers the Pokémon any more. Mew and Gengar no longer pass behind the console. The console, the HOME hint and the key legend are walls, and on meeting one the floater turns off it in a random direction. In a chase it may veer sideways but not back toward the pointer, and it warps only when there is no way out. Espeon and Umbreon turn back before the HOME hint, and the floater keeps above the walker's strip, so the two never overlap either.
+
+### Design Rationale
+
+- Collisions are swept along each axis (where the floater was against where it would be), so a fast dodge cannot jump through a thin panel. Walls are grown by the panels' 9 px pixel frame plus two sprite pixels, which is more than the floater's bob.
+- A turn keeps the floater's speed, so the dodge still runs at the pointer's speed (measured in open space: 496 px/s for a 500 px/s pointer, 1186 px/s for 1200). In a chase the new heading is held for 0.4–0.8 s, so the floater does not zigzag along a wall.
+
+### Notes & Caveats
+
+- When the window leaves no open ground beside the console big enough for the sprite, the floater is hidden rather than covered, and it comes back when the window grows.
+
 ## [1.4.0] - 2026-10-23
 
 ### Features
