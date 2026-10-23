@@ -270,17 +270,20 @@ ul.task-list input[type="checkbox"] {
 
 // Social (navbar)
 
+// The icon row gets the same box as a text link (0.5rem padding + 1.5rem line = 2.5rem) and centres
+// its icons, so they sit on the text's centre line. The extra .navbar/.navbar-nav beat MDB's
+// `.nav-link { display: block }`, which otherwise put the icons on a text baseline and pushed them ~8px low.
+.navbar .navbar-nav .nav-social-icons > .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  height: 2.5rem;
+  padding: 0 0.35rem;
+}
+
 .nav-social-icons {
   margin-right: auto;
   margin-left: 0;
-
-  .nav-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.95rem;
-    padding-left: 0.35rem;
-    padding-right: 0.35rem;
-  }
 
   a {
     color: var(--global-link-purple-color);
@@ -304,51 +307,33 @@ ul.task-list input[type="checkbox"] {
 
   .brand-social-link,
   .onlyfans-nav-link {
-    align-items: center;
     display: inline-flex;
-    flex: 0 0 2rem;
-    height: 2rem;
+    flex: none;
+    align-items: center;
     justify-content: center;
-    width: 2rem;
+    height: 2rem;
   }
 
-  .gmail-link {
-    flex-basis: 2.35rem;
-    width: 2.35rem;
-  }
-
-  .onlyfans-nav-link {
-    flex-basis: 3.05rem;
-    width: 3.05rem;
-  }
-
-  .brand-social-icon {
+  // Each icon is sized by the height of its visible mark so the row reads as one set:
+  // square marks 1.25rem, the solid Instagram square a little less, wide marks (Gmail, OnlyFans) shorter.
+  .brand-social-icon,
+  .onlyfans-icon {
     display: block;
-    height: auto;
-    max-height: 1.52rem;
-    max-width: 1.52rem;
-    object-fit: contain;
     width: auto;
+    height: 1.25rem;
   }
 
   .gmail-icon {
-    max-height: 1.5rem;
-    max-width: 2.2rem;
-  }
-
-  .scholar-icon {
-    max-height: 1.5rem;
-    max-width: 1.5rem;
+    height: 1.05rem;
   }
 
   .instagram-icon {
-    max-height: 1.52rem;
-    max-width: 1.52rem;
+    height: 1.2rem;
   }
 
+  // inline SVGs need an explicit width; their viewBox sets the ratio (X 1200:1227, OnlyFans 407:272)
   .x-icon {
-    height: 1.5rem;
-    width: 1.5rem;
+    width: 1.22rem;
   }
 
   .x-link {
@@ -368,10 +353,8 @@ ul.task-list input[type="checkbox"] {
   }
 
   .onlyfans-icon {
-    display: block;
-    height: 1.9rem;
-    transform: translateY(0.07rem);
-    width: 3.05rem;
+    width: 1.65rem;
+    height: 1.1rem;
   }
 }
 
