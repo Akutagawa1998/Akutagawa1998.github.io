@@ -1,3 +1,16 @@
+## [1.3.1] - 2026-10-23
+
+### Features
+
+- NDS view: while an About card is open on the top screen, the D-pad reads it (left/right turn pages, up/down switch cards) until B closes it. The cards always show "Enter for detail", and Enter acts as A.
+- NDS view: dragging the Circle Pad steers a pixel arrow over the top screen. Whatever it rests on takes the cursor and A clicks it (the way touch users reach top-screen links). The mouse pointer is a pixel arrow over the top screen and a pointing finger over the touch screen.
+- NDS view: the publications list uses pixel versions of the venue marks; the item page keeps the official logos.
+- Classic site: the navbar social icons sit on the nav text's centre line at matched sizes, and "nds view" is a plain nav link.
+
+### Notes & Caveats
+
+- The CHI and EMNLP pixel marks are redrawn at 16 x 16 (sakura, palm and sunset), because the official artwork does not survive the downscale. The ACL mark is the official one snapped to its two colours.
+
 ## [1.3.0] - 2026-10-23
 
 ### Features

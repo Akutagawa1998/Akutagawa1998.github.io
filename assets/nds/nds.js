@@ -57,6 +57,7 @@
   const PUBS = [
     {
       venue: "ACL 2026",
+      pixel: "venue-acl",
       tag: "Oral",
       logo: ASSETS + "venues/acl2026.png",
       title: "SHAPE: Unifying Safety, Helpfulness and Pedagogy for Educational LLMs",
@@ -70,6 +71,7 @@
     },
     {
       venue: "CHI 2025",
+      pixel: "venue-chi",
       logo: ASSETS + "venues/chi2025.svg",
       title: "Let AI read first: Enhancing reading abilities for individuals with dyslexia through artificial intelligence",
       authors: "**Sihang Zhao**, Shoucong Carol Xiong, Bo Pang, Xiaoying Tang, Pinjia He.",
@@ -79,6 +81,7 @@
     },
     {
       venue: "EMNLP 2024",
+      pixel: "venue-emnlp",
       logo: ASSETS + "venues/emnlp2024.png",
       title: "Difficult task yes but simple task no: Unveiling the laziness in multimodal LLMs",
       authors: "**Sihang Zhao**, Youliang Yuan, Xiaoying Tang, Pinjia He.",
@@ -212,11 +215,7 @@
     pubs: {
       title: "Publications",
       items: PUBS,
-      row: (p) => [
-        h("img", { src: p.logo, alt: "", width: 22, height: 22 }),
-        h("span", { class: "row__no" }, pubLabel(p)),
-        h("span", { class: "row__txt" }, p.title),
-      ],
+      row: (p) => [sprite(p.pixel, "0 0 16 16"), h("span", { class: "row__no" }, pubLabel(p)), h("span", { class: "row__txt" }, p.title)],
       page: (p) => {
         const logo = h("div", { class: "d-logo" }, h("img", { src: p.logo, alt: `${p.venue} logo`, width: 68, height: 68 }));
         const main = h(
@@ -461,6 +460,16 @@
     showLayers("reader", "menu");
     readerPager.go(0).measure();
   }
+  // While a card is open on the top screen the D-pad reads it: left/right turn pages, up/down switch
+  // cards. B closes it, and the D-pad goes back to moving the cursor on the touch screen.
+  function readingMove(dir) {
+    if (dir === "left") return readerPager.prev();
+    if (dir === "right") return readerPager.next();
+    const open = cards.findIndex((c) => c.dataset.sec === S.reading);
+    const next = Math.max(0, Math.min(cards.length - 1, open + (dir === "down" ? 1 : -1)));
+    setCur(cards[next], S.kbd);
+    if (next !== open) openReader(cards[next]);
+  }
   function closeReader() {
     S.reading = null;
     for (const c of cards) c.classList.remove("is-open");
@@ -623,18 +632,24 @@
     if (btn === "select") return setTheme(root.dataset.theme !== "night");
     if (btn === "home") return goHome();
     const dir = ["up", "down", "left", "right"].includes(btn) ? btn : null;
+    // Whatever the cursor rests on in the top screen (reached by the D-pad, the mouse, Tab or the
+    // circle-pad cursor) is clicked by A; B hands the cursor back to the touch screen.
+    if (cur && scrTop.contains(cur) && (btn === "a" || btn === "b")) {
+      if (btn === "a") return cur.click();
+      return setCur(S.view === "list" ? rowEl() : S.lastBottom || cards[0], S.kbd);
+    }
     switch (S.view) {
       case "menu":
-        if (dir) return menuMove(dir);
+        if (dir) return S.reading ? readingMove(dir) : menuMove(dir);
         if (btn === "a") return cards.includes(cur) ? openReader(cur) : cur && cur.click();
-        if (btn === "b") return topTargets.includes(cur) ? setCur(S.lastBottom || cards[0], S.kbd) : S.reading && closeReader();
+        if (btn === "b") return S.reading && closeReader();
         if (btn === "x") return S.reading && readerPager.next();
         if (btn === "y") return S.reading && readerPager.prev();
         return;
       case "list":
         if (dir) return listMove(dir);
-        if (btn === "a") return page && page.opts.includes(cur) ? cur.click() : primary();
-        if (btn === "b") return page && page.opts.includes(cur) ? setCur(rowEl(), S.kbd) : goMenu(navBtns[NAV.indexOf(S.sec)]);
+        if (btn === "a") return primary();
+        if (btn === "b") return goMenu(navBtns[NAV.indexOf(S.sec)]);
         if (btn === "x") return page && page.pager && page.pager.next();
         if (btn === "y") return page && page.pager && page.pager.prev();
         return;
@@ -749,6 +764,13 @@
   const typing = (t) => t instanceof HTMLElement && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName));
   document.addEventListener("keydown", (e) => {
     if (e.ctrlKey || e.metaKey || e.altKey || typing(e.target)) return;
+    if ((e.code === "Enter" || e.code === "NumpadEnter") && !(e.target.closest && e.target.closest("a, button"))) {
+      e.preventDefault();
+      S.kbd = true;
+      tap("a");
+      act("a");
+      return;
+    }
     const btn = KEYMAP[e.code];
     if (!btn) return;
     e.preventDefault();
@@ -829,15 +851,63 @@
     track(e, scrTop.getBoundingClientRect(), 1);
   });
   scrTop.addEventListener("pointerleave", release);
+  // ------------------------------------------------------------------ circle-pad cursor (top screen)
+  // Dragging the Circle Pad steers a pixel arrow over the top screen, which is how touch users reach
+  // links there: whatever it rests on takes the cursor and A clicks it. It hides after a few idle seconds.
+  const vcur = $("#vcursor");
+  const VC = { x: 232, y: 136, dx: 0, dy: 0, held: false, last: 0, frame: 0, hide: 0 };
+  const VC_SPEED = 260; // design px per second at full tilt
+  function vcPlace() {
+    vcur.style.setProperty("--vx", `${Math.round(VC.x)}px`);
+    vcur.style.setProperty("--vy", `${Math.round(VC.y)}px`);
+  }
+  function vcPick() {
+    const r = scrTop.getBoundingClientRect();
+    const s = r.width / 480; // the screen is scaled with the console: design px -> viewport px
+    const hit = document.elementFromPoint(r.left + (VC.x + 1) * s, r.top + (VC.y + 1) * s);
+    const el = hit && hit.closest("a, button");
+    if (el && scrTop.contains(el) && el !== cur) setCur(el, false);
+  }
+  function vcTick(t) {
+    const dt = Math.min(0.05, (t - (VC.last || t)) / 1000);
+    VC.last = t;
+    const mag = Math.hypot(VC.dx, VC.dy);
+    if (mag > 0.15) {
+      // dead zone, then a soft curve so small tilts give fine control
+      const step = (Math.pow((Math.min(mag, 1) - 0.15) / 0.85, 1.5) * VC_SPEED * dt) / mag;
+      VC.x = Math.max(0, Math.min(474, VC.x + VC.dx * step));
+      VC.y = Math.max(0, Math.min(282, VC.y + VC.dy * step));
+      vcPlace();
+      vcPick();
+    }
+    VC.frame = VC.held ? requestAnimationFrame(vcTick) : 0;
+  }
   cpad.addEventListener("pointerdown", (e) => {
     e.preventDefault();
     cpad.setPointerCapture(e.pointerId);
     cpad.classList.add("is-live");
+    clearTimeout(VC.hide);
+    vcur.hidden = false;
+    vcPlace();
+    VC.held = true;
+    VC.last = 0;
+    if (!VC.frame) VC.frame = requestAnimationFrame(vcTick);
   });
   cpad.addEventListener("pointermove", (e) => {
-    if (cpad.hasPointerCapture(e.pointerId)) track(e, cpad.getBoundingClientRect(), 1.6);
+    if (!cpad.hasPointerCapture(e.pointerId)) return;
+    const r = cpad.getBoundingClientRect();
+    VC.dx = (((e.clientX - r.left) / r.width) * 2 - 1) * 1.6;
+    VC.dy = (((e.clientY - r.top) / r.height) * 2 - 1) * 1.6;
+    track(e, r, 1.6);
   });
-  for (const t of ["pointerup", "pointercancel"]) cpad.addEventListener(t, release);
+  for (const t of ["pointerup", "pointercancel"])
+    cpad.addEventListener(t, () => {
+      release();
+      VC.held = false;
+      VC.dx = VC.dy = 0;
+      clearTimeout(VC.hide);
+      VC.hide = setTimeout(() => (vcur.hidden = true), 4000);
+    });
 
   // the page never scrolls; undo any scroll a focus change might cause
   addEventListener("scroll", () => {

@@ -1590,8 +1590,12 @@ a:hover {
   align-items: center;
   gap: 3px;
 }
-.acard.is-cur .acard__state .go {
+.acard__state .go {
   display: inline-flex;
+  opacity: 0.8;
+}
+.acard.is-cur .acard__state .go {
+  opacity: 1;
 }
 .acard.is-open .acard__state .go {
   display: none;
@@ -2696,4 +2700,59 @@ a:hover {
   .is-cur {
     outline: 3px solid Highlight;
   }
+}
+
+/* =====================================================================
+   POINTERS: on the top screen the mouse becomes the console's arrow (the virtual cursor);
+   on the touch screen it becomes a finger, i.e. "tap me".
+   ===================================================================== */
+:root {
+  --cur-arrow-1x: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAnUlEQVR42uXXPQ6AIAwF4IfxAigT3P9oOvlzBJyeA4mGRLEUO5HQgX5QArCjj3b0EULRQTjOBUhJiAv0HGzLBAAYXIgAsK+z+ZeAlER9Al9L1CvwlUT9AqUl9AiUktAn8LaEXoG3JPQJDC7czvNVlStRrwAr5R6n0e5NyMpZIU83Jdq9CdPKf/MvMLl9y7y0K57KyQvkJl79G9V3wQFNc2UmlolQDQAAAABJRU5ErkJggg==");
+  --cur-arrow-2x: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAA6ElEQVR42u3bPQ6CQBgGYdZ4AZFK7n80rfw5grb6FW4MIOzu83aaQDFxRiCaDsfTs3vb43ZJXUPbdY0PgNYBpNiAuNqbQAEAGt8+vnG/nj9e98NY9XUCBQDQgO+rvQkUAEADflttTaAAABowbaU3gQIAaMC8K60JFABAA5bd1ptAAQA04L/bWhMoAIAGrLu1m0ABADRg2fXDOOn4pX/HSAEANGCa0/F7PDfPBCkAQFkNiM5Hh+O1e2yCZ4IUAKCsBuSc9wkAAICqlua+347ny90rrN0cCgDQegPmPmHuf4hbez5AAQAa3wuukWhy2urI0wAAAABJRU5ErkJggg==");
+  --cur-hand-1x: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAoUlEQVR42mNkIBIICkv9R+a/f/uMkYEKgIlhgAEjsT5/9+YpiriQiDRVQmLAQ2DUAaMOYKHUAErLh6EfAljKB5JCZPCEALXLeljIEAqRgQ8BPGX9f2pahB4isJAYvLkAycVEpX5c4rjUDb72AK60QG2A3o4YPGkA5iJYKqV1SAyfuoDcuB+8IUDvtDD80wCh/sPgDQF6pYWhkwZw1YpDPgQAqRtZoqbDlMwAAAAASUVORK5CYII=");
+  --cur-hand-2x: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAA60lEQVR42u3aSxLCIBCEYbC8gI+V3v9ouvJxhLg2i0SEFCR8vQ1FJX9N9wxUYiisw+kyTD1/P+8xNKRd6FwA9A4glvb863GbXH88X5vKBBYAAAAAAAAAAAAAAKBT7Wu/QO37AxYAQAbU1Q/3B4tmBAsAIAPa6supmZGbESwAQO8Z8Me9/tDyB81lxDgTWAAAc0C2x4rO/qnrU/dTAQAA8KU4dxbI9Vhtzf2PwAIAmAOmz8/jWXrtmaACAAAg7yyw9r6vAgAAIC0Dtj4XsAAAMqCvvq8CAAAgLwO2NhewAAAyYNm+rAIAAKBpfQABhVniZ+EMvAAAAABJRU5ErkJggg==");
+}
+.scr--top,
+.scr--top * {
+  cursor:
+    var(--cur-arrow-1x) 1 1,
+    default;
+  cursor:
+    -webkit-image-set(var(--cur-arrow-1x) 1x, var(--cur-arrow-2x) 2x) 1 1,
+    default;
+}
+.scr--bot,
+.scr--bot * {
+  cursor:
+    var(--cur-hand-1x) 11 1,
+    pointer;
+  cursor:
+    -webkit-image-set(var(--cur-hand-1x) 1x, var(--cur-hand-2x) 2x) 11 1,
+    pointer;
+}
+
+/* circle-pad cursor: a sprite steered by dragging the Circle Pad (touch users reach the top screen with it) */
+.vcursor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 8;
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+  transform: translate(var(--vx, 232px), var(--vy, 136px));
+}
+.vcursor svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+  filter: drop-shadow(1px 1px 0 rgba(0, 0, 0, 0.35));
+}
+/* links and page buttons the cursor rests on (via the circle-pad cursor or Tab) */
+.scr--top a.is-cur:not(.soc):not(.opt):not(.cardlink) {
+  background: #ffd23f;
+  color: #2a2a36;
+}
+.scr--top .pgbtn.is-cur {
+  --f-in: #ffd23f;
 }
