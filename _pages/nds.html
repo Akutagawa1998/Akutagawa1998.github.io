@@ -1,0 +1,991 @@
+---
+layout: null
+permalink: /nds/
+title: NDS view
+sitemap: false
+---
+
+<!doctype html>
+<html lang="en" data-theme="day" data-base="{{ site.baseurl }}">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none';"
+    />
+    <title>Sihang (Nagi) Zhao · NDS view</title>
+    <meta name="description" content="Sihang (Nagi) Zhao, CS PhD student at NYU Courant. The homepage as a New Nintendo 3DS-style console." />
+    <link rel="canonical" href="{{ '/' | absolute_url }}" />
+    <script>
+      // Emulator-style scaling: the console is authored at a fixed 852x967 (1 mm = 6 px of a
+      // New 3DS, 142 x 161 mm unfolded) and scaled as one unit, so its proportions never change.
+      // Runs in <head> so the first paint is already at the right size.
+      (function () {
+        var W = 852,
+          H = 967,
+          M = 16,
+          root = document.documentElement;
+        function fit() {
+          var k = Math.max(0.25, Math.min((innerWidth - 2 * M) / W, (innerHeight - 2 * M) / H));
+          root.style.setProperty("--k", k.toFixed(4));
+          // WHY: the key legend only shows when it can sit beside the console without overlap
+          root.classList.toggle("roomy", innerWidth - W * k >= 2 * 268);
+        }
+        fit();
+        addEventListener("resize", fit);
+        try {
+          // SELECT (dark mode) is remembered; until it is used, follow the classic site's theme choice
+          var saved = localStorage.getItem("n3ds-theme");
+          var site = localStorage.getItem("theme");
+          var night = saved
+            ? saved === "night"
+            : site === "dark" || ((!site || site === "system") && matchMedia("(prefers-color-scheme: dark)").matches);
+          if (night) root.dataset.theme = "night";
+        } catch (e) {
+          /* storage blocked: fall back to the default theme */
+        }
+      })();
+    </script>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Cpath fill='%235d6578' d='M3 0h10v1h1v6h-1v1h1v7h-1v1H3v-1H2V8h1V7H2V1h1z'/%3E%3Cpath fill='%23f1f2f6' d='M3 1h10v6H3zM3 8h10v7H3z'/%3E%3Cpath fill='%231c1f27' d='M4 2h8v4H4zM5 9h6v4H5z'/%3E%3Cpath fill='%238ccff0' d='M5 3h6v2H5z'/%3E%3Cpath fill='%23bfe7df' d='M6 10h4v2H6z'/%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DotGothic16&amp;family=Pixelify+Sans:wght@500..700&amp;display=swap" />
+    <link rel="stylesheet" href="{{ '/assets/nds/nds.css' | relative_url }}" />
+  </head>
+  <body>
+    <svg class="sprite-sheet" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+      <symbol id="ico-pubs" viewBox="0 0 12 12">
+        <path
+          fill="#23232e"
+          d="M1 0h7v1h-7zM1 1h1v1h-1zM7 1h2v1h-2zM1 2h1v1h-1zM7 2h1v1h-1zM9 2h1v1h-1zM1 3h1v1h-1zM7 3h4v1h-4zM1 4h1v1h-1zM10 4h1v1h-1zM1 5h1v1h-1zM10 5h1v1h-1zM1 6h1v1h-1zM10 6h1v1h-1zM1 7h1v1h-1zM10 7h1v1h-1zM1 8h1v1h-1zM10 8h1v1h-1zM1 9h1v1h-1zM10 9h1v1h-1zM1 10h1v1h-1zM10 10h1v1h-1zM1 11h10v1h-10z"
+        />
+        <path
+          fill="#ffffff"
+          d="M2 1h5v1h-5zM2 2h5v1h-5zM8 2h1v1h-1zM2 3h1v1h-1zM6 3h1v1h-1zM2 4h8v1h-8zM2 5h1v1h-1zM9 5h1v1h-1zM2 6h8v1h-8zM2 7h1v1h-1zM9 7h1v1h-1zM2 8h8v1h-8zM2 9h1v1h-1zM7 9h3v1h-3zM2 10h8v1h-8z"
+        />
+        <path fill="#8a93a8" d="M3 3h3v1h-3zM3 5h6v1h-6zM3 7h6v1h-6zM3 9h4v1h-4z" />
+      </symbol>
+      <symbol id="ico-blog" viewBox="0 0 12 12">
+        <path
+          fill="#23232e"
+          d="M1 1h10v1h-10zM0 2h1v1h-1zM11 2h1v1h-1zM0 3h1v1h-1zM11 3h1v1h-1zM0 4h1v1h-1zM11 4h1v1h-1zM0 5h1v1h-1zM11 5h1v1h-1zM0 6h1v1h-1zM11 6h1v1h-1zM1 7h3v1h-3zM6 7h5v1h-5zM3 8h1v1h-1zM5 8h1v1h-1zM3 9h2v1h-2zM3 10h1v1h-1z"
+        />
+        <path
+          fill="#ffffff"
+          d="M1 2h10v1h-10zM1 3h1v1h-1zM10 3h1v1h-1zM1 4h10v1h-10zM1 5h1v1h-1zM7 5h4v1h-4zM1 6h10v1h-10zM4 7h2v1h-2zM4 8h1v1h-1z"
+        />
+        <path fill="#8a93a8" d="M2 3h8v1h-8zM2 5h5v1h-5z" />
+      </symbol>
+      <symbol id="ico-projects" viewBox="0 0 12 12">
+        <path
+          fill="#23232e"
+          d="M4 0h4v1h-4zM1 1h2v1h-2zM4 1h1v1h-1zM7 1h1v1h-1zM9 1h2v1h-2zM1 2h1v1h-1zM3 2h2v1h-2zM7 2h2v1h-2zM10 2h1v1h-1zM2 3h1v1h-1zM9 3h1v1h-1zM0 4h3v1h-3zM5 4h2v1h-2zM9 4h3v1h-3zM0 5h1v1h-1zM4 5h1v1h-1zM7 5h1v1h-1zM11 5h1v1h-1zM0 6h1v1h-1zM4 6h1v1h-1zM7 6h1v1h-1zM11 6h1v1h-1zM0 7h3v1h-3zM5 7h2v1h-2zM9 7h3v1h-3zM2 8h1v1h-1zM9 8h1v1h-1zM1 9h1v1h-1zM3 9h2v1h-2zM7 9h2v1h-2zM10 9h1v1h-1zM1 10h2v1h-2zM4 10h1v1h-1zM7 10h1v1h-1zM9 10h2v1h-2zM4 11h4v1h-4z"
+        />
+        <path
+          fill="#ffffff"
+          d="M5 1h2v1h-2zM2 2h1v1h-1zM5 2h2v1h-2zM9 2h1v1h-1zM3 3h6v1h-6zM3 4h2v1h-2zM7 4h2v1h-2zM1 5h3v1h-3zM8 5h3v1h-3zM1 6h3v1h-3zM8 6h3v1h-3zM3 7h2v1h-2zM7 7h2v1h-2zM3 8h6v1h-6zM2 9h1v1h-1zM5 9h2v1h-2zM9 9h1v1h-1zM5 10h2v1h-2z"
+        />
+      </symbol>
+      <symbol id="ico-teaching" viewBox="0 0 12 12">
+        <path
+          fill="#3b2a1a"
+          d="M0 0h12v1h-12zM0 1h1v1h-1zM11 1h1v1h-1zM0 2h1v1h-1zM11 2h1v1h-1zM0 3h1v1h-1zM11 3h1v1h-1zM0 4h1v1h-1zM11 4h1v1h-1zM0 5h1v1h-1zM11 5h1v1h-1zM0 6h1v1h-1zM11 6h1v1h-1zM0 7h12v1h-12zM2 8h1v1h-1zM9 8h1v1h-1zM2 9h1v1h-1zM9 9h1v1h-1zM1 10h1v1h-1zM10 10h1v1h-1zM1 11h1v1h-1zM10 11h1v1h-1z"
+        />
+        <path
+          fill="#2e6b4f"
+          d="M1 1h10v1h-10zM1 2h1v1h-1zM4 2h7v1h-7zM1 3h4v1h-4zM8 3h3v1h-3zM1 4h1v1h-1zM5 4h6v1h-6zM1 5h6v1h-6zM9 5h2v1h-2zM1 6h10v1h-10z"
+        />
+        <path fill="#ffffff" d="M2 2h2v1h-2zM5 3h3v1h-3zM2 4h3v1h-3zM7 5h2v1h-2z" />
+      </symbol>
+      <symbol id="ico-people" viewBox="0 0 12 12">
+        <path
+          fill="#23232e"
+          d="M2 1h2v1h-2zM8 1h2v1h-2zM1 2h1v1h-1zM4 2h1v1h-1zM7 2h1v1h-1zM10 2h1v1h-1zM1 3h1v1h-1zM4 3h1v1h-1zM7 3h1v1h-1zM10 3h1v1h-1zM2 4h2v1h-2zM8 4h2v1h-2zM1 5h4v1h-4zM7 5h4v1h-4zM0 6h1v1h-1zM5 6h2v1h-2zM11 6h1v1h-1zM0 7h1v1h-1zM5 7h2v1h-2zM11 7h1v1h-1zM0 8h1v1h-1zM5 8h2v1h-2zM11 8h1v1h-1zM0 9h1v1h-1zM5 9h2v1h-2zM11 9h1v1h-1zM0 10h12v1h-12z"
+        />
+        <path
+          fill="#ffffff"
+          d="M2 2h2v1h-2zM8 2h2v1h-2zM2 3h2v1h-2zM8 3h2v1h-2zM1 6h4v1h-4zM7 6h4v1h-4zM1 7h4v1h-4zM7 7h4v1h-4zM1 8h4v1h-4zM7 8h4v1h-4zM1 9h4v1h-4zM7 9h4v1h-4z"
+        />
+      </symbol>
+      <symbol id="ico-mail" viewBox="0 0 12 12">
+        <path
+          fill="#23232e"
+          d="M0 2h12v1h-12zM0 3h1v1h-1zM11 3h1v1h-1zM0 4h1v1h-1zM11 4h1v1h-1zM0 5h1v1h-1zM11 5h1v1h-1zM0 6h1v1h-1zM11 6h1v1h-1zM0 7h1v1h-1zM11 7h1v1h-1zM0 8h1v1h-1zM11 8h1v1h-1zM0 9h12v1h-12z"
+        />
+        <path fill="#e0402e" d="M1 3h1v1h-1zM10 3h1v1h-1zM2 4h1v1h-1zM9 4h1v1h-1zM3 5h1v1h-1zM8 5h1v1h-1zM4 6h4v1h-4z" />
+        <path fill="#ffffff" d="M2 3h8v1h-8zM3 4h6v1h-6zM2 5h1v1h-1zM4 5h4v1h-4zM9 5h1v1h-1zM2 6h2v1h-2zM8 6h2v1h-2zM2 7h8v1h-8zM2 8h8v1h-8z" />
+        <path fill="#3a78e0" d="M1 4h1v1h-1zM1 5h1v1h-1zM1 6h1v1h-1zM1 7h1v1h-1zM1 8h1v1h-1z" />
+        <path fill="#2f9e4e" d="M10 4h1v1h-1zM10 5h1v1h-1zM10 6h1v1h-1zM10 7h1v1h-1zM10 8h1v1h-1z" />
+      </symbol>
+      <symbol id="ico-scholar" viewBox="0 0 12 12">
+        <path
+          fill="#1b2a4a"
+          d="M5 1h2v1h-2zM3 2h2v1h-2zM7 2h2v1h-2zM1 3h2v1h-2zM9 3h2v1h-2zM0 4h1v1h-1zM11 4h1v1h-1zM1 5h2v1h-2zM9 5h2v1h-2zM3 6h6v1h-6zM3 7h1v1h-1zM8 7h1v1h-1zM3 8h1v1h-1zM8 8h1v1h-1zM3 9h6v1h-6z"
+        />
+        <path fill="#4a86e8" d="M5 2h2v1h-2zM3 3h6v1h-6zM1 4h10v1h-10zM3 5h6v1h-6z" />
+        <path fill="#f0b020" d="M11 5h1v1h-1zM11 6h1v1h-1zM11 7h1v1h-1zM10 8h2v1h-2z" />
+        <path fill="#2a55b0" d="M4 7h4v1h-4zM4 8h4v1h-4z" />
+      </symbol>
+      <symbol id="ico-x" viewBox="0 0 12 12">
+        <path
+          fill="#111118"
+          d="M1 1h2v1h-2zM9 1h2v1h-2zM1 2h3v1h-3zM8 2h3v1h-3zM2 3h3v1h-3zM7 3h3v1h-3zM3 4h6v1h-6zM4 5h4v1h-4zM4 6h4v1h-4zM3 7h6v1h-6zM2 8h3v1h-3zM7 8h3v1h-3zM1 9h3v1h-3zM8 9h3v1h-3zM1 10h2v1h-2zM9 10h2v1h-2z"
+        />
+      </symbol>
+      <symbol id="ico-camera" viewBox="0 0 12 12">
+        <path
+          fill="#2a1a30"
+          d="M2 0h8v1h-8zM1 1h1v1h-1zM10 1h1v1h-1zM0 2h1v1h-1zM11 2h1v1h-1zM0 3h1v1h-1zM11 3h1v1h-1zM0 4h1v1h-1zM11 4h1v1h-1zM0 5h1v1h-1zM11 5h1v1h-1zM0 6h1v1h-1zM11 6h1v1h-1zM0 7h1v1h-1zM11 7h1v1h-1zM0 8h1v1h-1zM11 8h1v1h-1zM0 9h1v1h-1zM11 9h1v1h-1zM1 10h1v1h-1zM10 10h1v1h-1zM2 11h8v1h-8z"
+        />
+        <path fill="#833ab4" d="M2 1h8v1h-8zM1 2h1v1h-1zM10 2h1v1h-1zM1 3h1v1h-1zM3 3h5v1h-5zM10 3h1v1h-1z" />
+        <path
+          fill="#ffffff"
+          d="M2 2h8v1h-8zM2 3h1v1h-1zM8 3h2v1h-2zM2 4h1v1h-1zM5 4h2v1h-2zM9 4h1v1h-1zM2 5h1v1h-1zM4 5h1v1h-1zM7 5h1v1h-1zM9 5h1v1h-1zM2 6h1v1h-1zM4 6h1v1h-1zM7 6h1v1h-1zM9 6h1v1h-1zM2 7h1v1h-1zM5 7h2v1h-2zM9 7h1v1h-1zM2 8h1v1h-1zM9 8h1v1h-1zM2 9h8v1h-8z"
+        />
+        <path
+          fill="#d6297a"
+          d="M1 4h1v1h-1zM3 4h2v1h-2zM7 4h2v1h-2zM10 4h1v1h-1zM1 5h1v1h-1zM3 5h1v1h-1zM5 5h2v1h-2zM8 5h1v1h-1zM10 5h1v1h-1zM1 6h1v1h-1zM3 6h1v1h-1zM5 6h2v1h-2zM8 6h1v1h-1zM10 6h1v1h-1z"
+        />
+        <path
+          fill="#f58529"
+          d="M1 7h1v1h-1zM3 7h2v1h-2zM7 7h2v1h-2zM10 7h1v1h-1zM1 8h1v1h-1zM3 8h6v1h-6zM10 8h1v1h-1zM1 9h1v1h-1zM10 9h1v1h-1zM2 10h8v1h-8z"
+        />
+      </symbol>
+      <symbol id="ico-bolt" viewBox="0 0 12 12">
+        <path
+          fill="#3a2a10"
+          d="M6 0h4v1h-4zM5 1h1v1h-1zM9 1h1v1h-1zM4 2h1v1h-1zM8 2h1v1h-1zM3 3h1v1h-1zM7 3h1v1h-1zM2 4h1v1h-1zM7 4h3v1h-3zM2 5h1v1h-1zM9 5h1v1h-1zM2 6h4v1h-4zM8 6h1v1h-1zM5 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1zM6 8h1v1h-1zM3 9h1v1h-1zM5 9h1v1h-1zM3 10h2v1h-2z"
+        />
+        <path
+          fill="#f8d030"
+          d="M6 1h3v1h-3zM5 2h1v1h-1zM7 2h1v1h-1zM4 3h3v1h-3zM3 4h4v1h-4zM3 5h6v1h-6zM6 6h2v1h-2zM6 7h1v1h-1zM5 8h1v1h-1zM4 9h1v1h-1z"
+        />
+        <path fill="#fff8d0" d="M6 2h1v1h-1z" />
+      </symbol>
+      <symbol id="ico-heart" viewBox="0 0 12 12">
+        <path
+          fill="#5a1420"
+          d="M2 1h3v1h-3zM7 1h3v1h-3zM1 2h1v1h-1zM5 2h2v1h-2zM10 2h1v1h-1zM0 3h1v1h-1zM11 3h1v1h-1zM0 4h1v1h-1zM11 4h1v1h-1zM0 5h1v1h-1zM11 5h1v1h-1zM1 6h1v1h-1zM10 6h1v1h-1zM2 7h1v1h-1zM9 7h1v1h-1zM3 8h1v1h-1zM8 8h1v1h-1zM4 9h1v1h-1zM7 9h1v1h-1zM5 10h2v1h-2z"
+        />
+        <path
+          fill="#e8435a"
+          d="M2 2h3v1h-3zM7 2h3v1h-3zM1 3h1v1h-1zM3 3h8v1h-8zM1 4h1v1h-1zM3 4h8v1h-8zM1 5h10v1h-10zM2 6h8v1h-8zM3 7h6v1h-6zM4 8h4v1h-4zM5 9h2v1h-2z"
+        />
+        <path fill="#ffffff" d="M2 3h1v1h-1zM2 4h1v1h-1z" />
+      </symbol>
+      <symbol id="heart-violet" viewBox="0 0 12 12">
+        <path
+          fill="#3c1a5c"
+          d="M2 1h3v1h-3zM7 1h3v1h-3zM1 2h1v1h-1zM5 2h2v1h-2zM10 2h1v1h-1zM0 3h1v1h-1zM11 3h1v1h-1zM0 4h1v1h-1zM11 4h1v1h-1zM0 5h1v1h-1zM11 5h1v1h-1zM1 6h1v1h-1zM10 6h1v1h-1zM2 7h1v1h-1zM9 7h1v1h-1zM3 8h1v1h-1zM8 8h1v1h-1zM4 9h1v1h-1zM7 9h1v1h-1zM5 10h2v1h-2z"
+        />
+        <path
+          fill="#9b59d0"
+          d="M2 2h3v1h-3zM7 2h3v1h-3zM1 3h1v1h-1zM3 3h8v1h-8zM1 4h1v1h-1zM3 4h8v1h-8zM1 5h10v1h-10zM2 6h8v1h-8zM3 7h6v1h-6zM4 8h4v1h-4zM5 9h2v1h-2z"
+        />
+        <path fill="#efe0ff" d="M2 3h1v1h-1zM2 4h1v1h-1z" />
+      </symbol>
+      <symbol id="ico-ball" viewBox="0 0 12 12">
+        <path
+          fill="#3a1a08"
+          d="M4 0h4v1h-4zM2 1h2v1h-2zM6 1h1v1h-1zM8 1h2v1h-2zM1 2h1v1h-1zM3 2h1v1h-1zM6 2h1v1h-1zM9 2h2v1h-2zM1 3h1v1h-1zM3 3h1v1h-1zM6 3h1v1h-1zM9 3h2v1h-2zM0 4h1v1h-1zM2 4h1v1h-1zM6 4h1v1h-1zM10 4h2v1h-2zM0 5h12v1h-12zM0 6h1v1h-1zM2 6h1v1h-1zM6 6h1v1h-1zM10 6h2v1h-2zM0 7h1v1h-1zM3 7h1v1h-1zM6 7h1v1h-1zM9 7h1v1h-1zM11 7h1v1h-1zM1 8h1v1h-1zM3 8h1v1h-1zM6 8h1v1h-1zM9 8h2v1h-2zM1 9h1v1h-1zM6 9h1v1h-1zM10 9h1v1h-1zM2 10h2v1h-2zM6 10h1v1h-1zM8 10h2v1h-2zM4 11h4v1h-4z"
+        />
+        <path
+          fill="#ee7d24"
+          d="M4 1h2v1h-2zM7 1h1v1h-1zM2 2h1v1h-1zM7 2h2v1h-2zM2 3h1v1h-1zM5 3h1v1h-1zM7 3h2v1h-2zM1 4h1v1h-1zM3 4h3v1h-3zM7 4h3v1h-3zM1 6h1v1h-1zM3 6h3v1h-3zM7 6h3v1h-3zM1 7h2v1h-2zM4 7h2v1h-2zM7 7h2v1h-2zM10 7h1v1h-1zM2 8h1v1h-1zM4 8h2v1h-2zM7 8h2v1h-2zM2 9h4v1h-4zM7 9h3v1h-3zM4 10h2v1h-2zM7 10h1v1h-1z"
+        />
+        <path fill="#ffb070" d="M4 2h2v1h-2zM4 3h1v1h-1z" />
+      </symbol>
+      <symbol id="btn-x" viewBox="0 0 13 13">
+        <path
+          fill="#16234a"
+          d="M4 0h5v1h-5zM2 1h2v1h-2zM9 1h2v1h-2zM1 2h1v1h-1zM11 2h1v1h-1zM1 3h1v1h-1zM11 3h1v1h-1zM0 4h1v1h-1zM12 4h1v1h-1zM0 5h1v1h-1zM12 5h1v1h-1zM0 6h1v1h-1zM12 6h1v1h-1zM0 7h1v1h-1zM12 7h1v1h-1zM0 8h1v1h-1zM12 8h1v1h-1zM1 9h1v1h-1zM11 9h1v1h-1zM1 10h1v1h-1zM11 10h1v1h-1zM2 11h2v1h-2zM9 11h2v1h-2zM4 12h5v1h-5z"
+        />
+        <path
+          fill="#3d6fd6"
+          d="M8 1h1v1h-1zM7 2h4v1h-4zM6 3h5v1h-5zM5 4h7v1h-7zM4 5h7v1h-7zM3 6h7v1h-7zM2 7h7v1h-7zM1 8h7v1h-7zM2 9h5v1h-5zM2 10h4v1h-4zM4 11h1v1h-1z"
+        />
+        <path fill="#86aef2" d="M5 1h3v1h-3zM4 2h3v1h-3zM3 3h3v1h-3zM2 4h3v1h-3zM1 5h3v1h-3zM1 6h2v1h-2zM1 7h1v1h-1z" />
+        <path fill="#2a4c9c" d="M11 5h1v1h-1zM10 6h2v1h-2zM9 7h3v1h-3zM8 8h4v1h-4zM7 9h4v1h-4zM6 10h5v1h-5zM5 11h4v1h-4z" />
+        <path fill="#ffffff" d="M4 1h1v1h-1zM2 2h2v1h-2zM2 3h1v1h-1zM1 4h1v1h-1z" />
+      </symbol>
+      <symbol id="btn-a" viewBox="0 0 13 13">
+        <path
+          fill="#4a120c"
+          d="M4 0h5v1h-5zM2 1h2v1h-2zM9 1h2v1h-2zM1 2h1v1h-1zM11 2h1v1h-1zM1 3h1v1h-1zM11 3h1v1h-1zM0 4h1v1h-1zM12 4h1v1h-1zM0 5h1v1h-1zM12 5h1v1h-1zM0 6h1v1h-1zM12 6h1v1h-1zM0 7h1v1h-1zM12 7h1v1h-1zM0 8h1v1h-1zM12 8h1v1h-1zM1 9h1v1h-1zM11 9h1v1h-1zM1 10h1v1h-1zM11 10h1v1h-1zM2 11h2v1h-2zM9 11h2v1h-2zM4 12h5v1h-5z"
+        />
+        <path
+          fill="#d9402f"
+          d="M8 1h1v1h-1zM7 2h4v1h-4zM6 3h5v1h-5zM5 4h7v1h-7zM4 5h7v1h-7zM3 6h7v1h-7zM2 7h7v1h-7zM1 8h7v1h-7zM2 9h5v1h-5zM2 10h4v1h-4zM4 11h1v1h-1z"
+        />
+        <path fill="#f4897a" d="M5 1h3v1h-3zM4 2h3v1h-3zM3 3h3v1h-3zM2 4h3v1h-3zM1 5h3v1h-3zM1 6h2v1h-2zM1 7h1v1h-1z" />
+        <path fill="#9a2a1e" d="M11 5h1v1h-1zM10 6h2v1h-2zM9 7h3v1h-3zM8 8h4v1h-4zM7 9h4v1h-4zM6 10h5v1h-5zM5 11h4v1h-4z" />
+        <path fill="#ffffff" d="M4 1h1v1h-1zM2 2h2v1h-2zM2 3h1v1h-1zM1 4h1v1h-1z" />
+      </symbol>
+      <symbol id="btn-b" viewBox="0 0 13 13">
+        <path
+          fill="#4f3a08"
+          d="M4 0h5v1h-5zM2 1h2v1h-2zM9 1h2v1h-2zM1 2h1v1h-1zM11 2h1v1h-1zM1 3h1v1h-1zM11 3h1v1h-1zM0 4h1v1h-1zM12 4h1v1h-1zM0 5h1v1h-1zM12 5h1v1h-1zM0 6h1v1h-1zM12 6h1v1h-1zM0 7h1v1h-1zM12 7h1v1h-1zM0 8h1v1h-1zM12 8h1v1h-1zM1 9h1v1h-1zM11 9h1v1h-1zM1 10h1v1h-1zM11 10h1v1h-1zM2 11h2v1h-2zM9 11h2v1h-2zM4 12h5v1h-5z"
+        />
+        <path
+          fill="#e9b425"
+          d="M8 1h1v1h-1zM7 2h4v1h-4zM6 3h5v1h-5zM5 4h7v1h-7zM4 5h7v1h-7zM3 6h7v1h-7zM2 7h7v1h-7zM1 8h7v1h-7zM2 9h5v1h-5zM2 10h4v1h-4zM4 11h1v1h-1z"
+        />
+        <path fill="#f8dc7c" d="M5 1h3v1h-3zM4 2h3v1h-3zM3 3h3v1h-3zM2 4h3v1h-3zM1 5h3v1h-3zM1 6h2v1h-2zM1 7h1v1h-1z" />
+        <path fill="#ad8013" d="M11 5h1v1h-1zM10 6h2v1h-2zM9 7h3v1h-3zM8 8h4v1h-4zM7 9h4v1h-4zM6 10h5v1h-5zM5 11h4v1h-4z" />
+        <path fill="#ffffff" d="M4 1h1v1h-1zM2 2h2v1h-2zM2 3h1v1h-1zM1 4h1v1h-1z" />
+      </symbol>
+      <symbol id="btn-y" viewBox="0 0 13 13">
+        <path
+          fill="#13361b"
+          d="M4 0h5v1h-5zM2 1h2v1h-2zM9 1h2v1h-2zM1 2h1v1h-1zM11 2h1v1h-1zM1 3h1v1h-1zM11 3h1v1h-1zM0 4h1v1h-1zM12 4h1v1h-1zM0 5h1v1h-1zM12 5h1v1h-1zM0 6h1v1h-1zM12 6h1v1h-1zM0 7h1v1h-1zM12 7h1v1h-1zM0 8h1v1h-1zM12 8h1v1h-1zM1 9h1v1h-1zM11 9h1v1h-1zM1 10h1v1h-1zM11 10h1v1h-1zM2 11h2v1h-2zM9 11h2v1h-2zM4 12h5v1h-5z"
+        />
+        <path
+          fill="#3d9c4f"
+          d="M8 1h1v1h-1zM7 2h4v1h-4zM6 3h5v1h-5zM5 4h7v1h-7zM4 5h7v1h-7zM3 6h7v1h-7zM2 7h7v1h-7zM1 8h7v1h-7zM2 9h5v1h-5zM2 10h4v1h-4zM4 11h1v1h-1z"
+        />
+        <path fill="#88d496" d="M5 1h3v1h-3zM4 2h3v1h-3zM3 3h3v1h-3zM2 4h3v1h-3zM1 5h3v1h-3zM1 6h2v1h-2zM1 7h1v1h-1z" />
+        <path fill="#286b35" d="M11 5h1v1h-1zM10 6h2v1h-2zM9 7h3v1h-3zM8 8h4v1h-4zM7 9h4v1h-4zM6 10h5v1h-5zM5 11h4v1h-4z" />
+        <path fill="#ffffff" d="M4 1h1v1h-1zM2 2h2v1h-2zM2 3h1v1h-1zM1 4h1v1h-1z" />
+      </symbol>
+      <symbol id="btn-small" viewBox="0 0 7 7">
+        <path
+          fill="#3a4152"
+          d="M2 0h3v1h-3zM1 1h1v1h-1zM5 1h1v1h-1zM0 2h1v1h-1zM6 2h1v1h-1zM0 3h1v1h-1zM6 3h1v1h-1zM0 4h1v1h-1zM6 4h1v1h-1zM1 5h1v1h-1zM5 5h1v1h-1zM2 6h3v1h-3z"
+        />
+        <path fill="#d9dde6" d="M4 1h1v1h-1zM3 2h3v1h-3zM2 3h4v1h-4zM1 4h4v1h-4zM2 5h2v1h-2z" />
+        <path fill="#ffffff" d="M2 1h2v1h-2zM1 2h2v1h-2zM1 3h1v1h-1z" />
+        <path fill="#a9b0be" d="M5 4h1v1h-1zM4 5h1v1h-1z" />
+      </symbol>
+      <symbol id="btn-small-dk" viewBox="0 0 7 7">
+        <path
+          fill="#05070c"
+          d="M2 0h3v1h-3zM1 1h1v1h-1zM5 1h1v1h-1zM0 2h1v1h-1zM6 2h1v1h-1zM0 3h1v1h-1zM6 3h1v1h-1zM0 4h1v1h-1zM6 4h1v1h-1zM1 5h1v1h-1zM5 5h1v1h-1zM2 6h3v1h-3z"
+        />
+        <path fill="#4a5163" d="M4 1h1v1h-1zM3 2h3v1h-3zM2 3h4v1h-4zM1 4h4v1h-4zM2 5h2v1h-2z" />
+        <path fill="#6d768c" d="M2 1h2v1h-2zM1 2h2v1h-2zM1 3h1v1h-1z" />
+        <path fill="#30364a" d="M5 4h1v1h-1zM4 5h1v1h-1z" />
+      </symbol>
+      <symbol id="cstick" viewBox="0 0 5 5">
+        <path fill="#3a4152" d="M1 0h3v1h-3zM0 1h1v1h-1zM4 1h1v1h-1zM0 2h1v1h-1zM4 2h1v1h-1zM0 3h1v1h-1zM4 3h1v1h-1zM1 4h3v1h-3z" />
+        <path fill="#9aa1b0" d="M2 1h2v1h-2zM1 2h3v1h-3zM1 3h2v1h-2z" />
+        <path fill="#c9ced8" d="M1 1h1v1h-1z" />
+        <path fill="#6d7486" d="M3 3h1v1h-1z" />
+      </symbol>
+      <symbol id="cpad-well" viewBox="0 0 31 31">
+        <path
+          fill="#3a4152"
+          d="M12 0h7v1h-7zM9 1h3v1h-3zM19 1h3v1h-3zM7 2h2v1h-2zM22 2h2v1h-2zM6 3h1v1h-1zM24 3h1v1h-1zM5 4h1v1h-1zM25 4h1v1h-1zM4 5h1v1h-1zM26 5h1v1h-1zM3 6h1v1h-1zM27 6h1v1h-1zM2 7h1v1h-1zM28 7h1v1h-1zM2 8h1v1h-1zM28 8h1v1h-1zM1 9h1v1h-1zM29 9h1v1h-1zM1 10h1v1h-1zM29 10h1v1h-1zM1 11h1v1h-1zM29 11h1v1h-1zM0 12h1v1h-1zM30 12h1v1h-1zM0 13h1v1h-1zM30 13h1v1h-1zM0 14h1v1h-1zM30 14h1v1h-1zM0 15h1v1h-1zM30 15h1v1h-1zM0 16h1v1h-1zM30 16h1v1h-1zM0 17h1v1h-1zM30 17h1v1h-1zM0 18h1v1h-1zM30 18h1v1h-1zM1 19h1v1h-1zM29 19h1v1h-1zM1 20h1v1h-1zM29 20h1v1h-1zM1 21h1v1h-1zM29 21h1v1h-1zM2 22h1v1h-1zM28 22h1v1h-1zM2 23h1v1h-1zM28 23h1v1h-1zM3 24h1v1h-1zM27 24h1v1h-1zM4 25h1v1h-1zM26 25h1v1h-1zM5 26h1v1h-1zM25 26h1v1h-1zM6 27h1v1h-1zM24 27h1v1h-1zM7 28h2v1h-2zM22 28h2v1h-2zM9 29h3v1h-3zM19 29h3v1h-3zM12 30h7v1h-7z"
+        />
+        <path
+          fill="#7d8596"
+          d="M14 5h3v1h-3zM10 6h11v1h-11zM9 7h13v1h-13zM7 8h17v1h-17zM6 9h19v1h-19zM5 10h21v1h-21zM5 11h21v1h-21zM4 12h23v1h-23zM4 13h23v1h-23zM3 14h25v1h-25zM3 15h25v1h-25zM3 16h25v1h-25zM3 17h25v1h-25zM3 18h25v1h-25zM3 19h25v1h-25zM3 20h25v1h-25zM3 21h25v1h-25zM4 22h23v1h-23zM4 23h23v1h-23zM5 24h21v1h-21zM5 25h21v1h-21zM6 26h19v1h-19zM7 27h17v1h-17zM9 28h13v1h-13zM12 29h7v1h-7z"
+        />
+        <path
+          fill="#5d6578"
+          d="M12 1h7v1h-7zM9 2h13v1h-13zM7 3h17v1h-17zM6 4h19v1h-19zM5 5h9v1h-9zM17 5h9v1h-9zM4 6h6v1h-6zM21 6h6v1h-6zM3 7h6v1h-6zM22 7h6v1h-6zM3 8h4v1h-4zM24 8h4v1h-4zM2 9h4v1h-4zM25 9h4v1h-4zM2 10h3v1h-3zM26 10h3v1h-3zM2 11h3v1h-3zM26 11h3v1h-3zM1 12h3v1h-3zM27 12h3v1h-3zM1 13h3v1h-3zM27 13h3v1h-3zM1 14h2v1h-2zM28 14h2v1h-2zM1 15h2v1h-2zM28 15h2v1h-2zM1 16h2v1h-2zM28 16h2v1h-2zM1 17h2v1h-2zM28 17h2v1h-2zM1 18h2v1h-2zM28 18h2v1h-2zM2 19h1v1h-1zM28 19h1v1h-1zM2 20h1v1h-1zM28 20h1v1h-1zM2 21h1v1h-1zM28 21h1v1h-1zM3 22h1v1h-1zM27 22h1v1h-1zM3 23h1v1h-1zM27 23h1v1h-1zM4 24h1v1h-1zM26 24h1v1h-1z"
+        />
+      </symbol>
+      <symbol id="cpad-nub" viewBox="0 0 23 23">
+        <path
+          fill="#2e3442"
+          d="M8 0h7v1h-7zM6 1h2v1h-2zM15 1h2v1h-2zM4 2h2v1h-2zM17 2h2v1h-2zM3 3h1v1h-1zM19 3h1v1h-1zM2 4h1v1h-1zM20 4h1v1h-1zM2 5h1v1h-1zM20 5h1v1h-1zM1 6h1v1h-1zM21 6h1v1h-1zM1 7h1v1h-1zM21 7h1v1h-1zM0 8h1v1h-1zM22 8h1v1h-1zM0 9h1v1h-1zM22 9h1v1h-1zM0 10h1v1h-1zM22 10h1v1h-1zM0 11h1v1h-1zM22 11h1v1h-1zM0 12h1v1h-1zM22 12h1v1h-1zM0 13h1v1h-1zM22 13h1v1h-1zM0 14h1v1h-1zM22 14h1v1h-1zM1 15h1v1h-1zM21 15h1v1h-1zM1 16h1v1h-1zM21 16h1v1h-1zM2 17h1v1h-1zM20 17h1v1h-1zM2 18h1v1h-1zM20 18h1v1h-1zM3 19h1v1h-1zM19 19h1v1h-1zM4 20h2v1h-2zM17 20h2v1h-2zM6 21h2v1h-2zM15 21h2v1h-2zM8 22h7v1h-7z"
+        />
+        <path
+          fill="#c4c9d4"
+          d="M12 1h3v1h-3zM11 2h6v1h-6zM13 3h6v1h-6zM10 4h3v1h-3zM16 4h4v1h-4zM8 5h7v1h-7zM17 5h3v1h-3zM7 6h10v1h-10zM18 6h3v1h-3zM6 7h3v1h-3zM14 7h3v1h-3zM19 7h2v1h-2zM5 8h3v1h-3zM10 8h3v1h-3zM15 8h3v1h-3zM19 8h3v1h-3zM5 9h2v1h-2zM9 9h5v1h-5zM16 9h2v1h-2zM19 9h3v1h-3zM4 10h3v1h-3zM8 10h7v1h-7zM16 10h3v1h-3zM20 10h2v1h-2zM2 11h1v1h-1zM4 11h3v1h-3zM8 11h7v1h-7zM16 11h3v1h-3zM20 11h1v1h-1zM1 12h2v1h-2zM4 12h3v1h-3zM8 12h7v1h-7zM16 12h3v1h-3zM1 13h3v1h-3zM5 13h2v1h-2zM9 13h5v1h-5zM16 13h2v1h-2zM1 14h3v1h-3zM5 14h3v1h-3zM10 14h3v1h-3zM15 14h3v1h-3zM2 15h2v1h-2zM6 15h3v1h-3zM14 15h3v1h-3zM2 16h3v1h-3zM6 16h10v1h-10zM3 17h3v1h-3zM8 17h7v1h-7zM3 18h4v1h-4zM10 18h3v1h-3zM4 19h6v1h-6zM6 20h6v1h-6zM8 21h3v1h-3z"
+        />
+        <path
+          fill="#aab0bd"
+          d="M10 3h3v1h-3zM7 4h3v1h-3zM13 4h3v1h-3zM6 5h2v1h-2zM15 5h2v1h-2zM5 6h1v1h-1zM17 6h1v1h-1zM4 7h2v1h-2zM9 7h5v1h-5zM17 7h2v1h-2zM4 8h1v1h-1zM8 8h2v1h-2zM13 8h2v1h-2zM18 8h1v1h-1zM4 9h1v1h-1zM7 9h2v1h-2zM14 9h2v1h-2zM18 9h1v1h-1zM3 10h1v1h-1zM7 10h1v1h-1zM15 10h1v1h-1zM19 10h1v1h-1zM3 11h1v1h-1zM7 11h1v1h-1zM15 11h1v1h-1zM19 11h1v1h-1zM3 12h1v1h-1zM7 12h1v1h-1zM15 12h1v1h-1zM19 12h1v1h-1zM4 13h1v1h-1zM7 13h2v1h-2zM14 13h2v1h-2zM18 13h1v1h-1zM4 14h1v1h-1zM8 14h2v1h-2zM13 14h2v1h-2zM18 14h1v1h-1zM4 15h2v1h-2zM9 15h5v1h-5zM17 15h2v1h-2zM5 16h1v1h-1zM17 16h1v1h-1zM6 17h2v1h-2zM15 17h2v1h-2zM7 18h3v1h-3zM13 18h3v1h-3zM10 19h3v1h-3z"
+        />
+        <path
+          fill="#99a0ae"
+          d="M21 11h1v1h-1zM20 12h2v1h-2zM19 13h3v1h-3zM19 14h3v1h-3zM19 15h2v1h-2zM16 16h1v1h-1zM18 16h3v1h-3zM17 17h3v1h-3zM16 18h4v1h-4zM13 19h6v1h-6zM12 20h5v1h-5zM11 21h4v1h-4z"
+        />
+        <path
+          fill="#ffffff"
+          d="M8 1h4v1h-4zM6 2h5v1h-5zM4 3h6v1h-6zM3 4h4v1h-4zM3 5h3v1h-3zM2 6h3v1h-3zM6 6h1v1h-1zM2 7h2v1h-2zM1 8h3v1h-3zM1 9h3v1h-3zM1 10h2v1h-2zM1 11h1v1h-1z"
+        />
+      </symbol>
+      <symbol id="ico-onlyfans" viewBox="0 0 12 12">
+        <path
+          fill="#00aff0"
+          d="M2 2h4v1h-4zM1 3h6v1h-6zM0 4h2v1h-2zM6 4h1v1h-1zM0 5h2v1h-2zM6 5h1v1h-1zM0 6h2v1h-2zM6 6h1v1h-1zM0 7h2v1h-2zM6 7h1v1h-1zM1 8h6v1h-6zM2 9h4v1h-4z"
+        />
+        <path fill="#0b86c9" d="M8 3h4v1h-4zM7 4h4v1h-4zM7 5h3v1h-3zM7 6h2v1h-2zM7 7h1v1h-1z" />
+      </symbol>
+      <symbol id="ico-home" viewBox="0 0 9 8">
+        <path
+          fill="currentColor"
+          d="M4 0h1v1h-1zM3 1h3v1h-3zM2 2h5v1h-5zM1 3h7v1h-7zM0 4h9v1h-9zM1 5h2v1h-2zM6 5h2v1h-2zM1 6h2v1h-2zM4 6h1v1h-1zM6 6h2v1h-2zM1 7h2v1h-2zM4 7h1v1h-1zM6 7h2v1h-2z"
+        />
+      </symbol>
+      <symbol id="dpad-arrow" viewBox="0 0 5 3"><path fill="currentColor" d="M2 0h1v1h-1zM1 1h3v1h-3zM0 2h5v1h-5z" /></symbol>
+      <symbol id="badge-kiwi" viewBox="0 0 16 16">
+        <path
+          fill="#13361b"
+          d="M5 0h6v1h-6zM3 1h2v1h-2zM11 1h2v1h-2zM2 2h1v1h-1zM13 2h1v1h-1zM1 3h1v1h-1zM14 3h1v1h-1zM1 4h1v1h-1zM14 4h1v1h-1zM0 5h1v1h-1zM15 5h1v1h-1zM0 6h1v1h-1zM15 6h1v1h-1zM0 7h1v1h-1zM15 7h1v1h-1zM0 8h1v1h-1zM15 8h1v1h-1zM0 9h1v1h-1zM15 9h1v1h-1zM0 10h1v1h-1zM15 10h1v1h-1zM1 11h1v1h-1zM14 11h1v1h-1zM1 12h1v1h-1zM14 12h1v1h-1zM2 13h1v1h-1zM13 13h1v1h-1zM3 14h2v1h-2zM11 14h2v1h-2zM5 15h6v1h-6z"
+        />
+        <path fill="#8f6b45" d="M8 3h4v1h-4zM6 4h7v1h-7zM5 5h8v1h-8zM5 6h8v1h-8zM3 7h10v1h-10zM5 8h7v1h-7zM7 9h4v1h-4z" />
+        <path
+          fill="#4fae5f"
+          d="M7 1h4v1h-4zM6 2h2v1h-2zM12 2h1v1h-1zM5 3h1v1h-1zM13 3h1v1h-1zM4 4h1v1h-1zM3 5h1v1h-1zM14 5h1v1h-1zM2 6h1v1h-1zM14 6h1v1h-1zM1 7h1v1h-1zM14 7h1v1h-1zM1 8h1v1h-1zM13 8h2v1h-2zM1 9h1v1h-1zM3 9h2v1h-2zM12 9h3v1h-3zM1 10h2v1h-2zM4 10h3v1h-3zM11 10h3v1h-3zM2 11h6v1h-6zM9 11h1v1h-1zM11 11h2v1h-2zM2 12h5v1h-5zM9 12h1v1h-1zM3 13h8v1h-8zM5 14h5v1h-5z"
+        />
+        <path fill="#9bdca4" d="M5 1h2v1h-2zM3 2h3v1h-3zM2 3h3v1h-3zM2 4h2v1h-2zM1 5h2v1h-2zM1 6h1v1h-1z" />
+        <path
+          fill="#3a2614"
+          d="M8 2h4v1h-4zM6 3h2v1h-2zM12 3h1v1h-1zM5 4h1v1h-1zM13 4h1v1h-1zM4 5h1v1h-1zM13 5h1v1h-1zM3 6h1v1h-1zM13 6h1v1h-1zM2 7h1v1h-1zM13 7h1v1h-1zM3 8h2v1h-2zM12 8h1v1h-1zM5 9h2v1h-2zM11 9h1v1h-1zM7 10h4v1h-4zM8 11h1v1h-1zM10 11h1v1h-1zM7 12h2v1h-2zM10 12h2v1h-2z"
+        />
+        <path fill="#2c7a3c" d="M14 10h1v1h-1zM13 11h1v1h-1zM12 12h2v1h-2zM11 13h2v1h-2zM10 14h1v1h-1z" />
+        <path fill="#f2dfa6" d="M2 8h1v1h-1zM2 9h1v1h-1zM3 10h1v1h-1z" />
+        <path fill="#14100a" d="M4 6h1v1h-1z" />
+      </symbol>
+      <symbol id="badge-book" viewBox="0 0 16 16">
+        <path
+          fill="#12264f"
+          d="M2 0h12v1h-12zM1 1h1v1h-1zM14 1h1v1h-1zM0 2h1v1h-1zM15 2h1v1h-1zM0 3h1v1h-1zM15 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM10 4h3v1h-3zM15 4h1v1h-1zM0 5h2v1h-2zM5 5h2v1h-2zM8 5h2v1h-2zM13 5h1v1h-1zM15 5h1v1h-1zM0 6h2v1h-2zM7 6h1v1h-1zM13 6h1v1h-1zM15 6h1v1h-1zM0 7h2v1h-2zM7 7h1v1h-1zM13 7h1v1h-1zM15 7h1v1h-1zM0 8h2v1h-2zM7 8h1v1h-1zM13 8h1v1h-1zM15 8h1v1h-1zM0 9h2v1h-2zM7 9h1v1h-1zM13 9h1v1h-1zM15 9h1v1h-1zM0 10h2v1h-2zM7 10h1v1h-1zM13 10h1v1h-1zM15 10h1v1h-1zM0 11h6v1h-6zM7 11h1v1h-1zM9 11h5v1h-5zM15 11h1v1h-1zM0 12h1v1h-1zM6 12h3v1h-3zM15 12h1v1h-1zM0 13h1v1h-1zM15 13h1v1h-1zM1 14h1v1h-1zM14 14h1v1h-1zM2 15h12v1h-12z"
+        />
+        <path fill="#8a93a8" d="M3 7h3v1h-3zM9 7h3v1h-3zM3 9h3v1h-3zM9 9h3v1h-3z" />
+        <path fill="#86aef2" d="M4 1h3v1h-3zM3 2h3v1h-3zM2 3h3v1h-3zM1 4h1v1h-1z" />
+        <path
+          fill="#3d6fd6"
+          d="M7 1h7v1h-7zM6 2h9v1h-9zM5 3h10v1h-10zM5 4h5v1h-5zM13 4h2v1h-2zM7 5h1v1h-1zM14 5h1v1h-1zM14 6h1v1h-1zM14 7h1v1h-1zM14 8h1v1h-1zM14 9h1v1h-1zM1 12h5v1h-5zM9 12h3v1h-3zM1 13h10v1h-10zM2 14h8v1h-8z"
+        />
+        <path
+          fill="#fff8e6"
+          d="M2 5h3v1h-3zM10 5h3v1h-3zM2 6h5v1h-5zM8 6h5v1h-5zM2 7h1v1h-1zM6 7h1v1h-1zM8 7h1v1h-1zM12 7h1v1h-1zM2 8h5v1h-5zM8 8h5v1h-5zM2 9h1v1h-1zM6 9h1v1h-1zM8 9h1v1h-1zM12 9h1v1h-1zM2 10h5v1h-5zM8 10h5v1h-5zM6 11h1v1h-1zM8 11h1v1h-1z"
+        />
+        <path fill="#ffffff" d="M2 1h2v1h-2zM1 2h2v1h-2zM1 3h1v1h-1z" />
+        <path fill="#2a4c9c" d="M14 10h1v1h-1zM14 11h1v1h-1zM12 12h3v1h-3zM11 13h4v1h-4zM10 14h4v1h-4z" />
+      </symbol>
+      <symbol id="badge-sword" viewBox="0 0 16 16">
+        <path
+          fill="#4a120c"
+          d="M2 0h12v1h-12zM1 1h1v1h-1zM14 1h1v1h-1zM0 2h1v1h-1zM15 2h1v1h-1zM0 3h1v1h-1zM15 3h1v1h-1zM0 4h1v1h-1zM15 4h1v1h-1zM0 5h1v1h-1zM15 5h1v1h-1zM0 6h1v1h-1zM15 6h1v1h-1zM0 7h1v1h-1zM15 7h1v1h-1zM0 8h1v1h-1zM15 8h1v1h-1zM1 9h1v1h-1zM14 9h1v1h-1zM2 10h1v1h-1zM13 10h1v1h-1zM3 11h1v1h-1zM12 11h1v1h-1zM4 12h1v1h-1zM11 12h1v1h-1zM5 13h1v1h-1zM10 13h1v1h-1zM6 14h1v1h-1zM9 14h1v1h-1zM7 15h2v1h-2z"
+        />
+        <path
+          fill="#d9402f"
+          d="M7 1h7v1h-7zM6 2h2v1h-2zM9 2h6v1h-6zM5 3h2v1h-2zM9 3h6v1h-6zM4 4h3v1h-3zM9 4h6v1h-6zM3 5h4v1h-4zM9 5h6v1h-6zM2 6h5v1h-5zM9 6h6v1h-6zM1 7h6v1h-6zM9 7h6v1h-6zM1 8h4v1h-4zM11 8h4v1h-4zM2 9h5v1h-5zM9 9h5v1h-5zM3 10h4v1h-4zM9 10h4v1h-4zM4 11h2v1h-2zM10 11h2v1h-2zM5 12h6v1h-6zM6 13h4v1h-4zM7 14h2v1h-2z"
+        />
+        <path fill="#f4897a" d="M4 1h3v1h-3zM3 2h3v1h-3zM2 3h3v1h-3zM1 4h3v1h-3zM1 5h2v1h-2zM1 6h1v1h-1z" />
+        <path fill="#4a2a10" d="M7 9h2v1h-2zM7 10h2v1h-2z" />
+        <path fill="#f0c43a" d="M5 8h6v1h-6zM6 11h1v1h-1zM9 11h1v1h-1z" />
+        <path fill="#ffffff" d="M2 1h2v1h-2zM1 2h2v1h-2zM8 2h1v1h-1zM1 3h1v1h-1zM7 3h1v1h-1zM7 4h1v1h-1zM7 5h1v1h-1zM7 6h1v1h-1zM7 7h1v1h-1z" />
+        <path fill="#c9961a" d="M7 11h2v1h-2z" />
+        <path fill="#b9c2d4" d="M8 3h1v1h-1zM8 4h1v1h-1zM8 5h1v1h-1zM8 6h1v1h-1zM8 7h1v1h-1z" />
+      </symbol>
+      <symbol id="badge-myna" viewBox="0 0 16 16">
+        <path
+          fill="#2a1550"
+          d="M4 0h8v1h-8zM3 1h1v1h-1zM12 1h1v1h-1zM2 2h1v1h-1zM13 2h1v1h-1zM1 3h1v1h-1zM14 3h1v1h-1zM0 4h1v1h-1zM15 4h1v1h-1zM0 5h1v1h-1zM15 5h1v1h-1zM0 6h1v1h-1zM15 6h1v1h-1zM0 7h1v1h-1zM15 7h1v1h-1zM0 8h1v1h-1zM15 8h1v1h-1zM0 9h1v1h-1zM15 9h1v1h-1zM0 10h1v1h-1zM15 10h1v1h-1zM0 11h1v1h-1zM15 11h1v1h-1zM1 12h1v1h-1zM14 12h1v1h-1zM2 13h1v1h-1zM13 13h1v1h-1zM3 14h1v1h-1zM12 14h1v1h-1zM4 15h8v1h-8z"
+        />
+        <path
+          fill="#8a63d2"
+          d="M7 1h5v1h-5zM6 2h7v1h-7zM7 3h7v1h-7zM7 4h8v1h-8zM9 5h6v1h-6zM10 6h5v1h-5zM1 7h1v1h-1zM12 7h3v1h-3zM1 8h1v1h-1zM11 8h4v1h-4zM1 9h1v1h-1zM11 9h4v1h-4zM1 10h2v1h-2zM11 10h3v1h-3zM1 11h3v1h-3zM10 11h3v1h-3zM2 12h3v1h-3zM6 12h2v1h-2zM9 12h3v1h-3zM3 13h8v1h-8zM4 14h6v1h-6z"
+        />
+        <path
+          fill="#1b1b24"
+          d="M5 3h2v1h-2zM4 4h3v1h-3zM3 5h6v1h-6zM2 6h4v1h-4zM7 6h3v1h-3zM2 7h7v1h-7zM2 8h8v1h-8zM2 9h3v1h-3zM7 9h4v1h-4zM3 10h8v1h-8zM4 11h6v1h-6z"
+        />
+        <path fill="#c3a6f2" d="M4 1h3v1h-3zM3 2h3v1h-3zM2 3h3v1h-3zM1 4h3v1h-3zM1 5h2v1h-2zM1 6h1v1h-1z" />
+        <path fill="#5b3a9a" d="M14 10h1v1h-1zM13 11h2v1h-2zM12 12h2v1h-2zM11 13h2v1h-2zM10 14h2v1h-2z" />
+        <path fill="#f8c630" d="M6 6h1v1h-1zM9 7h3v1h-3zM10 8h1v1h-1zM5 12h1v1h-1zM8 12h1v1h-1z" />
+        <path fill="#f4f4f4" d="M5 9h2v1h-2z" />
+      </symbol>
+      <symbol id="pp-dog" viewBox="0 0 12 12">
+        <path
+          fill="#0e0e14"
+          d="M1 0h2v1h-2zM9 0h2v1h-2zM0 1h1v1h-1zM3 1h1v1h-1zM8 1h1v1h-1zM11 1h1v1h-1zM0 2h1v1h-1zM4 2h4v1h-4zM11 2h1v1h-1zM0 3h1v1h-1zM11 3h1v1h-1zM0 4h1v1h-1zM11 4h1v1h-1zM0 5h1v1h-1zM11 5h1v1h-1zM1 6h1v1h-1zM10 6h1v1h-1zM1 7h1v1h-1zM5 7h2v1h-2zM10 7h1v1h-1zM2 8h1v1h-1zM9 8h1v1h-1zM2 9h1v1h-1zM9 9h1v1h-1zM3 10h2v1h-2zM7 10h2v1h-2zM5 11h2v1h-2z"
+        />
+        <path
+          fill="#3a3a46"
+          d="M1 1h2v1h-2zM9 1h2v1h-2zM1 2h3v1h-3zM8 2h3v1h-3zM1 3h4v1h-4zM7 3h4v1h-4zM1 4h1v1h-1zM3 4h2v1h-2zM7 4h2v1h-2zM10 4h1v1h-1zM1 5h3v1h-3zM8 5h3v1h-3zM2 6h1v1h-1zM9 6h1v1h-1z"
+        />
+        <path
+          fill="#f6f6f2"
+          d="M5 3h2v1h-2zM5 4h2v1h-2zM4 5h4v1h-4zM3 6h6v1h-6zM2 7h3v1h-3zM7 7h3v1h-3zM3 8h6v1h-6zM3 9h2v1h-2zM7 9h2v1h-2zM5 10h2v1h-2z"
+        />
+        <path fill="#ffffff" d="M2 4h1v1h-1zM9 4h1v1h-1z" />
+        <path fill="#f07a8a" d="M5 9h2v1h-2z" />
+      </symbol>
+      <symbol id="pp-matcha" viewBox="0 0 12 12">
+        <path
+          fill="#5d6578"
+          d="M3 0h5v1h-5zM2 1h1v1h-1zM8 1h1v1h-1zM1 2h1v1h-1zM9 2h1v1h-1zM0 3h1v1h-1zM10 3h1v1h-1zM0 4h1v1h-1zM10 4h2v1h-2zM0 5h1v1h-1zM10 5h1v1h-1zM0 6h1v1h-1zM10 6h2v1h-2zM0 7h1v1h-1zM10 7h1v1h-1zM1 8h1v1h-1zM9 8h1v1h-1zM2 9h1v1h-1zM8 9h1v1h-1zM3 10h5v1h-5z"
+        />
+        <path
+          fill="#ffffff"
+          d="M3 1h5v1h-5zM2 2h1v1h-1zM8 2h1v1h-1zM1 3h1v1h-1zM9 3h1v1h-1zM1 4h1v1h-1zM9 4h1v1h-1zM1 5h1v1h-1zM9 5h1v1h-1zM11 5h1v1h-1zM1 6h1v1h-1zM9 6h1v1h-1zM1 7h1v1h-1zM9 7h1v1h-1zM2 8h1v1h-1zM8 8h1v1h-1zM3 9h5v1h-5z"
+        />
+        <path
+          fill="#8cc152"
+          d="M3 2h5v1h-5zM2 3h3v1h-3zM6 3h3v1h-3zM2 4h2v1h-2zM7 4h2v1h-2zM2 5h1v1h-1zM4 5h1v1h-1zM6 5h1v1h-1zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM2 7h1v1h-1zM4 7h1v1h-1zM6 7h1v1h-1zM8 7h1v1h-1zM3 8h2v1h-2zM6 8h2v1h-2z"
+        />
+        <path fill="#f6f1dc" d="M5 3h1v1h-1zM4 4h3v1h-3zM5 5h1v1h-1zM4 6h3v1h-3zM5 7h1v1h-1zM5 8h1v1h-1z" />
+        <path fill="#6f9e3c" d="M3 5h1v1h-1zM7 5h1v1h-1zM3 7h1v1h-1zM7 7h1v1h-1z" />
+      </symbol>
+      <symbol id="pp-sludge" viewBox="0 0 12 12">
+        <path
+          fill="#3e1a66"
+          d="M4 0h4v1h-4zM2 1h2v1h-2zM8 1h2v1h-2zM1 2h1v1h-1zM10 2h1v1h-1zM1 3h1v1h-1zM10 3h1v1h-1zM0 4h1v1h-1zM11 4h1v1h-1zM0 5h1v1h-1zM11 5h1v1h-1zM0 6h1v1h-1zM11 6h1v1h-1zM0 7h1v1h-1zM11 7h1v1h-1zM0 8h1v1h-1zM11 8h1v1h-1zM0 9h1v1h-1zM11 9h1v1h-1zM0 10h1v1h-1zM2 10h1v1h-1zM5 10h1v1h-1zM8 10h1v1h-1zM11 10h1v1h-1zM1 11h1v1h-1zM4 11h1v1h-1zM7 11h1v1h-1zM10 11h1v1h-1z"
+        />
+        <path
+          fill="#9a5bd0"
+          d="M4 1h4v1h-4zM2 2h8v1h-8zM2 3h1v1h-1zM5 3h2v1h-2zM9 3h1v1h-1zM1 4h2v1h-2zM5 4h2v1h-2zM9 4h2v1h-2zM1 5h10v1h-10zM1 6h2v1h-2zM10 6h1v1h-1zM1 7h2v1h-2zM10 7h1v1h-1zM1 8h3v1h-3zM9 8h2v1h-2zM1 9h10v1h-10zM1 10h1v1h-1zM3 10h2v1h-2zM6 10h2v1h-2zM9 10h2v1h-2z"
+        />
+        <path fill="#ffffff" d="M3 3h2v1h-2zM7 3h2v1h-2zM3 4h1v1h-1zM7 4h1v1h-1zM4 7h5v1h-5z" />
+        <path fill="#14081f" d="M4 4h1v1h-1zM8 4h1v1h-1z" />
+        <path fill="#2a1040" d="M3 6h7v1h-7zM3 7h1v1h-1zM9 7h1v1h-1zM4 8h5v1h-5z" />
+      </symbol>
+      <symbol id="pp-car" viewBox="0 0 12 12">
+        <path fill="#0e0e14" d="M1 0h3v1h-3zM8 0h3v1h-3zM1 1h1v1h-1zM3 1h1v1h-1zM8 1h1v1h-1zM10 1h1v1h-1zM1 2h3v1h-3zM8 2h3v1h-3z" />
+        <path fill="#9aa1b0" d="M2 1h1v1h-1zM9 1h1v1h-1z" />
+        <path
+          fill="#1d2440"
+          d="M0 3h12v1h-12zM0 5h1v1h-1zM11 5h1v1h-1zM1 6h1v1h-1zM10 6h1v1h-1zM2 7h1v1h-1zM9 7h1v1h-1zM3 8h1v1h-1zM8 8h1v1h-1zM4 9h4v1h-4z"
+        />
+        <path fill="#ffd23f" d="M0 4h1v1h-1z" />
+        <path fill="#3d6fd6" d="M1 4h10v1h-10zM1 5h10v1h-10zM2 6h8v1h-8zM5 7h2v1h-2zM5 8h2v1h-2z" />
+        <path fill="#e0402e" d="M11 4h1v1h-1z" />
+        <path fill="#bfe6ff" d="M3 7h2v1h-2zM7 7h2v1h-2zM4 8h1v1h-1zM7 8h1v1h-1z" />
+        <path fill="#4a8a3a" d="M0 10h12v1h-12z" />
+      </symbol>
+      <symbol id="pp-strawhat" viewBox="0 0 12 12">
+        <path fill="#9a7a2a" d="M4 0h4v1h-4zM3 1h1v1h-1zM8 1h1v1h-1zM3 2h1v1h-1zM8 2h1v1h-1zM0 4h2v1h-2zM10 4h2v1h-2z" />
+        <path fill="#ecc85e" d="M4 1h4v1h-4zM4 2h4v1h-4zM2 4h8v1h-8z" />
+        <path fill="#d9402f" d="M3 3h6v1h-6z" />
+        <path fill="#1b1b24" d="M2 5h8v1h-8zM2 6h1v1h-1zM9 6h1v1h-1zM2 7h1v1h-1zM4 7h1v1h-1zM7 7h1v1h-1zM9 7h1v1h-1z" />
+        <path fill="#f2c9a0" d="M3 6h6v1h-6zM3 7h1v1h-1zM5 7h2v1h-2zM8 7h1v1h-1zM3 8h6v1h-6zM4 9h4v1h-4z" />
+        <path fill="#8a93a8" d="M2 10h1v1h-1zM9 10h1v1h-1zM1 11h1v1h-1zM10 11h1v1h-1z" />
+        <path fill="#e8eef6" d="M3 10h6v1h-6zM2 11h8v1h-8z" />
+      </symbol>
+    </svg>
+
+    <main class="fit" aria-label="Sihang (Nagi) Zhao's homepage, presented as a handheld console">
+      <div class="n3ds" id="n3ds">
+        <!-- ===== static shell art ===== -->
+        <div class="shell" aria-hidden="true">
+          <div class="half half--top">
+            <svg class="cam" viewBox="0 0 7 7"><use href="#btn-small-dk" /></svg>
+            <span class="ir"></span>
+            <svg class="bump bump--l" viewBox="0 0 5 5"><use href="#cstick" /></svg>
+            <svg class="bump bump--r" viewBox="0 0 5 5"><use href="#cstick" /></svg>
+            <span class="spk spk--l"></span>
+            <span class="spk spk--r"></span>
+            <span class="lbl lbl--vol">Vol</span>
+            <span class="slot slot--vol"><i></i></span>
+            <span class="lbl lbl--3d">3D</span>
+            <span class="slot slot--3d"><i></i></span>
+            <span class="bezel bezel--top"></span>
+          </div>
+          <div class="half half--bot">
+            <div class="hinge"><span class="led led--note"></span><span class="led led--wifi"></span><span class="led led--pwr"></span></div>
+            <span class="bezel bezel--bot"></span>
+            <svg class="cstick" viewBox="0 0 5 5"><use href="#cstick" /></svg>
+          </div>
+        </div>
+
+        <!-- ===== live layer: screens and controls ===== -->
+        <div class="live">
+          <!-- TOP SCREEN: shows -->
+          <section class="scr scr--top" id="scr-top" aria-label="Top screen">
+            <div class="layer" data-layer="card">
+              <article class="tcard" aria-labelledby="trainer-name">
+                <div class="tcard__bar ui">
+                  <p>Trainer card</p>
+                  <nav class="socials" aria-label="Social links">
+                    <a
+                      class="soc"
+                      data-cur="soc-mail"
+                      href="mailto:sihangzhao@nyu.edu"
+                      aria-label="Email sihangzhao@nyu.edu"
+                      data-title="Email"
+                      data-desc="sihangzhao@nyu.edu"
+                      data-act="Mail"
+                      ><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><use href="#ico-mail" /></svg
+                    ></a>
+                    <a
+                      class="soc"
+                      data-cur="soc-scholar"
+                      href="https://scholar.google.com/citations?user=aCnC04IAAAAJ"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Google Scholar"
+                      data-title="Google Scholar"
+                      data-desc="Papers and citations"
+                      data-act="Open"
+                      ><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><use href="#ico-scholar" /></svg
+                    ></a>
+                    <a
+                      class="soc"
+                      data-cur="soc-x"
+                      href="https://twitter.com/SihangZhao"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="X (Twitter)"
+                      data-title="X"
+                      data-desc="@SihangZhao"
+                      data-act="Open"
+                      ><svg class="ico-x" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><use href="#ico-x" /></svg
+                    ></a>
+                    <a
+                      class="soc"
+                      data-cur="soc-instagram"
+                      href="https://instagram.com/nagi_akutagawa"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Instagram"
+                      data-title="Instagram"
+                      data-desc="@nagi_akutagawa · photography"
+                      data-act="Open"
+                      ><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><use href="#ico-camera" /></svg
+                    ></a>
+                    <a
+                      class="soc"
+                      data-cur="soc-onlyfans"
+                      href="{{ '/onlyfans/' | relative_url }}"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="OnlyFans"
+                      data-title="OnlyFans"
+                      data-desc="???"
+                      data-act="Open"
+                      ><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><use href="#ico-onlyfans" /></svg
+                    ></a>
+                  </nav>
+                  <span class="tcard__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                </div>
+                <div class="tcard__body">
+                  <div class="tcard__left">
+                    <dl class="ids">
+                      <div class="field field--name">
+                        <dt class="ui">Name</dt>
+                        <dd><h1 id="trainer-name">Sihang (Nagi) Zhao</h1></dd>
+                      </div>
+                      <div class="field">
+                        <dt class="ui">Affiliation</dt>
+                        <dd>
+                          <a
+                            class="cardlink"
+                            data-cur="lnk-courant"
+                            href="https://cims.nyu.edu/dynamic/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            data-title="NYU Courant"
+                            data-desc="cims.nyu.edu"
+                            data-act="Open"
+                            >NYU Courant</a
+                          >
+                        </dd>
+                      </div>
+                      <div class="field">
+                        <dt class="ui">Advisor</dt>
+                        <dd>
+                          <a
+                            class="cardlink"
+                            data-cur="lnk-advisor"
+                            href="https://engineering.nyu.edu/faculty/hongyi-wen"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            data-title="Prof. Hongyi Wen"
+                            data-desc="engineering.nyu.edu/faculty/hongyi-wen"
+                            data-act="Open"
+                            >Prof. Hongyi Wen</a
+                          >
+                        </dd>
+                      </div>
+                      <div class="field">
+                        <dt class="ui">Lv.</dt>
+                        <dd>2nd Year PhD</dd>
+                      </div>
+                    </dl>
+                    <div class="infobox" aria-live="polite">
+                      <p class="infobox__title">
+                        <i class="cursor-r" aria-hidden="true"></i><span id="info-title">Research interests</span
+                        ><span class="infobox__act"><i class="key key--a" aria-hidden="true">A</i><span id="info-act">Read</span></span>
+                      </p>
+                      <p class="infobox__desc" id="info-desc">Human–AI Collaboration · AI for Learning</p>
+                    </div>
+                  </div>
+                  <figure class="photo">
+                    <img
+                      src="{{ '/assets/nds/photo.jpg' | relative_url }}"
+                      width="900"
+                      height="900"
+                      alt="Beach photo styled like an object-detection result: a sea turtle on the sand boxed as “Turtle 0.99”, and Nagi lying on the sand in the foreground boxed as “Nagi 0.93”."
+                    />
+                    <figcaption>We have 93% confidence that the one below is Nagi.</figcaption>
+                  </figure>
+                </div>
+              </article>
+            </div>
+
+            <div class="layer" data-layer="reader" hidden>
+              <article class="reader" aria-labelledby="reader-title">
+                <header class="reader__head ui">
+                  <h2 id="reader-title">About</h2>
+                  <span id="reader-pg"></span>
+                </header>
+                <div class="pager" id="reader-pager"><div class="pager__flow" id="reader-flow"></div></div>
+                <footer class="reader__foot ui">
+                  <button class="pgbtn" type="button" data-pg="prev" aria-label="Previous page"><i class="cursor-r"></i></button>
+                  <span class="pgnum" aria-live="polite"><span class="vh">Page </span><span data-pg-cur>1</span>/<span data-pg-all>1</span></span>
+                  <button class="pgbtn" type="button" data-pg="next" aria-label="Next page"><i class="cursor-r"></i></button>
+                  <span class="hint"
+                    ><i class="key key--y" aria-hidden="true">Y</i><i class="key key--x" aria-hidden="true">X</i>Page&nbsp;&nbsp;<i
+                      class="key key--b"
+                      aria-hidden="true"
+                      >B</i
+                    >Close</span
+                  >
+                </footer>
+              </article>
+              <template id="tpl-research">
+                <p>
+                  I am a CS PhD student @ <a href="https://cims.nyu.edu/dynamic/" target="_blank" rel="noopener noreferrer">NYU Courant</a>, advised
+                  by <a href="https://engineering.nyu.edu/faculty/hongyi-wen" target="_blank" rel="noopener noreferrer">Prof. Hongyi Wen</a>.
+                </p>
+                <p>
+                  My primary research interest lies in Human–AI Collaboration, which I like to organize through the lens of a recommender system: if a
+                  generative model and its harness form a system that produces personalized content, I work on its retrieval stage (agent memory,
+                  context construction), its ranking and re-ranking stage (from single-turn preference to long-horizon interaction policy), the
+                  multimodal signals that supervise it (explicit preference, and implicit ones — dialogue content, human attention and action), and
+                  the feedback loop that closes those signals back into the system (self-improving, online adaptation).
+                </p>
+                <p>
+                  I currently study these in learning and educational settings, where the loop is optimized not only for engagement but for human
+                  after-interaction improvement.
+                </p>
+                <p>
+                  Along these lines, I helped build <a href="https://kiwiai.org" target="_blank" rel="noopener noreferrer">Kiwi</a>, an open-source
+                  learning platform, and designed and developed its next generation, <strong>Kiwi Code</strong> — on its way to open source, so stay
+                  tuned!
+                </p>
+              </template>
+              <template id="tpl-news">
+                <ul class="news">
+                  <li>
+                    <time class="date" datetime="2026-04-06">Apr 06, 2026</time> My first work,
+                    <strong
+                      ><a href="{{ '/assets/html/SHAPE-standalone.html' | relative_url }}" target="_blank" rel="noopener noreferrer">SHaPE</a></strong
+                    >, in PhD study is selected for an <strong>Oral presentation at ACL 2026</strong> in Oral Session C: NLP Applications 2 on July 5,
+                    2026! See you in San Diego!
+                  </li>
+                  <li>
+                    <time class="date" datetime="2025-04-15">Apr 15, 2025</time> I will join NYU Courant and NYU Shanghai as a PhD Student in
+                    September 2025! <span class="vh">💜</span
+                    ><svg class="heart" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><use href="#heart-violet" /></svg>GO Violet!<span
+                      class="vh"
+                      >💜</span
+                    ><svg class="heart" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><use href="#heart-violet" /></svg>
+                  </li>
+                </ul>
+              </template>
+              <template id="tpl-more">
+                <ul class="notes">
+                  <li>
+                    <svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><use href="#ico-bolt" /></svg>
+                    <p>
+                      I was diagnosed with ADHD in 2022. So please excuse my (maybe too) wild imagination and frequent moments of sudden, deep
+                      contemplation :)
+                    </p>
+                  </li>
+                  <li>
+                    <svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><use href="#ico-heart" /></svg>
+                    <p>
+                      I dedicate two hours each week to help neurodiverse individuals with learning and education challenges. Please briefly describe
+                      your experience, status and the difficulties you are facing, plus your preferred method of communication (via email, WeChat,
+                      Zoom meeting, etc.) in your email, and send it to my personal email:
+                      <a href="mailto:7nutnut@gmail.com">[6+1]nutnut[at]gmail[dot]com</a>. I will respond within 2-3 days upon receiving your message.
+                      My consultations are free. If you wish to donate, you can directly contribute to the
+                      <a href="https://en.cctf.org.cn/" target="_blank" rel="noopener noreferrer">Spring Bud Project</a>, which supports the education
+                      of underprivileged girls.
+                    </p>
+                  </li>
+                  <li>
+                    <svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><use href="#ico-ball" /></svg>
+                    <p>
+                      Basketball is my another life. I played for
+                      <a href="https://www.imperialcollegeunion.org/activities/a-to-z/basketball" target="_blank" rel="noopener noreferrer"
+                        >Imperial College London Men's Basketball Team</a
+                      >
+                      during 2021~2022 and
+                      <a href="https://harmonia.cuhk.edu.cn/en/page/25" target="_blank" rel="noopener noreferrer">Harmonia College</a> Men's
+                      Basketball Team during 2023~2025.
+                    </p>
+                  </li>
+                  <li>
+                    <svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><use href="#ico-camera" /></svg>
+                    <p>
+                      You can also find my photography work in
+                      <a href="https://www.instagram.com/nagi_akutagawa/" target="_blank" rel="noopener noreferrer">my Instagram</a>. They are about
+                      my attempts to find and understand the implict beauty and harmony in ordinary life.
+                    </p>
+                  </li>
+                </ul>
+              </template>
+            </div>
+
+            <div class="layer" data-layer="detail" hidden></div>
+
+            <div class="layer" data-layer="ai" hidden>
+              <div class="term" role="log" aria-live="polite">
+                <p class="term__title">Nagi-OS · AI mode</p>
+                <p><span class="term__dim">&gt;</span> starting terminal ...</p>
+                <p><span class="term__dim">&gt;</span> coming soon: this homepage will become an interactive AI terminal.</p>
+                <p><span class="term__dim">&gt;</span> press START or <span class="term__dim">B</span> to go back.</p>
+                <p class="term__cursor"><span class="term__dim">&gt;</span></p>
+              </div>
+            </div>
+          </section>
+
+          <!-- BOTTOM (TOUCH) SCREEN: operates -->
+          <section class="scr scr--bot" id="scr-bot" aria-label="Touch screen">
+            <div class="layer" data-layer="menu">
+              <div class="acards" role="group" aria-label="About">
+                <button
+                  class="acard"
+                  type="button"
+                  data-cur="card-research"
+                  data-sec="research"
+                  data-title="Research interests"
+                  data-desc="Human–AI Collaboration · AI for Learning"
+                  data-act="Read"
+                >
+                  <span class="acard__head"
+                    ><span>Research interests</span
+                    ><span class="acard__state"
+                      ><span class="go"><i class="key key--a" aria-hidden="true">A</i>Read</span
+                      ><span class="on"><span class="glyph">▲</span>On top</span></span
+                    ></span
+                  >
+                  <span class="acard__body"><span class="tag">Human–AI Collaboration</span><span class="tag">AI for Learning</span></span>
+                </button>
+                <button
+                  class="acard"
+                  type="button"
+                  data-cur="card-news"
+                  data-sec="news"
+                  data-title="News"
+                  data-desc="2 updates · latest: Apr 06, 2026"
+                  data-act="Read"
+                >
+                  <span class="acard__head"
+                    ><span>News</span
+                    ><span class="acard__state"
+                      ><span class="go"><i class="key key--a" aria-hidden="true">A</i>Read</span
+                      ><span class="on"><span class="glyph">▲</span>On top</span></span
+                    ></span
+                  >
+                  <span class="acard__body clamp-2"
+                    ><span class="date">Apr 06, 2026</span> My first work, SHaPE, in PhD study is selected for an Oral presentation at ACL 2026 in
+                    Oral Session C: NLP Applications 2 on July 5, 2026! See you in San Diego!</span
+                  >
+                </button>
+                <button
+                  class="acard"
+                  type="button"
+                  data-cur="card-more"
+                  data-sec="more"
+                  data-title="More about me"
+                  data-desc="ADHD · learning support · basketball · photography"
+                  data-act="Read"
+                >
+                  <span class="acard__head"
+                    ><span>More about me</span
+                    ><span class="acard__state"
+                      ><span class="go"><i class="key key--a" aria-hidden="true">A</i>Read</span
+                      ><span class="on"><span class="glyph">▲</span>On top</span></span
+                    ></span
+                  >
+                  <span class="acard__body clamp-2">ADHD · free learning support for neurodiverse people · basketball · photography</span>
+                </button>
+              </div>
+              <nav class="menu" aria-label="Sections">
+                <a
+                  class="mbtn c-pubs ui"
+                  data-view="pubs"
+                  data-cur="nav-pubs"
+                  data-title="Publications"
+                  data-desc="3 papers · ACL 2026 [Oral] · CHI 2025 · EMNLP 2024"
+                  data-act="Open"
+                  href="{{ '/publications/' | relative_url }}"
+                  ><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><use href="#ico-pubs" /></svg>Publications</a
+                >
+                <a
+                  class="mbtn c-blog ui"
+                  data-view="blog"
+                  data-cur="nav-blog"
+                  data-title="Blog"
+                  data-desc="notes, ideas, and things I'm building"
+                  data-act="Open"
+                  href="{{ '/blog/' | relative_url }}"
+                  ><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><use href="#ico-blog" /></svg>Blog</a
+                >
+                <a
+                  class="mbtn c-projects ui"
+                  data-view="projects"
+                  data-cur="nav-projects"
+                  data-title="Projects"
+                  data-desc="4 badges · 几维 / Kiwi · 书僮 · 钟馗 · 八哥"
+                  data-act="Open"
+                  href="{{ '/projects/' | relative_url }}"
+                  ><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><use href="#ico-projects" /></svg>Projects</a
+                >
+                <a
+                  class="mbtn c-teaching ui"
+                  data-view="teaching"
+                  data-cur="nav-teaching"
+                  data-title="Teaching"
+                  data-desc="Fall 2026 · CSCI-SHU 381 · CSCI-SHU 11"
+                  data-act="Open"
+                  href="{{ '/teaching/' | relative_url }}"
+                  ><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><use href="#ico-teaching" /></svg>Teaching</a
+                >
+                <a
+                  class="mbtn c-people ui"
+                  data-view="people"
+                  data-cur="nav-people"
+                  data-title="People"
+                  data-desc="Friends (I actually know little about their research)"
+                  data-act="Open"
+                  href="{{ '/people/' | relative_url }}"
+                  ><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><use href="#ico-people" /></svg>People</a
+                >
+              </nav>
+            </div>
+
+            <div class="layer" data-layer="list" hidden>
+              <nav class="tabs" aria-label="Sections">
+                <button class="bbar__back ui" type="button" data-act="b"><i class="key key--b" aria-hidden="true">B</i></button>
+                <i class="tabs__arrow tabs__arrow--l cursor-r" aria-hidden="true"></i>
+                <button class="stab c-pubs" type="button" data-sec-tab="pubs" aria-label="Publications">
+                  <svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><use href="#ico-pubs" /></svg><span>Publications</span>
+                </button>
+                <button class="stab c-blog" type="button" data-sec-tab="blog" aria-label="Blog">
+                  <svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><use href="#ico-blog" /></svg><span>Blog</span>
+                </button>
+                <button class="stab c-projects" type="button" data-sec-tab="projects" aria-label="Projects">
+                  <svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><use href="#ico-projects" /></svg><span>Projects</span>
+                </button>
+                <button class="stab c-teaching" type="button" data-sec-tab="teaching" aria-label="Teaching">
+                  <svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><use href="#ico-teaching" /></svg><span>Teaching</span>
+                </button>
+                <button class="stab c-people" type="button" data-sec-tab="people" aria-label="People">
+                  <svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><use href="#ico-people" /></svg><span>People</span>
+                </button>
+                <i class="tabs__arrow cursor-r" aria-hidden="true"></i>
+              </nav>
+              <div class="rows" id="rows" role="listbox" aria-label="Items"><div class="rows__scroll" id="rows-scroll"></div></div>
+              <i class="rows__more rows__more--up more-d" id="rows-up" hidden></i>
+              <i class="rows__more rows__more--down more-d" id="rows-down" hidden></i>
+              <p class="rows__empty" id="rows-empty" hidden></p>
+              <footer class="hints ui" aria-hidden="true">
+                <span><span class="glyph">▲▼</span>Select</span>
+                <span><span class="glyph">◀▶</span>Section</span>
+                <span><i class="key key--a">A</i>Open</span>
+                <span><i class="key key--b">B</i>Back</span>
+              </footer>
+            </div>
+
+            <div class="layer" data-layer="ai" hidden>
+              <div class="aibox">
+                <label class="vh" for="ai-input">Message to the AI terminal</label>
+                <input class="ai-input" id="ai-input" type="text" placeholder="Ask me anything ... (coming soon)" disabled />
+                <p class="ai-note">AI chat mode is on its way. For now, press START or B to return to the menu.</p>
+                <footer class="hints ui" aria-hidden="true">
+                  <span><i class="key key--b">B</i>Back</span>
+                </footer>
+              </div>
+            </div>
+          </section>
+
+          <!-- CONTROLS -->
+          <div class="cpad" id="cpad" aria-hidden="true">
+            <svg class="cpad__well" viewBox="0 0 31 31"><use href="#cpad-well" /></svg>
+            <svg class="cpad__nub" viewBox="0 0 23 23"><use href="#cpad-nub" /></svg>
+          </div>
+
+          <div class="dpad" aria-hidden="true">
+            <span class="dpad__hub"></span>
+            <button class="dpad__arm dpad__arm--up" type="button" tabindex="-1" data-btn="up">
+              <svg viewBox="0 0 5 3"><use href="#dpad-arrow" /></svg>
+            </button>
+            <button class="dpad__arm dpad__arm--down" type="button" tabindex="-1" data-btn="down">
+              <svg viewBox="0 0 5 3"><use href="#dpad-arrow" /></svg>
+            </button>
+            <button class="dpad__arm dpad__arm--left" type="button" tabindex="-1" data-btn="left">
+              <svg viewBox="0 0 5 3"><use href="#dpad-arrow" /></svg>
+            </button>
+            <button class="dpad__arm dpad__arm--right" type="button" tabindex="-1" data-btn="right">
+              <svg viewBox="0 0 5 3"><use href="#dpad-arrow" /></svg>
+            </button>
+          </div>
+
+          <div aria-hidden="true">
+            <button class="fbtn fbtn--x" type="button" tabindex="-1" data-btn="x">
+              <svg viewBox="0 0 13 13"><use href="#btn-x" /></svg><span>X</span>
+            </button>
+            <button class="fbtn fbtn--a" type="button" tabindex="-1" data-btn="a">
+              <svg viewBox="0 0 13 13"><use href="#btn-a" /></svg><span>A</span>
+            </button>
+            <button class="fbtn fbtn--b" type="button" tabindex="-1" data-btn="b">
+              <svg viewBox="0 0 13 13"><use href="#btn-b" /></svg><span>B</span>
+            </button>
+            <button class="fbtn fbtn--y" type="button" tabindex="-1" data-btn="y">
+              <svg viewBox="0 0 13 13"><use href="#btn-y" /></svg><span>Y</span>
+            </button>
+          </div>
+
+          <button class="ss ss--start" type="button" data-btn="start" aria-label="START: AI chat mode (coming soon)">
+            <svg class="cap-lt" viewBox="0 0 7 7" aria-hidden="true"><use href="#btn-small" /></svg>
+            <svg class="cap-dk" viewBox="0 0 7 7" aria-hidden="true"><use href="#btn-small-dk" /></svg>
+            <span class="lbl" aria-hidden="true">Start <small>· AI</small></span>
+          </button>
+          <button class="ss ss--select" type="button" data-btn="select" aria-pressed="false" aria-label="Dark mode">
+            <svg class="cap-lt" viewBox="0 0 7 7" aria-hidden="true"><use href="#btn-small" /></svg>
+            <svg class="cap-dk" viewBox="0 0 7 7" aria-hidden="true"><use href="#btn-small-dk" /></svg>
+            <span class="lbl" aria-hidden="true">Dark mode</span>
+          </button>
+
+          <a class="home" href="{{ '/' | relative_url }}" data-btn="home" aria-label="HOME: switch to the classic web view"
+            ><svg viewBox="0 0 9 8" aria-hidden="true" focusable="false"><use href="#ico-home" /></svg
+          ></a>
+        </div>
+      </div>
+    </main>
+
+    <a class="homehint" id="homehint" href="{{ '/' | relative_url }}" data-btn="home">
+      <span class="homehint__btn" aria-hidden="true"
+        ><svg viewBox="0 0 9 8" focusable="false"><use href="#ico-home" /></svg
+      ></span>
+      <span
+        >Press HOME for the classic web view<small>click the ⌂ button, or press <kbd>H</kbd></small></span
+      >
+    </a>
+
+    <aside class="legend" aria-label="Keyboard controls">
+      <h2>Controls</h2>
+      <dl>
+        <dt><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></dt>
+        <dd>D-Pad: move the cursor on either screen</dd>
+        <dt><kbd>A</kbd><kbd>D</kbd></dt>
+        <dd>In a section: switch section</dd>
+        <dt><kbd>L</kbd><i class="key key--a">A</i></dt>
+        <dd>Open / choose</dd>
+        <dt><kbd>K</kbd><i class="key key--b">B</i></dt>
+        <dd>Back / close</dd>
+        <dt><kbd>J</kbd><kbd>I</kbd></dt>
+        <dd><i class="key key--y">Y</i> <i class="key key--x">X</i> previous / next page</dd>
+        <dt class="mouse">Mouse on<br />top screen</dt>
+        <dd>Circle Pad</dd>
+      </dl>
+    </aside>
+
+    <script src="{{ '/assets/nds/nds.js' | relative_url }}"></script>
+  </body>
+</html>

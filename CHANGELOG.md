@@ -1,3 +1,24 @@
+## [1.3.0] - 2026-10-23
+
+### Features
+
+- NDS view at `/nds/`: the homepage as a New 3DS-style console (`_pages/nds.html`, `assets/nds/`). The top screen shows content (trainer card, About text, item pages). The bottom screen operates (About cards, section lists).
+- Controls: WASD = D-pad (moves one cursor across both screens; A/D switch sections), I/J/K/L = X/Y/B/A, the mouse over the top screen drives the Circle Pad. HOME (or H) returns to the classic site, SELECT toggles dark mode (black console), START opens an AI-mode placeholder.
+- Navbar: an "NDS view" switch on the classic site.
+- The al-folio demo posts are excluded from the build, so the blog shows its empty state.
+
+### Design Rationale
+
+- The console is authored at a fixed 852 x 967 px (1 mm = 6 px of an unfolded New 3DS) and scaled as one unit, so its proportions match the hardware at any window size. Pages are CSS overflow columns, so long text turns pages instead of scrolling.
+- NDS styles and script live in `assets/nds/`, outside PurgeCSS's `assets/css/*.css` glob (many class names only exist in JS-built DOM), and are excluded from jekyll-minifier.
+- START dispatches a cancelable `ds:start` event with both screen elements, so the planned AI terminal can mount without touching the console code.
+
+### Notes & Caveats
+
+- Venue icons are cropped from the official ACL 2026, CHI 2025 and EMNLP 2024 logos (third-party trademarks, used to label venues).
+- On phones the whole console just scales down; a phone-specific layout is still to do.
+- Demo posts are excluded, not deleted: after removing them, drop the matching `exclude:` lines.
+
 ## [1.2.0] - 2026-10-22
 
 ### Features
