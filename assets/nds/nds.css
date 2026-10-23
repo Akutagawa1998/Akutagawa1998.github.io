@@ -2764,3 +2764,55 @@ a:hover {
 .scr--top .pgbtn.is-cur {
   --f-in: #ffd23f;
 }
+
+/* =====================================================================
+   OUTSIDE THE CONSOLE: Pokémon companions (pals.js moves them)
+   The floater is painted before the console (z-index 0, earlier in the DOM), so it passes behind it;
+   the walker is over the console (4) and under the HOME hint (5). Sprites face left (pals.js mirrors them
+   by heading), and one sprite pixel is a whole number of device pixels (--pal-px, set by pals.js).
+   ===================================================================== */
+.pal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  width: calc(var(--pal-w) * var(--pal-px, 3px));
+  height: calc(var(--pal-h) * var(--pal-px, 3px));
+  background: 0 0 / 100% 100% no-repeat;
+  image-rendering: pixelated;
+  pointer-events: none;
+  visibility: hidden; /* until pals.js has placed it */
+  transition: opacity 0.2s steps(4);
+}
+.pal.is-live {
+  visibility: visible;
+}
+.pal.is-warp {
+  opacity: 0;
+}
+.pal--fly {
+  --pal-w: 23;
+  --pal-h: 25;
+  background-image: url("pkmn/mew.png");
+}
+.pal--walk {
+  --pal-w: 27;
+  --pal-h: 21;
+  z-index: 4;
+  background-image: url("pkmn/espeon.png");
+}
+:root[data-theme="night"] .pal--fly {
+  --pal-w: 24;
+  --pal-h: 24;
+  background-image: url("pkmn/gengar.png");
+}
+:root[data-theme="night"] .pal--walk {
+  --pal-w: 20;
+  --pal-h: 21;
+  background-image: url("pkmn/umbreon.png");
+}
+@media print {
+  .pal {
+    display: none;
+  }
+}

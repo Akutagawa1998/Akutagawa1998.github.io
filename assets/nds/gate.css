@@ -1,0 +1,201 @@
+/* "Do you like Pokémon?" entry prompt on the classic home page (_includes/pokemon_gate.liquid):
+   a Pokémon-style message box with a YES / NO menu, over the blurred and inert page (a modal <dialog>).
+   Lives in assets/nds/ with the NDS view's files: outside PurgeCSS and the HTML minifier. */
+@font-face {
+  font-family: "Pixel Operator";
+  src: url("fonts/PixelOperator.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+.pk-gate {
+  --ink: #3b3b46;
+  --ink-shadow: #d9d2c5; /* the games' text shadow: one font pixel right and down */
+  --paper: #fbfaf6;
+  --trim: #9db2d2;
+  --line: #454a5e;
+  --u: 4px; /* frame pixel */
+  width: min(600px, calc(100vw - 48px));
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  border: 0;
+  background: none;
+  overflow: visible;
+  color: var(--ink);
+  /* 32px is Pixel Operator's 16px grid at 2x: every glyph pixel is 2 x 2 CSS px */
+  font:
+    32px/40px "Pixel Operator",
+    "Courier New",
+    monospace;
+  font-synthesis: none;
+  text-shadow: 2px 2px 0 var(--ink-shadow);
+}
+.pk-gate[open] {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  row-gap: 8px;
+}
+.pk-gate::backdrop {
+  background: rgba(22, 28, 40, 0.28);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+html[data-theme="dark"] .pk-gate {
+  --ink: #ecebf3;
+  --ink-shadow: #484a5c;
+  --paper: #23252f;
+  --trim: #5d6d93;
+  --line: #0b0c11;
+}
+html[data-theme="dark"] .pk-gate::backdrop {
+  background: rgba(0, 0, 0, 0.45);
+}
+.pk-gate p {
+  margin: 0;
+}
+
+/* pixel frame: paper, a trim ring and an outer line with stepped corners, all box-shadow copies of the box
+   (the first shadows paint on top, so the trim covers the line except in the 1-unit corner squares) */
+.pk-frame {
+  position: relative;
+  z-index: 1;
+  margin: calc(var(--u) * 2);
+  background: var(--paper);
+  box-shadow:
+    0 calc(var(--u) * -1) 0 var(--trim),
+    0 var(--u) 0 var(--trim),
+    calc(var(--u) * -1) 0 0 var(--trim),
+    var(--u) 0 0 var(--trim),
+    calc(var(--u) * -1) calc(var(--u) * -1) 0 var(--line),
+    var(--u) calc(var(--u) * -1) 0 var(--line),
+    calc(var(--u) * -1) var(--u) 0 var(--line),
+    var(--u) var(--u) 0 var(--line),
+    0 calc(var(--u) * -2) 0 var(--line),
+    0 calc(var(--u) * 2) 0 var(--line),
+    calc(var(--u) * -2) 0 0 var(--line),
+    calc(var(--u) * 2) 0 0 var(--line);
+}
+
+.pk-gate__box {
+  grid-column: 1 / -1;
+  min-height: 80px; /* two lines, like the games' message box */
+  padding: 20px 28px;
+  box-sizing: content-box;
+}
+.pk-gate__ch {
+  opacity: 0;
+}
+.pk-gate__ch.is-on {
+  opacity: 1;
+}
+
+/* the YES / NO menu above the box's right end; it appears once the question is typed out.
+   WHY opacity, not visibility: YES must stay focusable while hidden (showModal() focuses it) */
+.pk-gate__menu {
+  grid-column: 2;
+  grid-row: 1;
+  display: grid;
+  gap: 8px;
+  padding: 16px 32px 16px 52px;
+  opacity: 0;
+  pointer-events: none;
+}
+.pk-gate.is-ready .pk-gate__menu {
+  opacity: 1;
+  pointer-events: auto;
+}
+/* al-folio animates every property for 750 ms while it applies a theme (html.transition, also on load):
+   the prompt must appear at once, like the games' boxes */
+.pk-gate.pk-gate,
+.pk-gate.pk-gate *,
+.pk-gate.pk-gate *::before {
+  transition: none !important;
+}
+.pk-gate__opt,
+.pk-gate__opt:hover,
+.pk-gate__opt:focus {
+  position: relative;
+  display: block;
+  padding: 0;
+  border: 0;
+  outline: none; /* the ▶ cursor marks the focused choice */
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-shadow: inherit;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+/* ▶ as a 5 x 9 pixel triangle; at 32px the caps are 9 font pixels tall (y 12..30 of the 40px line) */
+.pk-gate__opt.is-cur::before {
+  content: "";
+  position: absolute;
+  left: -30px;
+  top: 12px;
+  width: 10px;
+  height: 18px;
+  background: currentColor;
+  clip-path: polygon(
+    0 0,
+    2px 0,
+    2px 2px,
+    4px 2px,
+    4px 4px,
+    6px 4px,
+    6px 6px,
+    8px 6px,
+    8px 8px,
+    10px 8px,
+    10px 10px,
+    8px 10px,
+    8px 12px,
+    6px 12px,
+    6px 14px,
+    4px 14px,
+    4px 16px,
+    2px 16px,
+    2px 18px,
+    0 18px
+  );
+}
+
+/* Mew (Gengar in dark mode) peeks over the message box */
+.pk-gate__mon {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: start;
+  position: relative;
+  z-index: 0;
+  width: 92px; /* 23 x 25 sprite pixels at 4x, the frame's pixel size */
+  height: 100px;
+  margin: 0 0 -32px 40px; /* the lower quarter hides behind the box: it peeks over the edge */
+  background: url("pkmn/mew.png") 0 0 / 100% 100% no-repeat;
+  image-rendering: pixelated;
+  transform: scaleX(-1); /* the sprites face left; this one looks at the menu */
+  animation: pk-bob 1.6s steps(1, end) infinite;
+}
+html[data-theme="dark"] .pk-gate__mon {
+  width: 96px; /* 24 x 24 */
+  height: 96px;
+  background-image: url("pkmn/gengar.png");
+}
+@keyframes pk-bob {
+  50% {
+    translate: 0 -4px;
+  }
+}
+.pk-gate__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pk-gate__mon {
+    animation: none;
+  }
+}
