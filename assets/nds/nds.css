@@ -9,7 +9,7 @@
   --k: 0.8;
 
   --font-body: "DotGothic16", "Hiragino Kaku Gothic ProN", "PingFang SC", "Noto Sans CJK SC", monospace;
-  --font-ui: "Pixelify Sans", "DotGothic16", system-ui, sans-serif;
+  --font-ui: "DotGothic16", "Hiragino Kaku Gothic ProN", "PingFang SC", "Noto Sans CJK SC", monospace;
   --font-zh: "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Source Han Sans SC", "Microsoft YaHei", sans-serif;
 
   /* text */
@@ -107,6 +107,7 @@
   --ts-1: 1px 0 0 var(--ink-sh), 0 1px 0 var(--ink-sh), 1px 1px 0 var(--ink-sh);
   --ts-2: 2px 0 0 var(--ink-sh), 0 2px 0 var(--ink-sh), 2px 2px 0 var(--ink-sh);
 
+  --mark: rgba(255, 210, 63, 0.55);
   color-scheme: light;
 }
 
@@ -207,6 +208,7 @@
   --board: #1d3a2c;
   --board-in: #5a4528;
   --board-out: #120c06;
+  --mark: rgba(255, 181, 71, 0.3);
   color-scheme: dark;
 }
 
@@ -263,10 +265,15 @@ h3 {
   font-weight: normal;
   font-size: inherit;
 }
+/* DotGothic16 has one weight, and faked bold smears its dots: emphasis is a highlighter band instead */
+html {
+  font-synthesis: none;
+}
 strong,
 b {
-  font-weight: 700;
+  font-weight: inherit;
   color: var(--ink-strong);
+  background: linear-gradient(transparent 58%, var(--mark) 58%);
 }
 i,
 em,
@@ -1535,7 +1542,6 @@ a:hover {
   width: 302px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 .acard {
   --f-in: var(--dlg-in);
@@ -1543,7 +1549,7 @@ a:hover {
   position: relative;
   display: flex;
   flex-direction: column;
-  height: 80px;
+  flex: none;
   margin: 4px;
   padding: 0 0 6px;
   border: 0;
@@ -1590,12 +1596,8 @@ a:hover {
   align-items: center;
   gap: 3px;
 }
-.acard__state .go {
-  display: inline-flex;
-  opacity: 0.8;
-}
 .acard.is-cur .acard__state .go {
-  opacity: 1;
+  display: inline-flex;
 }
 .acard.is-open .acard__state .go {
   display: none;
@@ -1605,6 +1607,14 @@ a:hover {
 }
 .acard.is-cur .acard__state .key {
   animation: bob 0.8s steps(1) infinite;
+}
+.acard--fill {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: clip;
+}
+.acard--bar {
+  padding-bottom: 0;
 }
 .acard__body {
   padding: 5px 10px 0;
@@ -1729,25 +1739,22 @@ a:hover {
   box-shadow: 0 2px 0 var(--tab-sh, #0f4a52);
 }
 .bbar__back {
-  --f-in: rgba(255, 255, 255, 0.55);
-  --f-out: rgba(0, 0, 0, 0.55);
   display: inline-flex;
   align-items: center;
   gap: 4px;
   flex: none;
   margin: 0 4px;
-  padding: 1px 6px 1px 2px;
+  padding: 0 2px;
   border: 0;
   cursor: pointer;
-  background: rgba(0, 0, 0, 0.2);
+  background: none;
   color: #ffffff;
   font-size: 11px;
-  font-weight: 600;
   line-height: 18px;
-  box-shadow: var(--frame-b);
 }
 .bbar__back:hover {
-  background: rgba(0, 0, 0, 0.34);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 .bbar__title {
   min-width: 0;

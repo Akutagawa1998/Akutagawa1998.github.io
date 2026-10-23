@@ -1,3 +1,10 @@
+## [1.3.2] - 2026-10-23
+
+### Features
+
+- NDS view: one legible dot font (DotGothic16) for all text. Pixelify Sans made C/O and E/R hard to tell apart at label sizes. Emphasis is a highlighter band, since the font has one weight and faked bold smears it.
+- NDS view: "Enter for detail" shows only on the card under the cursor; "More about me" is a title bar without a preview; News uses the freed space to show its latest item in full; the Back control is a plain "B Back" label instead of a boxed key.
+
 ## [1.3.1] - 2026-10-23
 
 ### Features
