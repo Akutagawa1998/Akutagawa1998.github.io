@@ -298,7 +298,7 @@
           h("h3", { class: "board__title" }, c.title),
           h("div", { class: "chalk-line" }),
           h("p", { class: "board__code" }, `${c.code} · Section ${c.section}`),
-          h("div", { class: "board__foot" }, open, h("span", null, keyGlyph("a"), " Open"))
+          h("div", { class: "board__foot" }, open, h("span", { class: "hint" }, keyGlyph("a"), "Open"))
         );
         return { node, opts: [open], primary: open };
       },

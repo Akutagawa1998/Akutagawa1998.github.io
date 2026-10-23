@@ -1,3 +1,14 @@
+## [1.3.3] - 2026-10-23
+
+### Features
+
+- NDS view: text is set in Pixel Operator (CC0, self-hosted in `assets/nds/fonts/` with its licence), a proportional pixel font with a real bold. DotGothic16's Latin is monospaced (every letter 0.5 em), which gave narrow letters wide gaps; it now only supplies the arrows and triangles Pixel Operator lacks.
+- NDS view: the A/B/X/Y hint glyphs are 7x7 pixel sprites, and every hint row is a centred flex row, so each glyph sits on the centre line of its text (measured within 1 px everywhere).
+
+### Design Rationale
+
+- `size-adjust: 114.29%` on the Pixel Operator faces renders the existing 14 px text on the font's native 16 px grid, so layouts and line lengths stay as they were. Uppercase tracking is one font pixel (1/16 em).
+
 ## [1.3.2] - 2026-10-23
 
 ### Features
