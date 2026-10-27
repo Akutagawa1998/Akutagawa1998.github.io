@@ -1154,7 +1154,10 @@ a:hover {
 .pager__flow {
   position: relative; /* offsetParent for page lookups */
   height: 100%;
-  column-count: 1;
+  /* WHY a width wider than any box, not column-count: 1: WebKit (Safari, every iOS browser) builds no columns
+     for a count of 1, so the text ran on in one clipped column and only page 1 could be read. This gives one
+     column the box's width, in every engine. */
+  column-width: 10000px;
   column-gap: var(--gap, 24px);
   column-fill: auto; /* WHY: overflow becomes extra columns to the right = pages */
   transform: translateX(calc(var(--page, 0) * (-100% - var(--gap, 24px))));
