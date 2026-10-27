@@ -1,3 +1,13 @@
+## [1.4.2] - 2026-10-27
+
+### Features
+
+- NDS view: paged text now turns pages in Safari and on iPhone and iPad. Before, only the first page of an About card or a People page could be read there: "More about me" stopped mid-sentence ("in your email, and"), and Research interests lost its second page. Chrome was not affected.
+
+### Design Rationale
+
+- Pages are the overflow columns of a one-column multi-column box. WebKit builds no columns when `column-count` is 1, so the text ran on below the box, where it was clipped, and the page count came out as 1. A `column-width` wider than the box gives one column of the box's width in every engine. Measured in the system WebKit (Safari 18.6), "More about me" now has 3 pages and Research interests 2, broken where Chrome breaks them.
+
 ## [1.4.1] - 2026-10-23
 
 ### Features
