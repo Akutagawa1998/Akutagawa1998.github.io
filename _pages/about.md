@@ -2,8 +2,8 @@
 layout: about
 title: about
 permalink: /
-# subtitle: <a href='#'>Affiliations</a>. 山川异域，日月同天
-subtitle: 山川异域，日月同天
+# subtitle: <a href='#'>Affiliations</a>. 山川異域，風月同天
+subtitle: 山川異域，風月同天
 
 profile:
   align: right
