@@ -1,3 +1,34 @@
+## [1.5.0] - 2026-11-19
+
+### Features
+
+- The home page no longer opens with the "Do you like Pokémon?" prompt. It always loads as the classic page.
+- The navbar's "nds view" switch is now bold pixel text (Pixel Operator Bold, the NDS view's font) and breathes like a standby light to invite a click: it dims to 30% and back every 2.4 s. It stops once the NDS view has been opened, and stays steady under the pointer or keyboard focus.
+- Going to the NDS view and coming back are now one continuous transition:
+  - Classic page to NDS view: two panels of the NDS backdrop close over the page from the top and the bottom (0.34 s). The NDS view loads on that same backdrop; the closed console rises into view, lying tilted back so its thickness shows, then opens while it turns to face you (1.1 s), and the screens power on.
+  - NDS view to classic page (HOME): the screens go dark, the lid closes, the console drops away (1.02 s), and the classic page appears from behind the backdrop as the two panels open (0.44 s).
+- While it opens and closes the console is a solid object: both halves have thickness, there is perspective, and a shadow lies on the table under it.
+
+### Design Rationale
+
+- A modal on every first visit stood between the visitor and the page. A breathing link advertises the NDS view without blocking anything.
+- "Opened once" is kept in localStorage (`nds-seen`, written by /nds/), so the hint does not come back on later visits. The prompt used sessionStorage and asked again in every new tab.
+- The two pages are separate documents, so each plays its own half of the transition and they meet on one shared picture: the bare NDS backdrop. That works in every browser; cross-document view transitions would have left Firefox with a hard cut.
+- The console is 3D only during the transition. At rest it is the same flat pixel art as before, so nothing is resampled or blurred: the last frame of the opening and the resting console are pixel-identical (compared in Chrome).
+- Thickness comes from stacking each half's silhouette in layers 6 px apart behind its face. The silhouette has stepped pixel corners, which flat side panels cannot follow; a stack reads as a solid wall from any angle.
+- A first version folded the flat art with `scaleY` (the head-on projection of a turning half). It had no thickness and no perspective and read as paper, so it was replaced.
+
+### Notes & Caveats
+
+- Removed `_includes/pokemon_gate.liquid`, `assets/nds/gate.css` and `bin/test-pokemon-gate.mjs`. The sessionStorage key `pk-gate` is no longer read or written.
+- `_pages/nds.html`: each shell half now sits in a `.body3d` wrapper, and the top screen moved out of `.live` into `.lidlive`, so it can turn with the lid. At rest the wrappers have no styles.
+- The backdrop colours exist twice: in `assets/nds/nds.css` and in `_sass/_nds-veil.scss` (the classic pages do not load the NDS stylesheet). Change them together.
+- HOME now takes 1.02 s to leave the NDS view (0.22 s before). The wait is `--t-close` in `assets/nds/nds.css`, which `nds.js` reads.
+- HOME leaves a note in sessionStorage (`nds-return`) that the classic page reads once; a note older than 5 s is ignored.
+- With `prefers-reduced-motion` nothing moves: the switch does not breathe and both pages appear at once, as before. With storage blocked the switch keeps breathing and coming back shows no panels; the links work either way.
+- The pixel font is now preloaded on every classic page, because the navbar uses it everywhere.
+- Checked in Chrome only. Safari and Firefox have not been looked at.
+
 ## [1.4.2] - 2026-10-27
 
 ### Features

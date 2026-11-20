@@ -133,9 +133,12 @@
               </button>
             </li>
           {% endif %}
-          <!-- Switch to the NDS view (the homepage as a New 3DS-style console) -->
+          <!--
+            Switch to the NDS view (the homepage as a New 3DS-style console). Pixel text that breathes
+            until the view has been opened once (localStorage "nds-seen", set by /nds/).
+          -->
           <li class="nav-item">
-            <a class="nav-link nds-switch" href="{{ '/nds/' | relative_url }}" title="Switch to the NDS view">
+            <a class="nav-link nds-switch" id="nds-switch" href="{{ '/nds/' | relative_url }}" title="Switch to the NDS view">
               <svg class="nds-switch-icon" viewBox="0 0 12 12" aria-hidden="true" focusable="false">
                 <path
                   fill="currentColor"
@@ -145,6 +148,54 @@
               </svg>
               nds view
             </a>
+            <script>
+              (function () {
+                var link = document.getElementById('nds-switch');
+                function sync() {
+                  try {
+                    if (localStorage.getItem('nds-seen')) link.classList.add('is-seen');
+                  } catch (e) {
+                    /* storage blocked: the hint keeps breathing, the link still works */
+                  }
+                }
+                sync();
+
+                // Leaving for the NDS view: the backdrop's two panels close over the page (_sass/_nds-veil.scss),
+                // then the NDS view loads on that same backdrop and its console rises and opens.
+                var html = document.documentElement;
+                function veilTheme() {
+                  // the theme the NDS view will pick: its own SELECT choice, else this site's theme
+                  try {
+                    var saved = localStorage.getItem('n3ds-theme');
+                    if (saved) return saved === 'night' ? 'night' : 'day';
+                  } catch (e) {
+                    /* storage blocked: fall through */
+                  }
+                  return html.getAttribute('data-theme') === 'dark' ? 'night' : 'day';
+                }
+                link.addEventListener('click', function (e) {
+                  if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return; // new tab or window
+                  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+                  e.preventDefault();
+                  html.setAttribute('data-nds-veil', veilTheme());
+                  html.classList.remove('nds-veil--open');
+                  html.classList.add('nds-veil', 'nds-veil--close');
+                  setTimeout(function () {
+                    location.assign(link.href);
+                  }, 360);
+                });
+
+                // WHY: back from the NDS view the browser may restore this page from bfcache without rerunning
+                // scripts. It was left with the panels closed, so they open.
+                addEventListener('pageshow', function (e) {
+                  sync();
+                  if (e.persisted && html.classList.contains('nds-veil--close')) {
+                    html.classList.remove('nds-veil--close');
+                    html.classList.add('nds-veil--open');
+                  }
+                });
+              })();
+            </script>
           </li>
           {% if site.enable_darkmode %}
             <!-- Toogle theme mode -->

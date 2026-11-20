@@ -1,0 +1,145 @@
+// Page transition to and from the NDS view (/nds/).
+// Leaving for it, two panels of the NDS view's backdrop close over this page from the top and the bottom,
+// like the console's halves; coming back, they start closed and open. The NDS view's own first and last
+// frame is that bare backdrop (its console rises into it and drops out of it), so the two pages meet on
+// the same picture and the navigation between them does not show.
+// The classes are set by _includes/header.liquid (leaving) and _layouts/default.liquid (coming back).
+// The panels are html's own ::before and ::after: no markup, and they exist before <body> is parsed.
+
+// WHY copied: these are the NDS view's backdrop colours (assets/nds/nds.css, --bg-0 .. --bg and --checker).
+// That stylesheet is not loaded here. Change them in both places.
+html.nds-veil {
+  --nv-0: #9fd5ec;
+  --nv-1: #a9daee;
+  --nv-2: #b4dfef;
+  --nv-3: #bfe4f0;
+  --nv-4: #c9e9f1;
+  --nv-5: #d2edf1;
+  --nv-6: #d9f0f0;
+  --nv-checker: rgba(255, 255, 255, 0.32);
+  --nv-h: 100vh;
+
+  @supports (height: 100dvh) {
+    --nv-h: 100dvh; // what the NDS view's body is sized with
+  }
+
+  &[data-nds-veil="night"] {
+    --nv-0: #121a33;
+    --nv-1: #151e3a;
+    --nv-2: #182241;
+    --nv-3: #1b2647;
+    --nv-4: #1e2a4c;
+    --nv-5: #212d50;
+    --nv-6: #233054;
+    --nv-checker: rgba(255, 255, 255, 0.04);
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 3000; // above the fixed navbar and any modal
+    background-color: var(--nv-6);
+    background-image:
+      repeating-conic-gradient(var(--nv-checker) 0 25%, transparent 0 50%),
+      linear-gradient(
+        180deg,
+        var(--nv-0) 0 14%,
+        var(--nv-1) 14% 28%,
+        var(--nv-2) 28% 42%,
+        var(--nv-3) 42% 56%,
+        var(--nv-4) 56% 70%,
+        var(--nv-5) 70% 84%,
+        var(--nv-6) 84%
+      );
+    // WHY the bands are sized to the viewport, not the panel: each panel shows its half of one picture
+    background-size:
+      48px 48px,
+      100% var(--nv-h);
+    background-repeat: repeat, no-repeat;
+  }
+
+  &::before {
+    top: 0;
+    height: calc(var(--nv-h) / 2 + 1px); // 1px under the lower panel: no seam on odd heights
+    background-position:
+      0 0,
+      0 0;
+  }
+
+  &::after {
+    bottom: 0;
+    height: calc(var(--nv-h) / 2);
+    // the checker continues from the upper panel; the bands are bottom-aligned
+    background-position:
+      0 calc(var(--nv-h) / -2),
+      0 100%;
+  }
+}
+
+html.nds-veil--close::before {
+  animation: nds-veil-top-in 0.34s cubic-bezier(0.5, 0, 0.3, 1) both;
+}
+
+html.nds-veil--close::after {
+  animation: nds-veil-bot-in 0.34s cubic-bezier(0.5, 0, 0.3, 1) both;
+}
+
+html.nds-veil--open::before {
+  animation: nds-veil-top-out 0.44s cubic-bezier(0.6, 0, 0.25, 1) 0.08s both;
+}
+
+html.nds-veil--open::after {
+  animation: nds-veil-bot-out 0.44s cubic-bezier(0.6, 0, 0.25, 1) 0.08s both;
+}
+
+// each panel casts a hard shadow on the page while it moves; closed, there is no edge and no shadow
+@keyframes nds-veil-top-in {
+  from {
+    transform: translateY(-101%);
+    box-shadow: 0 9px 0 rgba(20, 28, 44, 0.22);
+  }
+
+  to {
+    transform: translateY(0);
+    box-shadow: 0 9px 0 rgba(20, 28, 44, 0);
+  }
+}
+
+@keyframes nds-veil-bot-in {
+  from {
+    transform: translateY(101%);
+    box-shadow: 0 -9px 0 rgba(20, 28, 44, 0.22);
+  }
+
+  to {
+    transform: translateY(0);
+    box-shadow: 0 -9px 0 rgba(20, 28, 44, 0);
+  }
+}
+
+@keyframes nds-veil-top-out {
+  from {
+    transform: translateY(0);
+    box-shadow: 0 9px 0 rgba(20, 28, 44, 0);
+  }
+
+  to {
+    transform: translateY(-101%);
+    box-shadow: 0 9px 0 rgba(20, 28, 44, 0.22);
+  }
+}
+
+@keyframes nds-veil-bot-out {
+  from {
+    transform: translateY(0);
+    box-shadow: 0 -9px 0 rgba(20, 28, 44, 0);
+  }
+
+  to {
+    transform: translateY(101%);
+    box-shadow: 0 -9px 0 rgba(20, 28, 44, 0.22);
+  }
+}

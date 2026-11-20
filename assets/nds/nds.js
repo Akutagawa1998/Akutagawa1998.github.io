@@ -720,8 +720,17 @@
       location.assign(home.href);
       return;
     }
+    // the console closes and drops away (nds.css, "OPENING AND CLOSING"), then the classic page loads
+    root.classList.remove("is-opening");
     root.classList.add("is-leaving");
-    setTimeout(() => location.assign(home.href), 220);
+    try {
+      // the classic page reads this once and opens from behind this view's backdrop (_layouts/default.liquid)
+      sessionStorage.setItem("nds-return", (root.dataset.theme === "night" ? "night" : "day") + ":" + Date.now());
+    } catch (e) {
+      /* storage blocked: the classic page simply appears */
+    }
+    const wait = parseFloat(getComputedStyle(root).getPropertyValue("--t-close")) * 1000 || 1020;
+    setTimeout(() => location.assign(home.href), wait);
   }
   for (const a of [home, $("#homehint")]) {
     a.addEventListener("click", (e) => {
@@ -731,7 +740,12 @@
       goHome();
     });
   }
-  addEventListener("pageshow", () => root.classList.remove("is-leaving"));
+  // back to this page from the browser's cache: it was left closed and gone, so it opens again
+  addEventListener("pageshow", (e) => {
+    if (!e.persisted || !root.classList.contains("is-leaving")) return;
+    root.classList.remove("is-leaving");
+    if (motionOK()) root.classList.add("is-opening");
+  });
 
   // ------------------------------------------------------------------ input: keyboard + pointer
   const KEYMAP = {

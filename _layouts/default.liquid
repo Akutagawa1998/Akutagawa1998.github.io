@@ -13,19 +13,40 @@
       <meta http-equiv="refresh" content="3; url={{ redirect }}">
     {% endif %}
     {% include head.liquid %}
-    {% if page.permalink == '/' %}
-      <link rel="stylesheet" href="{{ '/assets/nds/gate.css' | relative_url }}">
-      <link rel="preload" href="{{ '/assets/nds/fonts/PixelOperator.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
-    {% endif %}
+    <script>
+      // Back from the NDS view: its HOME button leaves a note ("day:<time>" or "night:<time>") and its last
+      // frame is its bare backdrop. This page starts behind the same backdrop, which then opens
+      // (_sass/_nds-veil.scss). Runs in <head> so the first paint is already covered.
+      (function () {
+        var html = document.documentElement;
+        try {
+          var note = sessionStorage.getItem('nds-return');
+          if (note) {
+            sessionStorage.removeItem('nds-return');
+            var parts = note.split(':');
+            // WHY 5s: a note that old was left by a HOME press that never arrived here
+            if (Date.now() - Number(parts[1]) < 5000 && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+              html.setAttribute('data-nds-veil', parts[0] === 'night' ? 'night' : 'day');
+              html.classList.add('nds-veil', 'nds-veil--open');
+            }
+          }
+        } catch (e) {
+          /* storage blocked: the page simply appears */
+        }
+        // open: the panels are gone, drop them
+        addEventListener('animationend', function (e) {
+          if (e.animationName !== 'nds-veil-bot-out') return;
+          html.classList.remove('nds-veil', 'nds-veil--open');
+          html.removeAttribute('data-nds-veil');
+        });
+      })();
+    </script>
+    <!-- the navbar's "nds view" switch is set in this pixel font -->
+    <link rel="preload" href="{{ '/assets/nds/fonts/PixelOperator-Bold.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
   </head>
 
   <!-- Body -->
   <body class="{% if site.navbar_fixed %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %}">
-    {% if page.permalink == '/' %}
-      <!-- "Do you like Pokémon?" (first thing in <body>, so it is open before the page paints) -->
-      {% include pokemon_gate.liquid %}
-    {% endif %}
-
     <!-- Header -->
     {% include header.liquid %}
 

@@ -178,8 +178,50 @@
   }
 }
 
-// Switch to the NDS view (/nds/): a plain nav link (same box and baseline as the others) with a
-// small console glyph sitting on the text's x-height
+// Switch to the NDS view (/nds/): a nav link (same box and baseline as the others) set in the NDS view's
+// pixel font (the bold cut: the regular one is a hairline at this size), with a small console glyph.
+// It breathes like a standby light until the view has been opened once (.is-seen, set in
+// _includes/header.liquid).
+// Pixel Operator by Jayvee Enaguas, CC0 1.0 (assets/nds/fonts/LICENSE-PixelOperator.txt)
+@font-face {
+  font-family: "Pixel Operator";
+  src: url("../nds/fonts/PixelOperator-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+.navbar .nds-switch {
+  // WHY 16px: Pixel Operator is drawn on a 16px grid, so only multiples of 16 keep its pixels square
+  font-family: "Pixel Operator", "Courier New", monospace;
+  font-size: 16px;
+  font-weight: 700;
+  font-synthesis: none;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  -webkit-font-smoothing: none;
+  animation: nds-switch-breathe 2.4s ease-in-out infinite;
+
+  // steady while it is being aimed at, and for good once the view has been opened
+  &:hover,
+  &:focus-visible,
+  &.is-seen {
+    animation: none;
+  }
+}
+
+// WHY 0.3, not 0: a breathing light dims but never goes out, so the link is always readable
+@keyframes nds-switch-breathe {
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar .nds-switch {
+    animation: none;
+  }
+}
+
 .navbar .nds-switch .nds-switch-icon {
   width: 0.95em;
   height: 0.95em;

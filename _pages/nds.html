@@ -34,6 +34,12 @@ sitemap: false
         }
         fit();
         addEventListener("resize", fit);
+        // The console rises closed and opens (nds.css, "OPENING AND CLOSING"). The class is set here so
+        // the first paint is already the closed console, and dropped when the opening has played.
+        if (!matchMedia("(prefers-reduced-motion: reduce)").matches) root.classList.add("is-opening");
+        document.addEventListener("animationend", function (e) {
+          if (e.animationName === "scene-open") root.classList.remove("is-opening");
+        });
         try {
           // SELECT (dark mode) is remembered; until it is used, follow the classic site's theme choice
           var saved = localStorage.getItem("n3ds-theme");
@@ -42,8 +48,8 @@ sitemap: false
             ? saved === "night"
             : site === "dark" || ((!site || site === "system") && matchMedia("(prefers-color-scheme: dark)").matches);
           if (night) root.dataset.theme = "night";
-          // the NDS view is open, so the classic home page need not ask "Do you like Pokémon?" this session
-          if (!sessionStorage.getItem("pk-gate")) sessionStorage.setItem("pk-gate", "nds");
+          // the NDS view has been found: the classic navbar's "nds view" switch stops blinking
+          localStorage.setItem("nds-seen", "1");
         } catch (e) {
           /* storage blocked: fall back to the default theme */
         }
@@ -521,30 +527,47 @@ sitemap: false
 
     <main class="fit" aria-label="Sihang (Nagi) Zhao's homepage, presented as a handheld console">
       <div class="n3ds" id="n3ds">
-        <!-- ===== static shell art ===== -->
+        <!-- ===== static shell art =====
+             Each half sits in a .body3d group. At rest the groups are plain wrappers. While the console
+             opens or closes they are solid bodies (nds.css, "OPENING AND CLOSING"): .face is the drawn
+             side, the .slab layers behind it are the thickness, .ground is the shadow on the table. -->
         <div class="shell" aria-hidden="true">
-          <div class="half half--top">
-            <svg class="cam" viewBox="0 0 7 7"><use href="#btn-small-dk" /></svg>
-            <span class="ir"></span>
-            <svg class="bump bump--l" viewBox="0 0 5 5"><use href="#cstick" /></svg>
-            <svg class="bump bump--r" viewBox="0 0 5 5"><use href="#cstick" /></svg>
-            <span class="spk spk--l"></span>
-            <span class="spk spk--r"></span>
-            <span class="lbl lbl--vol">Vol</span>
-            <span class="slot slot--vol"><i></i></span>
-            <span class="lbl lbl--3d">3D</span>
-            <span class="slot slot--3d"><i></i></span>
-            <span class="bezel bezel--top"></span>
+          <div class="ground"><i class="half half--bot"></i></div>
+          <div class="body3d body3d--bot">
+            {% for i in (1..11) %}<i class="half half--bot slab" style="--i: {{ i }}"></i>{% endfor %}
+            <div class="face">
+              <div class="half half--bot">
+                <div class="hinge"><span class="led led--note"></span><span class="led led--wifi"></span><span class="led led--pwr"></span></div>
+                <span class="bezel bezel--bot"></span>
+                <svg class="cstick" viewBox="0 0 5 5"><use href="#cstick" /></svg>
+              </div>
+            </div>
           </div>
-          <div class="half half--bot">
-            <div class="hinge"><span class="led led--note"></span><span class="led led--wifi"></span><span class="led led--pwr"></span></div>
-            <span class="bezel bezel--bot"></span>
-            <svg class="cstick" viewBox="0 0 5 5"><use href="#cstick" /></svg>
+          <div class="body3d body3d--top">
+            <div class="face face--back"><i class="half half--top"></i></div>
+            {% for i in (1..6) %}<i class="half half--top slab" style="--i: {{ i }}"></i>{% endfor %}
+            <i class="lip"></i>
+            <div class="face face--in">
+              <div class="half half--top">
+                <svg class="cam" viewBox="0 0 7 7"><use href="#btn-small-dk" /></svg>
+                <span class="ir"></span>
+                <svg class="bump bump--l" viewBox="0 0 5 5"><use href="#cstick" /></svg>
+                <svg class="bump bump--r" viewBox="0 0 5 5"><use href="#cstick" /></svg>
+                <span class="spk spk--l"></span>
+                <span class="spk spk--r"></span>
+                <span class="lbl lbl--vol">Vol</span>
+                <span class="slot slot--vol"><i></i></span>
+                <span class="lbl lbl--3d">3D</span>
+                <span class="slot slot--3d"><i></i></span>
+                <span class="bezel bezel--top"></span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- ===== live layer: screens and controls ===== -->
-        <div class="live">
+        <!-- ===== live layer: screens and controls =====
+             The top screen has its own group (.lidlive): it turns with the upper half when the lid moves. -->
+        <div class="lidlive">
           <!-- TOP SCREEN: shows -->
           <section class="scr scr--top" id="scr-top" aria-label="Top screen">
             <div class="layer" data-layer="card">
@@ -799,7 +822,8 @@ sitemap: false
               ><svg viewBox="0 0 16 16"><use href="#ico-vcursor" /></svg
             ></i>
           </section>
-
+        </div>
+        <div class="live">
           <!-- BOTTOM (TOUCH) SCREEN: operates -->
           <section class="scr scr--bot" id="scr-bot" aria-label="Touch screen">
             <div class="layer" data-layer="menu">
