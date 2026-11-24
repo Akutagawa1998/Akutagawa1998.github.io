@@ -17,11 +17,6 @@ html.nds-veil {
   --nv-5: #d2edf1;
   --nv-6: #d9f0f0;
   --nv-checker: rgba(255, 255, 255, 0.32);
-  --nv-h: 100vh;
-
-  @supports (height: 100dvh) {
-    --nv-h: 100dvh; // what the NDS view's body is sized with
-  }
 
   &[data-nds-veil="night"] {
     --nv-0: #121a33;
@@ -57,13 +52,17 @@ html.nds-veil {
     // WHY the bands are sized to the viewport, not the panel: each panel shows its half of one picture
     background-size:
       48px 48px,
-      100% var(--nv-h);
+      100% 100vh;
     background-repeat: repeat, no-repeat;
   }
 
+  // WHY plain lengths and no calc(): in production jekyll-minifier rewrites calc(). It spaces out every
+  // hyphen before the first ")" and strips the spaces around "+" and "-" after it, so
+  // calc(var(--nv-h) / 2 + 1px) was published as calc(var( -  - nv - h)/2+1px), which is invalid: the
+  // panels had no height and never showed. The development build is not minified and hid this.
   &::before {
     top: 0;
-    height: calc(var(--nv-h) / 2 + 1px); // 1px under the lower panel: no seam on odd heights
+    height: 51vh; // reaches 1vh under the lower panel, so no seam shows where the two meet
     background-position:
       0 0,
       0 0;
@@ -71,11 +70,32 @@ html.nds-veil {
 
   &::after {
     bottom: 0;
-    height: calc(var(--nv-h) / 2);
+    height: 50vh;
     // the checker continues from the upper panel; the bands are bottom-aligned
     background-position:
-      0 calc(var(--nv-h) / -2),
+      0 -50vh,
       0 100%;
+  }
+
+  // the NDS view's body is sized in dvh where the browser has it (phones with a collapsing toolbar)
+  @supports (height: 100dvh) {
+    &::before,
+    &::after {
+      background-size:
+        48px 48px,
+        100% 100dvh;
+    }
+
+    &::before {
+      height: 51dvh;
+    }
+
+    &::after {
+      height: 50dvh;
+      background-position:
+        0 -50dvh,
+        0 100%;
+    }
   }
 }
 
