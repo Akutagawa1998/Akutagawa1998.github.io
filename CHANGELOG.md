@@ -1,3 +1,24 @@
+## [1.5.1] - 2026-11-24
+
+### Features
+
+- Fixed: on the live site the two backdrop panels between the classic page and the NDS view never showed, so the pages still cut from one to the other. They work locally and now on the live site too.
+- Fixed in Safari: while the console opened, the lower half's buttons and Circle Pad vanished and its screen turned grey for about a third of a second, then popped back when the opening ended. Every frame is now the same in Safari and Chrome.
+
+### Design Rationale
+
+- The panels: `_sass/_nds-veil.scss` sized them with `calc(var(--nv-h) / 2 + 1px)`. In production jekyll-minifier rewrites `calc()`: it spaces out every hyphen before the first `)` and strips the spaces around `+` and `-` after it, publishing `calc(var( -  - nv - h)/2+1px)`. That is invalid, so the panels had no height. The sizes are plain lengths now (`51vh`, `50vh`, and `dvh` where supported), with no `calc()`.
+- The console: 1.5.0 built it as a `preserve-3d` scene and left the depth sorting to the browser. Chrome sorts per pixel; Safari put the buttons layer, which lies in the same plane as the lower half's face, behind that face. Now every plane carries its whole transform itself (camera included) and the planes are stacked with `z-index` in a fixed order, so no browser sorts anything. The order is always right for this object: the lid is nearer than the lower half while it covers it and beside it afterwards.
+- The lid's faces use `backface-visibility`, which both engines apply to a plain face. The top screen is also switched by the clock, at the instant the lid is edge-on to the camera (a line with no area), because Chrome keeps drawing separately composited parts of a back-facing element and showed the black glass through the closed lid.
+
+### Notes & Caveats
+
+- Both bugs passed the checks before 1.5.0 because those ran on the development build in Chrome. The development build is not minified, and Chrome sorts the old scene correctly. This release was checked on the production build (minified and purged) in Chrome and in WebKit, the engine of Safari on Mac, iPhone and iPad.
+- WebKit was checked from real window captures. `WKWebView.takeSnapshot` repaints the page in software: it ignores `backface-visibility` and depth sorting, and showed faults the real compositor does not have while hiding the one it does.
+- One rule of the site itself is still damaged by the minifier and is not part of this fix: `_sass/_components.scss` sets the About picture's `max-height` with `calc(var(--about-profile-max-height) - var(--about-caption-space))`, which is published as `calc(var( -  - about - profile - max - height) - …)` and ignored.
+- The instants at which the top screen is shown and hidden (55.55% of the opening, 34.75% of the closing) are solved from the poses and easings in `assets/nds/nds.css`. Change them together.
+- Firefox has not been looked at.
+
 ## [1.5.0] - 2026-11-19
 
 ### Features

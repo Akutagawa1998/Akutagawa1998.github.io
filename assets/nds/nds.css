@@ -396,76 +396,89 @@ a:hover {
   }
 }
 /* Opening and closing the console (rules: "OPENING AND CLOSING" below).
-   The closed pose: the closed console (its lower half, centre 426 x 722) lies tilted back in the middle
-   of the view, so its front edge shows how thick it is. Every keyframe lists the same functions, so the
-   browser interpolates them one by one and the console never skews on the way. */
+   Every plane of the console plays these same keyframes. A plane's transform reads right to left:
+     var(--local)                       where the plane sits inside its body (how far behind the face)
+     translateY rotateX translateY      the lid's turn about the hinge line (--lid-shut: 0deg on the lower half)
+     var(--pose-shut | --pose-open)     the whole console: tilted back and centred, or flat on
+     var(--cam)                         the camera
+     translateY(var(--rise) | 0px)      on the screen: below the view, or in place
+   Every keyframe lists the same functions, so the browser interpolates them one by one and nothing skews. */
 @keyframes scene-open {
   0% {
-    transform: translateY(105vh) scale(var(--k)) translate(426px, 483px) rotateX(var(--tilt)) scale(0.92) translate(-426px, -722px);
+    transform: translateY(var(--rise)) var(--cam) var(--pose-shut) translateY(-5.5px) rotateX(var(--lid-shut)) translateY(5.5px) var(--local);
     animation-timing-function: cubic-bezier(0.2, 0.7, 0.25, 1); /* rises and settles */
   }
   36% {
-    transform: translateY(0vh) scale(var(--k)) translate(426px, 483px) rotateX(var(--tilt)) scale(0.92) translate(-426px, -722px);
+    transform: translateY(0px) var(--cam) var(--pose-shut) translateY(-5.5px) rotateX(var(--lid-shut)) translateY(5.5px) var(--local);
     animation-timing-function: cubic-bezier(0.5, 0, 0.2, 1);
   }
   100% {
-    transform: translateY(0vh) scale(var(--k)) translate(426px, 483px) rotateX(0deg) scale(1) translate(-426px, -483px);
+    transform: translateY(0px) var(--cam) var(--pose-open) translateY(-5.5px) rotateX(0deg) translateY(5.5px) var(--local);
   }
 }
 @keyframes scene-close {
   0% {
-    transform: translateY(0vh) scale(var(--k)) translate(426px, 483px) rotateX(0deg) scale(1) translate(-426px, -483px);
+    transform: translateY(0px) var(--cam) var(--pose-open) translateY(-5.5px) rotateX(0deg) translateY(5.5px) var(--local);
     animation-timing-function: cubic-bezier(0.6, 0, 0.3, 1);
   }
   62% {
-    transform: translateY(0vh) scale(var(--k)) translate(426px, 483px) rotateX(var(--tilt)) scale(0.92) translate(-426px, -722px);
+    transform: translateY(0px) var(--cam) var(--pose-shut) translateY(-5.5px) rotateX(var(--lid-shut)) translateY(5.5px) var(--local);
     animation-timing-function: cubic-bezier(0.6, 0, 0.9, 0.5); /* drops away */
   }
   100% {
-    transform: translateY(105vh) scale(var(--k)) translate(426px, 483px) rotateX(var(--tilt)) scale(0.92) translate(-426px, -722px);
+    transform: translateY(var(--rise)) var(--cam) var(--pose-shut) translateY(-5.5px) rotateX(var(--lid-shut)) translateY(5.5px) var(--local);
   }
 }
-/* the lid: folded down over the lower half at -180deg, flat above it at 0 */
-@keyframes lid-open {
-  0%,
-  36% {
-    transform: rotateX(-180deg);
-    animation-timing-function: cubic-bezier(0.5, 0, 0.2, 1);
-  }
-  100% {
-    transform: rotateX(0deg);
-  }
-}
-@keyframes lid-close {
-  0% {
-    transform: rotateX(0deg);
-    animation-timing-function: cubic-bezier(0.6, 0, 0.3, 1);
-  }
-  62%,
-  100% {
-    transform: rotateX(-180deg);
-  }
-}
-/* the shadow lies on the table under the console. Flat on, the console's sides are out of sight, so the
-   shadow comes up to the face plane at the very end: there it is the resting art's ground shadow. */
+/* the shadow lies on the table under the console (67px behind the face). Flat on, the console's sides are
+   out of sight, so the shadow comes up to the face plane at the very end: there it is exactly the resting
+   art's ground shadow, 12px below the silhouette. */
 @keyframes ground-open {
-  0%,
+  0% {
+    transform: translateY(var(--rise)) var(--cam) var(--pose-shut) translate3d(0, 12px, -67px);
+    animation-timing-function: cubic-bezier(0.2, 0.7, 0.25, 1);
+  }
   36% {
-    transform: translateY(12px) translateZ(-67px);
+    transform: translateY(0px) var(--cam) var(--pose-shut) translate3d(0, 12px, -67px);
     animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
   }
   100% {
-    transform: translateY(12px) translateZ(0px);
+    transform: translateY(0px) var(--cam) var(--pose-open) translate3d(0, 12px, 0px);
   }
 }
 @keyframes ground-close {
   0% {
-    transform: translateY(12px) translateZ(0px);
+    transform: translateY(0px) var(--cam) var(--pose-open) translate3d(0, 12px, 0px);
     animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
   }
-  62%,
+  62% {
+    transform: translateY(0px) var(--cam) var(--pose-shut) translate3d(0, 12px, -67px);
+    animation-timing-function: cubic-bezier(0.6, 0, 0.9, 0.5);
+  }
   100% {
-    transform: translateY(12px) translateZ(-67px);
+    transform: translateY(var(--rise)) var(--cam) var(--pose-shut) translate3d(0, 12px, -67px);
+  }
+}
+/* The top screen shows only while the camera is in front of the lid's inside. The lid is edge-on to the
+   camera, a line with no area, when it is 132.5deg from flat: 55.55% into scene-open and 34.75% into
+   scene-close (solved from the keyframes above and their easing). Change these with the poses or timing. */
+@keyframes lid-inside-open {
+  0%,
+  55.5% {
+    visibility: hidden;
+  }
+  55.6%,
+  100% {
+    visibility: visible;
+  }
+}
+@keyframes lid-inside-close {
+  0%,
+  34.7% {
+    visibility: visible;
+  }
+  34.8%,
+  100% {
+    visibility: hidden;
   }
 }
 
@@ -1201,15 +1214,29 @@ a:hover {
    On load (html.is-opening, set and dropped in the page's <head>) the closed console rises into view,
    then opens while it turns to face the viewer. On HOME (html.is-leaving, nds.js) the screens go dark,
    the lid closes, and the console drops away; nds.js then loads the classic page.
-   Only then is the console a 3D object: .fit is the camera, .n3ds the scene, and each half (.body3d) a
-   solid body. A body is its drawn .face plus .slab layers 6px apart behind it: the same silhouette
-   stacked, which reads as a solid side wall from any angle. The lid (.body3d--top, with the top screen
-   in .lidlive) turns about the hinge line, y = 478. At rest none of this applies and the console is the
-   flat art above, so it stays pixel-sharp.
+
+   Only then is the console a solid object. Each half (.body3d) is its drawn .face plus .slab layers 6px
+   apart behind it: the same silhouette stacked, which reads as a side wall from any angle. The lid is
+   .body3d--top with the top screen (.lidlive); its outside is .face--back and its free edge .lip.
+
+   WHY every plane carries the whole transform itself (camera included) and the planes are stacked with
+   z-index, instead of a preserve-3d scene the browser sorts by depth: browsers sort differently. Chrome
+   splits and sorts per pixel; Safari sorts whole groups by their centre, and drew the lower half's buttons
+   over the closed lid. A fixed order needs no sorting, so every browser draws the same picture. It is
+   always the right order here: the lid is nearer than the lower half while it covers it, and beside it
+   afterwards; within a body the planes run from the table up to the face. The faces that point away
+   from the viewer are not drawn at all (backface-visibility).
+
+   At rest none of this applies and the console is the flat art above, so it stays pixel-sharp.
    ===================================================================== */
 :root {
-  --tilt: 54deg; /* how far back the closed console lies */
   --t-close: 1.02s; /* power-off (0.12s) + scene-close (0.9s); nds.js waits this long before leaving */
+  --cam: perspective(2600px); /* in the console's own 852px-wide space, so it scales with --k */
+  --pose-shut: rotateX(54deg) scale(0.92) translateY(-238.5px); /* tilted back; its lower half centred */
+  --pose-open: rotateX(0deg) scale(1) translateY(0px);
+  --rise: calc(105vh / var(--k)); /* below the view, whatever the scale */
+  --lid-shut: 0deg; /* the lower half does not turn */
+  --local: translateZ(0px);
 }
 .slab,
 .face--back,
@@ -1217,33 +1244,62 @@ a:hover {
 .ground {
   display: none;
 }
-:is(.is-opening, .is-leaving) .fit {
-  perspective: calc(2600px * var(--k));
-}
-:is(.is-opening, .is-leaving) :is(.n3ds, .shell, .body3d) {
-  transform-style: preserve-3d;
-}
-/* WHY the outline moves from .shell to each .face: a filter flattens everything inside it, which would
-   press the two bodies back into one plane */
+/* WHY the outline moves from .shell to each .face: a filter makes its box one flat picture, and the two
+   halves have to move separately */
 :is(.is-opening, .is-leaving) .shell {
   filter: none;
 }
-:is(.is-opening, .is-leaving) :is(.body3d, .face, .lidlive, .ground) {
-  position: absolute;
-  inset: 0;
-}
 :is(.is-opening, .is-leaving) :is(.slab, .face--back, .lip, .ground) {
   display: block;
+}
+:is(.is-opening, .is-leaving) :is(.face, .lidlive, .ground) {
+  position: absolute;
+  inset: 0;
 }
 :is(.is-opening, .is-leaving) .face {
   filter: drop-shadow(3px 0 0 var(--shell-line)) drop-shadow(-3px 0 0 var(--shell-line)) drop-shadow(0 3px 0 var(--shell-line))
     drop-shadow(0 -3px 0 var(--shell-line));
 }
+
+/* ---- the planes. All turn about one point, the console's centre (426 x 483.5), which is also where the
+   camera looks: transform-origin is that point in each plane's own box. */
+:is(.is-opening, .is-leaving) :is(.face, .lidlive, .live, .ground, .slab) {
+  transform-origin: 426px 483.5px;
+}
+:is(.is-opening, .is-leaving) .half--bot.slab {
+  transform-origin: 426px 5.5px; /* its box starts 478px down */
+}
+.is-opening :is(.face, .lidlive, .live, .slab, .lip) {
+  animation: scene-open 1.1s both;
+}
+.is-leaving :is(.face, .lidlive, .live, .slab, .lip) {
+  animation: scene-close 0.9s 0.12s both;
+}
+.is-opening .ground {
+  animation: ground-open 1.1s both;
+}
+.is-leaving .ground {
+  animation: ground-close 0.9s 0.12s both;
+}
+
+/* ---- stacking, from the table up: shadow, lower half, its buttons and screen, then the lid */
+.ground {
+  z-index: 1;
+  filter: drop-shadow(3px 0 0 var(--ground-ink)) drop-shadow(-3px 0 0 var(--ground-ink)) drop-shadow(0 3px 0 var(--ground-ink))
+    drop-shadow(0 -3px 0 var(--ground-ink)) opacity(var(--ground-a));
+}
+.ground .half {
+  background: var(--ground-ink);
+  box-shadow: none;
+}
 /* side walls: lighter under the rim, darker toward the table, one dark layer as the bottom edge */
 .slab {
+  --local: translateZ(calc(var(--i) * -6px));
   background: var(--shell-shade);
   box-shadow: none;
-  transform: translateZ(calc(var(--i) * -6px));
+}
+.body3d--bot .slab {
+  z-index: calc(13 - var(--i)); /* 2 (on the table) .. 12 (under the face) */
 }
 .body3d--bot .slab:nth-child(n + 5) {
   background: var(--shell-deep);
@@ -1251,60 +1307,72 @@ a:hover {
 .body3d--bot .slab:nth-child(11) {
   background: var(--shell-line);
 }
-/* the lid's outside, 42px behind its inside; closed, it is the top of the console */
+:is(.is-opening, .is-leaving) .body3d--bot .face {
+  z-index: 14;
+}
+:is(.is-opening, .is-leaving) .live {
+  z-index: 15;
+}
+
+/* ---- the lid: turns about the hinge line (y = 478, 5.5px above the centre) */
+.body3d--top,
+.lidlive {
+  --lid-shut: -180deg; /* folded down over the lower half */
+}
+.body3d--top .slab {
+  z-index: 20; /* one colour, so their own order does not show */
+}
+:is(.is-opening, .is-leaving) .body3d--top .face {
+  z-index: 21;
+}
+:is(.is-opening, .is-leaving) .lidlive {
+  z-index: 22;
+}
+/* the lid's outside, 42px behind its inside, turned to face outward (the silhouette is symmetric left to
+   right, so turning it about the vertical axis leaves it in place). Closed, it is the top of the console. */
 .face--back {
-  transform: translateZ(-42px);
+  --local: translateZ(-42px) rotateY(180deg);
 }
 .face--back .half {
   box-shadow:
     inset 0 15px 0 var(--shell-shade),
     inset 0 -6px 0 var(--shell-hi);
 }
-/* the lid's free edge as one face, so the lid is not a row of slats in the frame it is seen edge-on */
+/* the lid's free edge: the wall between its inside and its outside, along the straight part of the edge */
 .lip {
+  --local: translateY(-483.5px) translateZ(-42px) rotateX(90deg) translateY(483.5px);
   position: absolute;
   left: 33px;
   top: 0;
+  z-index: 23;
   width: 786px;
   height: 42px;
   background: var(--shell-shade);
-  transform-origin: 50% 0;
-  transform: rotateX(-90deg);
+  transform-origin: 393px 483.5px; /* the console's centre from this box (it starts 33px in) */
 }
-.ground {
-  filter: drop-shadow(3px 0 0 var(--ground-ink)) drop-shadow(-3px 0 0 var(--ground-ink)) drop-shadow(0 3px 0 var(--ground-ink))
-    drop-shadow(0 -3px 0 var(--ground-ink)) opacity(var(--ground-a));
-  transform: translateY(12px) translateZ(-67px);
-}
-.ground .half {
-  background: var(--ground-ink);
-  box-shadow: none;
-}
-:is(.is-opening, .is-leaving) :is(.body3d--top, .lidlive) {
-  transform-origin: 426px 478px;
-}
-/* the lid's inside and its screen are not drawn from behind (closed, they face the lower half) */
-:is(.is-opening, .is-leaving) :is(.face--in, .lidlive) {
+/* each of the lid's faces is drawn only from its own side: the inside from the front, the outside from
+   behind, the edge from beyond it */
+:is(.is-opening, .is-leaving) :is(.body3d--top .face, .lidlive, .lip) {
   -webkit-backface-visibility: hidden; /* Safari before 15.4 */
   backface-visibility: hidden;
 }
-.is-opening .n3ds {
-  animation: scene-open 1.1s both;
+/* WHY the top screen is also switched by the clock: backface-visibility hides an element's own picture.
+   Chrome keeps drawing parts of it that are composited on their own (the screen has a transform and
+   animated layers), so the black glass showed through the closed lid there; Safari hid it. Visibility is
+   inherited by everything inside, in every browser. */
+.is-opening .lidlive {
+  animation:
+    scene-open 1.1s both,
+    lid-inside-open 1.1s both;
 }
-.is-opening :is(.body3d--top, .lidlive) {
-  animation: lid-open 1.1s both;
+.is-leaving .lidlive {
+  animation:
+    scene-close 0.9s 0.12s both,
+    lid-inside-close 0.9s 0.12s both;
 }
-.is-opening .ground {
-  animation: ground-open 1.1s both;
-}
-.is-leaving .n3ds {
-  animation: scene-close 0.9s 0.12s both;
-}
-.is-leaving :is(.body3d--top, .lidlive) {
-  animation: lid-close 0.9s 0.12s both;
-}
-.is-leaving .ground {
-  animation: ground-close 0.9s 0.12s both;
+/* the one thing in a screen that sets visibility itself (the row cursor) follows the screen meanwhile */
+:is(.is-opening, .is-leaving) .lidlive .is-cur > .row__cur {
+  visibility: inherit;
 }
 
 /* small round key glyphs, as printed in 3DS on-screen hints: 7x7 pixel sprites shown at 2x.
